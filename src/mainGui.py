@@ -259,6 +259,24 @@ class Ui_MainWindow(object):
                 self.calendarWidget.setDateTextFormat(start_date.date(), bg_format)
                 self.calendarWidget.setToolTip(event['SUMMARY'])
 
+        url2 = f"https://portail.etsmtl.ca/ICal/SeancesCours?typeact=Labo&Sigle={sigle}&Groupe={groupe}&Session={annee}{session}"
+        response2 = requests.get(url2)
+
+        # Fetch Lab
+        calLab = Calendar.from_ical(response2.content)
+        for component in calLab.subcomponents:
+            if component.name == "VEVENT":
+                event = Event.from_ical(component.to_ical())
+                activity_name = event['SUMMARY']
+                start_date = event['DTSTART'].dt
+                end_date = event['DTEND'].dt
+
+                activities.append(activity_name + "," + str(start_date) + "," + str(end_date))
+                bg_format = QtGui.QTextCharFormat()
+                bg_format.setBackground(QtGui.QBrush(QtGui.QColor(0, 0, 255)))
+                self.calendarWidget.setDateTextFormat(start_date.date(), bg_format)
+                self.calendarWidget.setToolTip(event['SUMMARY'])
+
 
 
     def grab_date(self):
