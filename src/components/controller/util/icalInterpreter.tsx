@@ -34,8 +34,12 @@ function iCalCategoryToType(icalCategory: string): CalEventType|undefined {
             type= CalEventType.Seminar
             break;
         }
+        case "TP": {
+            type= CalEventType.Practica
+            break;
+        }
         default: { 
-           // console.log("Type ", icalCategory, " unsupported")
+            console.log("Type ", icalCategory, " unsupported")
             break; 
          } 
     }

@@ -7,10 +7,13 @@ export interface CalEvent {
 }
 
 
+
+
 export enum CalEventType {
     Seminar,
     Laboratories,
     Evaluation,
     Homework,
-    Undefined
+    Undefined,
+    Practica
 }
