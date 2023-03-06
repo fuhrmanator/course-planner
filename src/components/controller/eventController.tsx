@@ -3,8 +3,9 @@ import fetchCourseICAL from './util/fetchOperations'
 import {parseICALEvents} from './util/icalInterpreter';
 import { EventModelContext } from '@/components/model/eventModel';
 import { extractData, parseActivities, zipData } from './util/mbzInterpreter';
-import { ArchiveDict, ArchiveFile } from '@/components/model/interfaces/archiveFile';
 import { addUniqueEvents } from './util/eventsOperations';
+import MBZArchive from '../model/interfaces/archive/MBZArchive';
+
 
 type EventControllerContextProps = {
     notifyCourseFormSubmit : (code: string, group: number, year: number, semester:number) => void;
@@ -21,7 +22,7 @@ type CalControllerProps = {
 
 export const EventController: React.FC<CalControllerProps> = ({children}) => {
     const {courseEvents, setCourseEvents, MBZEvents, setMBZEvents} = useContext(EventModelContext);
-    const [mbzData, setMVZData] = useState<ArchiveDict>({});
+    const [mbzData, setMVZData] = useState<MBZArchive>(new MBZArchive());
     
     
     const notifyCourseFormSubmit = async (code: string, group: number, year: number, semester:number) => {

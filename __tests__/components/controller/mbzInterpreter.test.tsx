@@ -1,5 +1,5 @@
 import { extractData, parseActivities } from '@/components/controller/util/mbzInterpreter';
-import { ArchiveFile } from '@/components/model/interfaces/archiveFile';
+import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
 import { CalEventType } from '@/components/model/interfaces/events/calEvent';
 import {describe, expect, test} from '@jest/globals';
 const path = require('path');

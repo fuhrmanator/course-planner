@@ -2,8 +2,10 @@ import {decompressSync, Zippable, zipSync} from 'fflate';
 // @ts-ignore
 import FastXML from 'fast-xml-parser';
 import { CalEventType } from '@/components/model/interfaces/events/calEvent';
-import { ArchiveDict, ArchiveFile } from '@/components/model/interfaces/archiveFile';
 import { MBZEvent } from '@/components/model/interfaces/events/mbzEvent';
+import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
+import { ArchiveDict } from '@/components/model/interfaces/archive/archiveTypes';
+import MBZArchive from '@/components/model/interfaces/archive/MBZArchive';
 
 
 
@@ -15,29 +17,35 @@ function applyChangesToArchiveFile(file: ArchiveFile, event:MBZEvent)  {
 
 }
 
-function mbzToQuiz(obj:any, id:string, path:string): MBZEvent {
-    return {start: mbzDateToJS(obj["timeopen"]),
-            end: mbzDateToJS(obj["timeclose"]),
-            title: obj["name"],
-            type: CalEventType.Evaluation,
-            uid: id,
-            path: path};
+function mbzToEvent(obj:any, id:string, path:string, mbzType: string): MBZEvent {
+    let startDate;
+    let endDate;
+    const type = mbzActivityTypeToJS[mbzType];
+    switch (type) {
+        case CalEventType.Evaluation: {
+            startDate = obj["timeopen"]
+            endDate = obj["timeclose"]
+            break;
+        }
+        case CalEventType.Homework: {
+            startDate= obj["allowsubmissionsfromdate"]
+            endDate= obj["duedate"]
+            break;
+        }
+    }
+    return {
+        start: mbzDateToJS(startDate),
+        end: mbzDateToJS(endDate),
+        title: obj["name"],
+        type: type,
+        uid: id,
+        path: path};
 }
 
-function mbzToHomework(obj:any, id:string, path:string): MBZEvent {
-    return {start: mbzDateToJS(obj["allowsubmissionsfromdate"]),
-            end: mbzDateToJS(obj["duedate"]),
-            title: obj["name"],
-            type: CalEventType.Homework,
-            uid: id,
-            path: path};
+const mbzActivityTypeToJS: {[key: string]: CalEventType } = {
+    "quiz": CalEventType.Evaluation,
+    "assign": CalEventType.Homework
 }
-
-const mbzActivtiyToCal: {[key: string]: (obj:any, id:string, path:string)=>MBZEvent } = {
-    "quiz": mbzToQuiz,
-    "assign": mbzToHomework
-};
-
 export const createArchiveWithChanges = (events: MBZEvent[], data: ArchiveDict) => {
     const upToDateData = {...data};
     const eventPaths = []
@@ -49,15 +57,14 @@ export const createArchiveWithChanges = (events: MBZEvent[], data: ArchiveDict) 
         applyChangesToArchiveFile(upToDateData[event.path], event);
         eventPaths.push(event.path);
     }
-
-    
 }
 
-export const zipData = (data:ArchiveDict): Uint8Array => {
+export const zipData = (data:MBZArchive): Uint8Array => {
 
   const pathToData: Zippable = {};
-  for (let path in data) {
-    pathToData[path] = new Uint8Array(data[path].buffer);
+  const allFilesToZip = data.getAllFiles();
+  for (let path in allFilesToZip) {
+    pathToData[path] = new Uint8Array(allFilesToZip[path].buffer);
   }
 
   const serialized = zipSync(pathToData);
@@ -65,21 +72,39 @@ export const zipData = (data:ArchiveDict): Uint8Array => {
   return serialized;
 }
 
-export const extractData = async (file:File): Promise<ArchiveDict> => {
-
+export const extractData = async (file:File): Promise<MBZArchive> => {
+    
     const fileArrayBuffer = await readFileAsUint8Array(file);
     const unzip = decompressSync(fileArrayBuffer);
     // @ts-ignore
     const module = await import('js-untar'); // dynamic import because importing the module on the server-side will result in a exception becasue the module is looking for the window attribute
     const untar = module.default;
 
-    const data:ArchiveFile[] = await untar(unzip.buffer);
-    const pathToFile: ArchiveDict = {}
-    for (let file of data) {
-        pathToFile[file.name] = file;
+    const dataList:ArchiveFile[] = await untar(unzip.buffer);
+
+    const extractedMBZ = new MBZArchive();
+    
+    for (let file of dataList) {
+        if (file.name === "moodle_backup.xml") {
+            extractedMBZ.main = file;
+        }
+        extractedMBZ.other[file.name] = file;
+    }
+    if (typeof extractedMBZ.main === "undefined") {
+        throw new Error("No moodle_backup.xml file in provided tar. Make sure to upload a moodle backup file.")
     }
 
-    return pathToFile;
+    parseXMLfileToJS(extractedMBZ.main);
+
+    for (let activity of extractedMBZ.main.parsedData["moodle_backup"]["information"]["contents"]["activities"]["activity"] ) {
+        let moduleMBZType:string = activity["modulename"]
+        if (moduleMBZType in mbzActivityTypeToJS) {
+            let activityPath = makeMBZpath(activity, moduleMBZType);
+            extractedMBZ.registerFileAsActivity(activityPath);
+        }
+    }
+
+    return extractedMBZ;
     
 }
 
@@ -90,15 +115,10 @@ const xmlParser = new FastXML.XMLParser(options);
 const xmlBuilder = new FastXML.XMLBuilder(options);
 const encoder = new TextEncoder();
 
-function getFileDataAsJS(file: ArchiveFile):any {
-    let data;
-    if (file.parsedData) {
-        data = file.parsedData;
-    } else {
+function parseXMLfileToJS(file: ArchiveFile):any {
+    if (!file.parsedData) {
         file.parsedData = xmlParser.parse(Buffer.from(file.buffer));
-        data = file.parsedData;
     }
-    return data;
 }
 
 function getFileDataAsBytes(file: ArchiveFile):Uint8Array {
@@ -111,39 +131,20 @@ function getFileDataAsBytes(file: ArchiveFile):Uint8Array {
     return data;
 }
 
-export const parseActivities = async (data:ArchiveDict):Promise<MBZEvent[]> => {
-        const calEvents:MBZEvent[] = [];
-        const activityPaths: string[] = getActivtyPaths(data);
-        
-        for (let activityPath of activityPaths) {
-            let activityFile = data[activityPath];
-            let activtiyAsJSON = getFileDataAsJS(activityFile)["activity"]
-            activityFile.parsedData = activtiyAsJSON;
-            let type = activtiyAsJSON["@_modulename"];
-            let id = activtiyAsJSON["@_id"];
-            let mappingFcn = mbzActivtiyToCal[type];
-            calEvents.push(mappingFcn(activtiyAsJSON[type], id, activityPath));
-        }
-        
-        return calEvents;
-};
-
-function getActivtyPaths(data: ArchiveDict):string[] {
-    const mainFile = data["moodle_backup.xml"];
-    if (mainFile === undefined) {
-        throw new Error("No moodle_backup.xml file in provided tar. Make sure to upload a moodle backup file.");
-    }
-    const mainFileAsJS = getFileDataAsJS(mainFile);
-    const calTypeToLocation: string[] = [];
+export const parseActivities = async (data:MBZArchive):Promise<MBZEvent[]> => {
+    const calEvents:MBZEvent[] = [];
     
-    for (let activity of mainFileAsJS["moodle_backup"]["information"]["contents"]["activities"]["activity"] ) {
-        let moduleType = activity["modulename"]
-        if (moduleType in mbzActivtiyToCal) {
-            calTypeToLocation.push(makeMBZpath(activity, moduleType));
-        }
+    for (let activityPath in data.activities) {
+        let activityFile = data.activities[activityPath];
+        parseXMLfileToJS(activityFile)
+        let activityContent = activityFile.parsedData["activity"];
+        let activityMbzType = activityContent["@_modulename"];
+        let id = activityContent["@_id"];
+        calEvents.push(mbzToEvent(activityContent[activityMbzType], id, activityPath, activityMbzType));
     }
-    return calTypeToLocation;
-}
+         
+    return calEvents;
+};
 
 function makeMBZpath(jsonActivity: any, type: string) {
     return jsonActivity["directory"] + "/" + type + ".xml"; 
