@@ -10,3 +10,5 @@ export interface ArchiveFile {
     checksum : number,
     parsedData? : any
 }
+
+export type ArchiveDict = {[key: string]: ArchiveFile};
