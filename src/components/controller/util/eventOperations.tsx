@@ -16,7 +16,7 @@ export const mapICALtoEvent = (icalData: string):CalEvent[] => {
     }).filter((event:CalEvent) => {return event.type != undefined});
 
     return calEvents;
-}
+}   
 
 export const findEarliestEventDate = (events: CalEvent[]):Date => {
     const eventStart = events.map((event:CalEvent)=>{return event.start});
@@ -30,7 +30,13 @@ export const addUniqueEvents = (events: CalEvent[], addToCollection: EventDict):
         }
     }
 }
-
+export const updateSameEvents = (events: CalEvent[], addToCollection: EventDict):void => {
+    for (let event of events) {
+        if ((event.uid in addToCollection)) {
+            addToCollection[event.uid] = event;
+        }
+    }
+}
 
 function iCalCategoryToType(icalCategory: string): CalEventType|undefined {
     let type: CalEventType|undefined;

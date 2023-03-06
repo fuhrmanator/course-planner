@@ -10,12 +10,10 @@ import { updateEventDates } from './util/updateEventDates';
 type EventControllerContextProps = {
     notifyCourseFormSubmit : (code: string, group: number, year: number, semester:number) => void;
     notifyClearCal : () => void;
-    //notifyUpdateEvent: MouseEventHandler<HTMLButtonElement>;
-    notifyUpdateEvent: (eventId: string, newStart: Date, newEnd: Date) => void;
+    notifyUpdateEvent: (eventId: CalEvent, newStart: Date, newEnd: Date ) => void;
     notifyMBZSubmited : (file: File) => void;
     notifyMBZDownload : (oldURL: string) => string;
-    setSelectedEvent: (event: CalEvent) => void;
-}
+   }
 
 export const EventControllerContext = createContext<EventControllerContextProps>({} as EventControllerContextProps);
 
@@ -53,25 +51,30 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         return URL.createObjectURL(file);
     }
 
-    const notifyUpdateEvent = (eventId: string, newStart: Date, newEnd: Date) => {
- 
-        //  const updatedEvents = updateEventDates(MBZEvents,newStart, newEnd );
-          // addUniqueEvents(updatedEvents, MBZEvents);
-           setMBZEvents({...MBZEvents});
-     
-      };
-    
-      const [selectedEvent, setSelectedEvent] = useState<CalEvent | null>(null);
+    /*const notifyUpdateEvent = (eventId: CalEvent, newStart: Date, newEnd: Date) => {
+        // const updatedEvents = updateEventDates(newStart, newEnd, new {... MBZEvents}, eventId)
+      
+         //MBZEvents[eventId.uid].start = new Date(MBZEvents[eventId.uid].start.getFullYear(),MBZEvents[eventId.uid].start.getMonth(),MBZEvents[eventId.uid].start.getDay());
+         console.log("date complete start :   "+new Date(MBZEvents[eventId.uid].start.getFullYear(),MBZEvents[eventId.uid].start.getMonth(),MBZEvents[eventId.uid].start.getDay()))
+      
+         //MBZEvents[eventId.uid].end = new Date(MBZEvents[eventId.uid].end.getFullYear(),MBZEvents[eventId.uid].end.getMonth(),MBZEvents[eventId.uid].end.getDay()+2);
+         console.log("date complete end  :   "+(MBZEvents[eventId.uid].end.setDate(MBZEvents[eventId.uid].end.getDate() + 2)))
+         setMBZEvents({...MBZEvents});  
+      };  */
+      const notifyUpdateEvent = (eventId: CalEvent, newStart: Date, newEnd: Date ) => {
+        const updatedEvent = { ...MBZEvents[eventId.uid] };
 
-     const handleSetSelectedEvent = (event: CalEvent) => {
-        setSelectedEvent(event);
-        };
-      const onSelectEvent = (event: CalEvent, e: any) => {
-        setSelectedEvent(event);
+        updatedEvent.start=newStart;
+        updatedEvent.end=newEnd;
+        setMBZEvents((prevEvents) => ({
+          ...prevEvents,
+          [eventId.uid]: updatedEvent,
+        }));
       };
+      
 
     return (
-        <EventControllerContext.Provider value={{setSelectedEvent ,notifyCourseFormSubmit, notifyClearCal, notifyUpdateEvent, notifyMBZSubmited, notifyMBZDownload}}>
+        <EventControllerContext.Provider value={{notifyCourseFormSubmit, notifyClearCal, notifyUpdateEvent, notifyMBZSubmited, notifyMBZDownload}}>
             {children}
         </EventControllerContext.Provider>
     );

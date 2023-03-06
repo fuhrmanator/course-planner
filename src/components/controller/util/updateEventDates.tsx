@@ -4,12 +4,11 @@ import { MBZEvent} from '@/components/model/interfaces/events/mbzEvent';
 
 import { CalEvent } from '@/components/model/interfaces/events/calEvent';
 
-/*export const updateEventDates = (newStartDate: Date, newEndDate: Date, events: MBZEventDict, id:string): MBZEventDict => {
+export const updateEventDates = (newStartDate: Date, newEndDate: Date, events: MBZEventDict, eventId:string): MBZEventDict => {
   const updatedEvents: MBZEventDict = {};
 
-  Object.keys(events).forEach((eventId) => {
-    const event = events[eventId];
-    if (event.uid === id) {
+  Object.values(events).forEach((event) => {
+    if (event.uid === eventId) {
       const updatedEvent: MBZEvent = {
         ...event,
         start: new Date(newStartDate.getTime() + (event.start.getTime() - new Date(event.start).setHours(0,0,0,0))),
@@ -17,13 +16,15 @@ import { CalEvent } from '@/components/model/interfaces/events/calEvent';
       };
       updatedEvents[eventId] = updatedEvent;
     } else {
-      updatedEvents[eventId] = event;
+      console.log("le event id est "+eventId)
+      //return (console.log("aucun evenment du mbz est change car le uid est pas egale dans les events")+ "voir la console");
     }
   });
 
   return updatedEvents;
-};*/
-export const updateEventDates = (eventsToUpdate: CalEvent[], newStartDate: Date, newEndDate: Date): CalEvent[] => {
+};
+/*
+export const updateEventDates = ( newStartDate: Date, newEndDate: Date, eventsToUpdate: CalEvent[]): CalEvent[] => {
     const updatedEvents = eventsToUpdate.map(event => ({
       ...event,
       start: newStartDate,
@@ -36,4 +37,4 @@ export const updateEventDates = (eventsToUpdate: CalEvent[], newStartDate: Date,
     }), []);
   
     return updatedEventDict;
-  };
+  };*/

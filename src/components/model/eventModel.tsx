@@ -2,7 +2,7 @@ import {CalEvent} from './interfaces/events/calEvent'
 import React, {useState, createContext, useEffect, useRef} from 'react'
 import {getValue, setValue} from './localStore';
 import { MBZEvent } from './interfaces/events/mbzEvent';
-import { updateEventDates } from '../controller/util/updateEventDates';
+//import { updateEventDates } from '../controller/util/updateEventDates';
 
 type EventModelContextProps = {
     events: CalEvent[],
@@ -36,12 +36,6 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
     const [courseEvents, setCourseEvents] = useState<EventDict>({}); 
     const [MBZEvents, setMBZEvents] = useState<MBZEventDict>({}); 
 
-    const [newStartDate, setNewStartDate] = useState<Date>(new Date());
-    const [newEndDate, setNewEndDate] = useState<Date>(new Date());
-    //const updatedCourseEvents = updateEventDates(newStartDate, newEndDate, MBZEvents, Object.values(MBZEvents)[0].uid);
-    //const updatedCourseEvents = updateEventDates(newStartDate, newEndDate,MBZEvents,MBZEvents[0].uid); // je ne sais pas quoi mettre pour linstant
-   
-   
     const isFirstRender = useRef<boolean>(true);
 
     useEffect(()=>{
@@ -52,10 +46,6 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
         } else { // updates local storage once true data changes
             setValue(LOCAL_STORE_COURSE_KEY, courseEvents);
             setValue(LOCAL_STORE_MBZ_KEY, MBZEvents);
-            const updatedCourseEvents =  MBZEvents ;
-            //if(updatedCourseEvents){
-              //  setValue(LOCAL_STORE_MBZ_KEY,updatedCourseEvents);
-            //}
         }
         setEvents([...Object.values(courseEvents),...Object.values(MBZEvents)]);
     }, [courseEvents, MBZEvents]);
