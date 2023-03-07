@@ -2,7 +2,7 @@ import React, {useState, useContext, createContext} from 'react';
 import fetchCourseICAL from './util/fetchOperations'
 import {parseICALEvents} from './util/icalInterpreter';
 import { EventModelContext } from '@/components/model/eventModel';
-import { extractData, makeEvents, parseActivities, zipData } from './util/mbz/mbzInterpreter';
+import { applyChangesToArchive, extractData, makeEvents, parseActivities, zipData } from './util/mbz/mbzInterpreter';
 import { addUniqueEvents } from './util/eventsOperations';
 import MBZArchive from '../model/interfaces/archive/MBZArchive';
 
@@ -48,6 +48,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
 
     const notifyMBZDownload = (oldURL: string) => {
         URL.revokeObjectURL(oldURL);
+        applyChangesToArchive(mbzData, Object.values(MBZEvents));
         const file = new Blob([zipData(mbzData)], { type: 'application/octet-stream' });        
         return URL.createObjectURL(file);
     }

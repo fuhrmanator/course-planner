@@ -6,45 +6,60 @@ import { MBZEvent } from '@/components/model/interfaces/events/mbzEvent';
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
 import MBZArchive from '@/components/model/interfaces/archive/MBZArchive';
 import * as mbzConstants from './mbzConstants';
-import { MBZEventDict } from '@/components/model/eventModel';
 
 function deleteActivitiesFromArchive(data: MBZArchive, toDelete: ArchiveFile[]):void {
     data.throwIfNoMain();
-    let mainFileActivityArray = walkDownPath(data.main!.parsedData, mbzConstants.INDEX_PATH_TO_ACTIVITIES);
-    for (let activityToDelete of toDelete) {
-        delete data.activities[activityToDelete.name];
-        for (let i=0; i<mainFileActivityArray.length; i++) {
-            if (mainFileActivityArray[i][XML_HANDLER_OPTIONS.attributeNamePrefix + mbzConstants.ACTIVITY_ID] === activityToDelete.uid) {
+    const mainFileActivityArray = getElementAtPath(data.main!.parsedData, mbzConstants.INDEX_PATH_TO_ACTIVITIES);
+    const mainFileSettingsArray = getElementAtPath(data.main!.parsedData, mbzConstants.INDEX_PATH_TO_SETTINGS);
+    for (let fileToDelete of toDelete) {
+        // remove activity index
+        let idToDelete = getParsedAttribute(fileToDelete.parsedData[mbzConstants.ACTIVITY_WRAPPER], mbzConstants.ACTIVITY_ID);
+        for (let i=0; i<mainFileActivityArray.length; i++) { 
+            if (mainFileActivityArray[i][mbzConstants.ACTIVITY_ID] == idToDelete) {
+                let pathToDelete = mainFileActivityArray[i][mbzConstants.ACTIVITY_DIR];
+                data.deleteFilesWithParentPath(pathToDelete);
                 mainFileActivityArray.splice(i, 1);
                 break;
+            }
+        }
+        // remove activity settings
+        let mbzActivityTypeToDelete = getParsedAttribute(fileToDelete.parsedData[mbzConstants.ACTIVITY_WRAPPER], mbzConstants.ACTIVITY_TYPE);
+        let settingNameToDelete = makeSettingName(mbzActivityTypeToDelete, idToDelete);
+        for (let i=0; i<mainFileSettingsArray.length; i++) {
+            if (mainFileSettingsArray[i][mbzConstants.ACTIVITY_SETTING_NAME] === settingNameToDelete) {
+                mainFileSettingsArray.splice(i, 1);
+                i--;
             }
         }
     }
 }
 
 function applyChangesToFile(file: ArchiveFile, event:MBZEvent):void  {
-    parseXMLfileToJS(file);
+    const activityLevel = file.parsedData[mbzConstants.ACTIVITY_WRAPPER]
+    const mbzType = getParsedAttribute(activityLevel, mbzConstants.ACTIVITY_TYPE);
+    const dateLevel = activityLevel[mbzType];
     switch (event.type) {
         case CalEventType.Evaluation: {
-            file.parsedData[mbzConstants.QUIZ_START_DATE] = JSDateToMBZ(event.start);
-            file.parsedData[mbzConstants.QUIZ_END_DATE] = JSDateToMBZ(event.end);
+            dateLevel[mbzConstants.QUIZ_START_DATE] = JSDateToMBZ(event.start);
+            dateLevel[mbzConstants.QUIZ_END_DATE] = JSDateToMBZ(event.end);
             break;
         }
         case CalEventType.Homework: {
-            file.parsedData[mbzConstants.ASSIGN_START_DATE] = JSDateToMBZ(event.start);
-            file.parsedData[mbzConstants.ASSIGN_END_DATE] = JSDateToMBZ(event.end);
+            dateLevel[mbzConstants.ASSIGN_START_DATE] = JSDateToMBZ(event.start);
+            dateLevel[mbzConstants.ASSIGN_END_DATE] = JSDateToMBZ(event.end);
             break;
         }
     }
 }
 
-export const applyChangesToArchive = (data: MBZArchive, events: MBZEventDict):void => {
+export const applyChangesToArchive = (data: MBZArchive, events: MBZEvent[]):void => {
     const activitiesToDelete: ArchiveFile[] = [];
     for (let activityPath in data.activities) {
-        if (activityPath in events) {
-            applyChangesToFile(data.activities[activityPath], events[activityPath]);
-        } else {
+        let event = events.find((event) => event.path === activityPath);
+        if (typeof event === "undefined") {
             activitiesToDelete.push(data.activities[activityPath]);
+        } else {
+            applyChangesToFile(data.activities[activityPath], event);
         }
     }
     deleteActivitiesFromArchive(data, activitiesToDelete);
@@ -89,14 +104,13 @@ export const parseActivities = (data: ArchiveFile[]): MBZArchive => {
     }
 
     parseXMLfileToJS(extractedMBZ.main);
-    for (let activity of walkDownPath(extractedMBZ.main.parsedData, mbzConstants.INDEX_PATH_TO_ACTIVITIES)) {
+    for (let activity of getElementAtPath(extractedMBZ.main.parsedData, mbzConstants.INDEX_PATH_TO_ACTIVITIES)) {
         let moduleMBZType:string = activity[mbzConstants.ACTIVITY_TYPE]
         if (moduleMBZType in mbzConstants.ACTIVITY_TO_JS) {
-            let activityPath = makeMBZpath(activity, moduleMBZType);
+            let activityPath = makeActivityPath(activity[mbzConstants.ACTIVITY_DIR], moduleMBZType);
             extractedMBZ.registerFileAsActivity(activityPath);
         }
     }
-    console.log(extractedMBZ.main.parsedData)
     return extractedMBZ;
     
 }
@@ -108,13 +122,17 @@ export const makeEvents = (data:MBZArchive):MBZEvent[] => {
         let activityFile = data.activities[activityPath];
         parseXMLfileToJS(activityFile)
         let activityContent = activityFile.parsedData[mbzConstants.ACTIVITY_WRAPPER];
-        let activityMbzType = activityContent[XML_HANDLER_OPTIONS.attributeNamePrefix + mbzConstants.ACTIVITY_TYPE];
-        let id = activityContent[XML_HANDLER_OPTIONS.attributeNamePrefix + mbzConstants.ACTIVITY_ID];
+        let activityMbzType = getParsedAttribute(activityContent, mbzConstants.ACTIVITY_TYPE);
+        let id = getParsedAttribute(activityContent, mbzConstants.ACTIVITY_ID);
         calEvents.push(mbzToEvent(activityContent[activityMbzType], id, activityPath, activityMbzType));
     }
          
     return calEvents;
 };
+
+function getParsedAttribute(obj:any, attributeName:string) {
+    return obj[XML_HANDLER_OPTIONS.attributeNamePrefix + attributeName]
+}
 
 function JSDateToMBZ(date : Date): string{
     return Math.round(date.getTime()/1000).toString()
@@ -168,7 +186,7 @@ function parseXMLfileToJS(file: ArchiveFile):any {
 
 function getFileDataAsBytes(file: ArchiveFile):Uint8Array {
     let data: Uint8Array;
-    if (typeof file.parsedData  === "undefined") {
+    if (typeof file.parsedData  !== "undefined") {
         data = encoder.encode(xmlBuilder.build(file.parsedData));
     } else {
         data = new Uint8Array(file.buffer);
@@ -176,8 +194,12 @@ function getFileDataAsBytes(file: ArchiveFile):Uint8Array {
     return data;
 }
 
-function makeMBZpath(jsonActivity: any, type: string) {
-    return jsonActivity["directory"] + "/" + type + ".xml"; 
+function makeActivityPath(activityFolder:string, type: string) {
+    return activityFolder + "/" + type + ".xml"; 
+}
+
+function makeSettingName(activityType: string, id: string) {
+    return activityType + "_" + id; 
 }
 
 function readFileAsUint8Array(file: File): Promise<Uint8Array> {
@@ -193,7 +215,7 @@ function readFileAsUint8Array(file: File): Promise<Uint8Array> {
     });
   }
   
-  function walkDownPath(object:any, path:string[]): any {
+  function getElementAtPath(object:any, path:string[]): any {
     let currentLevelObj = object;
     for (let pathPart of path) {
         currentLevelObj = currentLevelObj[pathPart]

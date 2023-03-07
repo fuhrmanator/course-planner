@@ -25,9 +25,27 @@ export default class MBZArchive {
 
     getAllFiles(): ArchiveDict {
         const allFiles = {...this.activities, ...this.other};
-        if (this.main)
+        if (typeof this.main !== "undefined")
             allFiles[this.main?.name] = this.main;
         return allFiles;
+    }
+
+    deleteFilesWithParentPath(parentPath: string) {
+        this.deleteFilesWithParentPathFrom(parentPath, this.activities);
+        this.deleteFilesWithParentPathFrom(parentPath, this.other);
+    }
+
+    private deleteFilesWithParentPathFrom(parentPath: string, deleteFrom: ArchiveDict) {
+        const pathsToRemove:string[] = [];
+        for (let path in deleteFrom) {
+            if (path.includes(parentPath)) {
+                pathsToRemove.push(path);
+            }
+        }
+        
+        for (let pathToRemove of pathsToRemove) {
+            delete deleteFrom[pathToRemove];
+        }
     }
 
     throwIfNoMain(): void {
