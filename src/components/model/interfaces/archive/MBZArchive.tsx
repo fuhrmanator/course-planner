@@ -12,6 +12,10 @@ export default class MBZArchive {
         this.other = {}
     }
 
+    getActivity(path: string): ArchiveFile {
+        return this.activities[path];
+    }
+
     addFile(file: ArchiveFile): void {
         this.other[file.name] = file;
     }
