@@ -17,8 +17,10 @@ export default class MBZArchive {
     }
 
     registerFileAsActivity(path:string) {
-        this.activities[path] = this.other[path];
-        delete this.other[path];
+        if (path in this.other) {
+            this.activities[path] = this.other[path];
+            delete this.other[path];
+        }
     }
 
     getAllFiles(): ArchiveDict {

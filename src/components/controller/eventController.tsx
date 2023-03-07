@@ -2,7 +2,7 @@ import React, {useState, useContext, createContext} from 'react';
 import fetchCourseICAL from './util/fetchOperations'
 import {parseICALEvents} from './util/icalInterpreter';
 import { EventModelContext } from '@/components/model/eventModel';
-import { extractData, parseActivities, zipData } from './util/mbzInterpreter';
+import { extractData, makeEvents, parseActivities, zipData } from './util/mbzInterpreter';
 import { addUniqueEvents } from './util/eventsOperations';
 import MBZArchive from '../model/interfaces/archive/MBZArchive';
 
@@ -38,9 +38,10 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
     }
 
     const notifyMBZSubmited = async (file: File) => {
-        const fileData = await extractData(file);
-        setMVZData(fileData);
-        const newMBZEvents = await parseActivities(fileData);
+        const unorderedData = await extractData(file);
+        const mbzArchive = parseActivities(unorderedData);
+        setMVZData(mbzArchive);
+        const newMBZEvents = makeEvents(mbzArchive);
         addUniqueEvents(newMBZEvents, MBZEvents);
         setMBZEvents({...MBZEvents});
     }

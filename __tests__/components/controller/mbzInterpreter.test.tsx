@@ -1,4 +1,4 @@
-import { extractData, parseActivities } from '@/components/controller/util/mbzInterpreter';
+import { extractData, makeEvents, parseActivities } from '@/components/controller/util/mbzInterpreter';
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
 import { CalEventType } from '@/components/model/interfaces/events/calEvent';
 import {describe, expect, test} from '@jest/globals';
@@ -8,6 +8,7 @@ const { TextDecoder } = require('util');
 
 const dataPath = "__tests__/data/mbz/moodleBackup/"
 const indexFileName = "moodle_backup.xml"
+
 
 function formatPath(path:string):string {
     let joined;
@@ -25,22 +26,20 @@ function formatPath(path:string):string {
     return joined;
 }
 
-async function readFilesFromDirectory(directoryPath:string, subpath:string=""):Promise<{[key: string]: ArchiveFile}> {
+async function readFilesFromDirectory(directoryPath:string, subpath:string=""):Promise<ArchiveFile[]> {
     const files = await fs.promises.readdir(directoryPath, { withFileTypes: true });
-    const fileData:{[key: string]: ArchiveFile} = {};
+    let fileData:ArchiveFile[] = [];
   
     for (const file of files) {
       const filePath = path.join(directoryPath, file.name);
   
       if (file.isDirectory()) {
         const subdirectoryData = await readFilesFromDirectory(filePath, path.join(subpath, file.name));
-        for (let subdirectoryFile in subdirectoryData) {
-          fileData[subdirectoryFile] = subdirectoryData[subdirectoryFile];
-        }
+        fileData = [...fileData, ...subdirectoryData]
       } else if (file.isFile()) {
         const fileContent = await fs.promises.readFile(filePath);
         const relativePath = formatPath(path.join(subpath, file.name));
-        fileData[relativePath] = {
+        fileData.push({
           buffer: fileContent.buffer,
           type: "",
           name: relativePath,
@@ -50,7 +49,7 @@ async function readFilesFromDirectory(directoryPath:string, subpath:string=""):P
           ustarFromat: "",
           version: "",
           checksum: 1,
-        };
+        });
       }
     }
   
@@ -72,25 +71,26 @@ const eventAttributeToPattern: {[key: string]: RegExp} = {
 const decoder = new TextDecoder();
 
 describe('MBZ interpreter operations', () => {
-  let backupData:{[key: string]: ArchiveFile};
+  let backupData: ArchiveFile[];
   beforeAll(async()=> {
     backupData = await readFilesFromDirectory(dataPath);
   })
 
-  test('Should extract all supported activities in archive', async () => {
+  test('Should extract all supported activities in archive',  () => {
     const backupIndex = fs.readFileSync(path.join(dataPath, indexFileName)).toString();
     let activityCount =0;
     for (let moodleType in moodleTypeToEventType) {
       activityCount += (backupIndex.match(new RegExp("<modulename>"+moodleType+"<\/modulename>", "g")) || []).length
     }
-    const parsed = await parseActivities(backupData);
-    expect(parsed.length).toBe(activityCount);
+    const mbzArchive = parseActivities(backupData);
+    expect(Object.keys(mbzArchive.activities).length).toBe(activityCount);
   });
 
-  test('Should parse activity data correctly', async () => {
-    const parsedActivities = await parseActivities(backupData);
+  test('Should parse activity data correctly',  () => {
+    const mbzArchive = parseActivities(backupData)
+    const parsedActivities =  makeEvents(mbzArchive);
     for (let parsedActivity of parsedActivities) {
-      let refActivity = decoder.decode(backupData[parsedActivity.path].buffer);
+      let refActivity = decoder.decode(mbzArchive.activities[parsedActivity.path].buffer);
       for (let attributeToTest in eventAttributeToPattern) {
         let propMatch = refActivity.match(eventAttributeToPattern[attributeToTest]);
         propMatch = propMatch ? propMatch[1] : "not found"
