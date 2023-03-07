@@ -7,6 +7,7 @@ export const END_DATE_ASSIGN = "duedate";
 export const ACTIVITY_TYPE = "modulename";
 export const ACTIVITY_WRAPPER = "activity";
 export const ACTIVITY_ID = "id";
+export const ACTIVITY_NAME = "name";
 export const ACTIVITY_TO_JS: {[key: string]: CalEventType } = {
     "quiz": CalEventType.Evaluation,
     "assign": CalEventType.Homework

@@ -111,7 +111,7 @@ function mbzToEvent(obj:any, id:string, path:string, mbzType: string): MBZEvent 
     return {
         start: mbzDateToJS(startDate),
         end: mbzDateToJS(endDate),
-        title: obj["name"],
+        title: obj[mbzConstants.ACTIVITY_NAME],
         type: type,
         uid: id,
         path: path};
