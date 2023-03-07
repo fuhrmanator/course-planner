@@ -6,19 +6,48 @@ import { MBZEvent } from '@/components/model/interfaces/events/mbzEvent';
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
 import MBZArchive from '@/components/model/interfaces/archive/MBZArchive';
 import * as mbzConstants from './mbzConstants';
+import { MBZEventDict } from '@/components/model/eventModel';
 
-function applyChangesToFile(event:MBZEvent, file: ArchiveFile)  {
-    
+function deleteActivitiesFromArchive(data: MBZArchive, toDelete: ArchiveFile[]):void {
+    data.throwIfNoMain();
+    let mainFileActivityArray = walkDownPath(data.main!.parsedData, mbzConstants.INDEX_PATH_TO_ACTIVITIES);
+    for (let activityToDelete of toDelete) {
+        delete data.activities[activityToDelete.name];
+        for (let i=0; i<mainFileActivityArray.length; i++) {
+            if (mainFileActivityArray[i][XML_HANDLER_OPTIONS.attributeNamePrefix + mbzConstants.ACTIVITY_ID] === activityToDelete.uid) {
+                mainFileActivityArray.splice(i, 1);
+                break;
+            }
+        }
+    }
 }
 
-export const applyChangesToArchive = (events: MBZEvent[], data: MBZArchive) => {
-    for (let event of events) {
-        if (!(event.path in data)) {
-            console.log("The ${event} is not in the archive you imported therefore it wont be in the exported archive");
-            continue;
+function applyChangesToFile(file: ArchiveFile, event:MBZEvent):void  {
+    parseXMLfileToJS(file);
+    switch (event.type) {
+        case CalEventType.Evaluation: {
+            file.parsedData[mbzConstants.QUIZ_START_DATE] = JSDateToMBZ(event.start);
+            file.parsedData[mbzConstants.QUIZ_END_DATE] = JSDateToMBZ(event.end);
+            break;
         }
-        applyChangesToFile(event, data.getActivity(event.path));
+        case CalEventType.Homework: {
+            file.parsedData[mbzConstants.ASSIGN_START_DATE] = JSDateToMBZ(event.start);
+            file.parsedData[mbzConstants.ASSIGN_END_DATE] = JSDateToMBZ(event.end);
+            break;
+        }
     }
+}
+
+export const applyChangesToArchive = (data: MBZArchive, events: MBZEventDict):void => {
+    const activitiesToDelete: ArchiveFile[] = [];
+    for (let activityPath in data.activities) {
+        if (activityPath in events) {
+            applyChangesToFile(data.activities[activityPath], events[activityPath]);
+        } else {
+            activitiesToDelete.push(data.activities[activityPath]);
+        }
+    }
+    deleteActivitiesFromArchive(data, activitiesToDelete);
 }
 
 export const zipData = (data:MBZArchive): Uint8Array => {
@@ -67,7 +96,7 @@ export const parseActivities = (data: ArchiveFile[]): MBZArchive => {
             extractedMBZ.registerFileAsActivity(activityPath);
         }
     }
-
+    console.log(extractedMBZ.main.parsedData)
     return extractedMBZ;
     
 }
@@ -87,6 +116,9 @@ export const makeEvents = (data:MBZArchive):MBZEvent[] => {
     return calEvents;
 };
 
+function JSDateToMBZ(date : Date): string{
+    return Math.round(date.getTime()/1000).toString()
+}
 
 function mbzDateToJS(mbzDate : string): Date{
     return new Date(parseInt(mbzDate, 10)* 1000);
@@ -98,13 +130,13 @@ function mbzToEvent(obj:any, id:string, path:string, mbzType: string): MBZEvent 
     const type = mbzConstants.ACTIVITY_TO_JS[mbzType];
     switch (type) {
         case CalEventType.Evaluation: {
-            startDate = obj[mbzConstants.START_DATE_QUIZ]
-            endDate = obj[mbzConstants.END_DATE_QUIZ]
+            startDate = obj[mbzConstants.QUIZ_START_DATE]
+            endDate = obj[mbzConstants.QUIZ_END_DATE]
             break;
         }
         case CalEventType.Homework: {
-            startDate= obj[mbzConstants.START_DATE_ASSIGN]
-            endDate= obj[mbzConstants.END_DATE_ASSIGN]
+            startDate= obj[mbzConstants.ASSIGN_START_DATE]
+            endDate= obj[mbzConstants.ASSIGN_END_DATE]
             break;
         }
     }

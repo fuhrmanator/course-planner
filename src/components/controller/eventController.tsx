@@ -2,7 +2,7 @@ import React, {useState, useContext, createContext} from 'react';
 import fetchCourseICAL from './util/fetchOperations'
 import {parseICALEvents} from './util/icalInterpreter';
 import { EventModelContext } from '@/components/model/eventModel';
-import { extractData, makeEvents, parseActivities, zipData } from './util/mbzInterpreter';
+import { extractData, makeEvents, parseActivities, zipData } from './util/mbz/mbzInterpreter';
 import { addUniqueEvents } from './util/eventsOperations';
 import MBZArchive from '../model/interfaces/archive/MBZArchive';
 

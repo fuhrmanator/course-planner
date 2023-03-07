@@ -12,10 +12,6 @@ export default class MBZArchive {
         this.other = {}
     }
 
-    getActivity(path: string): ArchiveFile {
-        return this.activities[path];
-    }
-
     addFile(file: ArchiveFile): void {
         this.other[file.name] = file;
     }
@@ -32,5 +28,11 @@ export default class MBZArchive {
         if (this.main)
             allFiles[this.main?.name] = this.main;
         return allFiles;
+    }
+
+    throwIfNoMain(): void {
+        if (typeof this.main === "undefined") {
+            throw new Error("No moodle_backup.xml file in the provided archive. Please provide a valid moodle backup")
+        }
     }
 }

@@ -62,7 +62,7 @@ const moodleTypeToEventType = {
 };
 
 const eventAttributeToPattern: {[key: string]: RegExp} = {
-  "uid": new RegExp("<activity id=\"([0-9]+)\""),
+  "uid": new RegExp("<activity id=\"[0-9]+\" moduleid=\"([0-9]+)\""),
   "title": new RegExp("<name>(.+)<\/name>"),
   "start": new RegExp("(?:(?:<allowsubmissionsfromdate>)|(?:<timeopen>))([0-9]+)(?:(?:<\/allowsubmissionsfromdate>)|(?:<\/timeopen>))"),
   "end": new RegExp("(?:(?:<duedate>)|(?:<timeclose>))([0-9]+)(?:(?:<\/duedate>)|(?:<\/timeclose>))")
@@ -93,7 +93,7 @@ describe('MBZ interpreter operations', () => {
       let refActivity = decoder.decode(mbzArchive.activities[parsedActivity.path].buffer);
       for (let attributeToTest in eventAttributeToPattern) {
         let propMatch = refActivity.match(eventAttributeToPattern[attributeToTest]);
-        propMatch = propMatch ? propMatch[1] : "not found"
+        propMatch = propMatch ? propMatch[1] : "test regex unsucessful"
         // @ts-ignore
         let parsedActivityValue = parsedActivity[attributeToTest];
         if (parsedActivityValue  instanceof Date) {
