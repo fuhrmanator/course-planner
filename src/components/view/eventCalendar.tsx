@@ -4,9 +4,11 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { EventModelContext } from '@/components/model/eventModel';
 import { findEarliestEventDate } from '@/components/controller/util/eventsOperations';
+import { EventControllerContext } from '../controller/eventController';
 
 const EventCalendar: React.FC = () => {
     const { events, setEvents } = useContext(EventModelContext);
+    const {deleteEvent} = useContext(EventControllerContext)
     const [selectedDate, setSelectedDate] = useState<Date>(findEarliestEventDate(events));
     const [selectedEvent, setSelectedEvent] = useState<any>(null);
 
@@ -24,11 +26,10 @@ const EventCalendar: React.FC = () => {
 
     const onDeleteEvent = () => {
         if (selectedEvent) {
-            const updatedEvents = events.filter((event: any) => event !== selectedEvent);
-            setEvents(updatedEvents);
-            setSelectedEvent(null);
+          deleteEvent(selectedEvent);
+          setSelectedEvent(null);
         }
-    }
+      }
 
     const localizer = momentLocalizer(moment);
 
@@ -46,7 +47,7 @@ const EventCalendar: React.FC = () => {
                 onSelectEvent={onSelectEvent}
             />
             {selectedEvent &&
-                <button onClick={onDeleteEvent}>Delete</button>
+            <button onClick={onDeleteEvent}>Delete</button>
             }
         </div>
     );

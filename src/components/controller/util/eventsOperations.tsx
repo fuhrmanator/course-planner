@@ -1,4 +1,4 @@
-import { EventDict } from "@/components/model/eventModel";
+import { EventDict, MBZEventDict } from "@/components/model/eventModel";
 import { CalEvent } from "@/components/model/interfaces/events/calEvent";
 import { MBZEvent } from "@/components/model/interfaces/events/mbzEvent";
 
@@ -15,12 +15,24 @@ export const addUniqueEvents = (events: CalEvent[], addToCollection: EventDict):
     }
 }
 
-export const removeEvent = (uid: string, eventDict: EventDict): EventDict | void => {
-    if (uid in eventDict) {
-        delete eventDict[uid];
-        return {...eventDict};
+export const removeEvent = (event: any, courseEvents: EventDict, MBZEvents: MBZEventDict) => {
+    const updatedCourseEvents: EventDict = {...courseEvents};
+    const updatedMBZEvents: MBZEventDict = {...MBZEvents};
+  
+    if (updatedCourseEvents[event.uid]) {
+      delete updatedCourseEvents[event.uid];
     }
-}
+    
+    if (updatedMBZEvents[event.uid]) {
+      delete updatedMBZEvents[event.uid];
+    }
+  
+    return {
+      courseEvents: updatedCourseEvents,
+      MBZEvents: updatedMBZEvents,
+    };
+  };
+  
 
 export const addUniqueMBZEvents = (events: MBZEvent[], addToCollection: EventDict):void => {
     for (let event of events) {
