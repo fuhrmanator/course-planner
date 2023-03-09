@@ -18,11 +18,11 @@ const fetchCourseICAL = async (code: string, group:number, year:number, semester
     }
 
     const finalUrl = `/api/proxy?url=${encodeURIComponent(url.href)}`;
-    //const data = await axios.get(url.href, config).catch((err: any) => console.log(err));
-    //return data.data.toString();
-    const data  = await fetch(finalUrl);
-    const textData = await data.text();
-    return textData;
+    const data = await axios.get(url.href, config).catch((err: any) => console.log(err));
+    return data.data.toString();
+    //const data  = await fetch(finalUrl);
+    //const textData = await data.text();
+    //return textData;
 }
 
 export default fetchCourseICAL;
