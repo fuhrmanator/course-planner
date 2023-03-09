@@ -1,3 +1,4 @@
+const axios = require('axios');
 const ressourceURL = 'https://portail.etsmtl.ca/ICal/SeancesCours';
 
 const fetchCourseICAL = async (code: string, group:number, year:number, semester:number): Promise<string> => {
