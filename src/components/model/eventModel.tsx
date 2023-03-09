@@ -11,6 +11,8 @@ type EventModelContextProps = {
     setCourseEvents: React.Dispatch<React.SetStateAction<EventDict>>,
     MBZEvents: MBZEventDict,
     setMBZEvents: React.Dispatch<React.SetStateAction<MBZEventDict>>;
+    selectedEvent: CalEvent | undefined,
+    setSelectedEvent: React.Dispatch<React.SetStateAction<CalEvent | undefined>>
   }
 
 
@@ -30,11 +32,14 @@ export type MBZEventDict = {[key: string]: MBZEvent;}
 
 
 export const EventModel: React.FC<CalModelProps> = ({children}) => {
-    // creates a dummy objects because of SSR and client-server HTML dif exception
+    // creates a dummy objects because of SSR and client-server HTML dif exception -->
+    
     const [events, setEvents] = useState<CalEvent[]>([]); 
    
     const [courseEvents, setCourseEvents] = useState<EventDict>({}); 
     const [MBZEvents, setMBZEvents] = useState<MBZEventDict>({}); 
+
+    const [selectedEvent, setSelectedEvent] = useState<CalEvent|undefined>(undefined);
 
     const isFirstRender = useRef<boolean>(true);
 
@@ -51,7 +56,7 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
     }, [courseEvents, MBZEvents]);
 
     return (
-        <EventModelContext.Provider value = {{events, setEvents, courseEvents, setCourseEvents, MBZEvents, setMBZEvents}}>
+        <EventModelContext.Provider value = {{events, setEvents, courseEvents, setCourseEvents, MBZEvents, setMBZEvents, selectedEvent, setSelectedEvent}}>
             {children}
         </ EventModelContext.Provider>
     )

@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { EventModelContext } from "@/components/model/eventModel";
 import { EventControllerContext } from "@/components/controller/eventController";
-import { EventSelectionContext } from "@/components/view/eventCalendar";
+import DateTimeInput from "./dateTimeInput";
+
 
 interface UpdateEventProps {}
 
-const UpdateEventButton: React.FC<UpdateEventProps> = () => {
+const UpdateEventForm: React.FC<UpdateEventProps> = () => {
   const { notifyUpdateEvent } = useContext(EventControllerContext);
-  const selectedEvent = useContext(EventSelectionContext);
+  const { selectedEvent } = useContext(EventModelContext);
 
   const [newStartDate, setNewStartDate] = useState<Date>(
     selectedEvent?.start ? new Date(selectedEvent.start) : new Date()
@@ -33,9 +34,6 @@ const UpdateEventButton: React.FC<UpdateEventProps> = () => {
       selectedEvent?.end ? new Date(selectedEvent.end) : new Date()
     );
   }, [selectedEvent]);
-  const onStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewStartDate(new Date(e.target.value));
-  };
 
   const onEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewEndDate(new Date(e.target.value));
@@ -60,12 +58,7 @@ const UpdateEventButton: React.FC<UpdateEventProps> = () => {
           <h2>Activité est : {selectedEvent.title}</h2>
           <label htmlFor="start">Date et heure de début:</label>
           <br />
-          <input
-            type="datetime-local"
-            id="start"
-            value={newStartDate.toISOString().substr(0, 16)}
-            onChange={onStartDateChange}
-          />
+          <DateTimeInput date={newStartDate} onDateChange={setNewStartDate} />
           <br />
           <label htmlFor="end">Date et heure de fin:</label>
           <br />
@@ -87,4 +80,4 @@ const UpdateEventButton: React.FC<UpdateEventProps> = () => {
   );
 };
 
-export default UpdateEventButton;
+export default UpdateEventForm;

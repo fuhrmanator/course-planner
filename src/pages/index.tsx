@@ -7,7 +7,7 @@ import ClearCalButton from '@/components/view/clearCalButton'
 import {EventModel} from '@/components/model/eventModel'
 import FilePickerMBZ from '@/components/view/filePickerMBZ'
 import DownloadMBZButton from '@/components/view/downloadMBZButton'
-import UpdateEventButton from '@/components/view/updatedEventButton'
+import UpdateEventForm from '@/components/view/updatedEventForm'
 
 export default function Home() {
   return (
@@ -23,6 +23,7 @@ export default function Home() {
           <EventModel>
             <EventController>
               <EventCalendar />
+              <UpdateEventForm />
               <CourseInformationForm />
               <ClearCalButton />
               <FilePickerMBZ />
