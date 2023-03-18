@@ -1,6 +1,6 @@
 import {describe, expect, test} from '@jest/globals';
 import { CalEvent, CalEventType } from '@/components/model/interfaces/events/calEvent';
-import { addUniqueEvents, findEarliestEventDate } from '@/components/controller/util/eventsOperations';
+import { addUniqueEvents, findEarliestEvent } from '@/components/controller/util/eventsOperations';
 import { EventDict } from '@/components/model/eventModel';
 
 const startDate = new Date();
@@ -31,10 +31,10 @@ describe('CalEvent operations', () => {
       events[i].start = createDateWithOffset(events[i].start, i*1000);
       events[i].end = createDateWithOffset(events[i].end, i*1000);
       if (i==0) {
-        expectedEarliest = events[i].start;
+        expectedEarliest = events[i];
       }
     }
-    const earliest = findEarliestEventDate(shuffleArray(events));
+    const earliest = findEarliestEvent(shuffleArray(events));
     expect(earliest).toBe(expectedEarliest);
   });
 

@@ -2,6 +2,7 @@ import {CalEvent} from './interfaces/events/calEvent'
 import React, {useState, createContext, useEffect, useRef} from 'react'
 import {getValue, setValue} from './localStore';
 import { MBZEvent } from './interfaces/events/mbzEvent';
+//import { updateEventDates } from '../controller/util/updateEventDates';
 
 type EventModelContextProps = {
     events: CalEvent[],
@@ -10,9 +11,13 @@ type EventModelContextProps = {
     setCourseEvents: React.Dispatch<React.SetStateAction<EventDict>>,
     MBZEvents: MBZEventDict,
     setMBZEvents: React.Dispatch<React.SetStateAction<MBZEventDict>>;
+    selectedEvent: CalEvent | undefined,
+    setSelectedEvent: React.Dispatch<React.SetStateAction<CalEvent | undefined>>
 }
 
+
 export const EventModelContext = createContext<EventModelContextProps>({} as EventModelContextProps);
+
 
 type CalModelProps = {
     children: React.ReactNode;
@@ -22,13 +27,19 @@ const LOCAL_STORE_COURSE_KEY = 'course_events';
 const LOCAL_STORE_MBZ_KEY = 'mbz_events';
 
 export type EventDict = {[key:string]: CalEvent};
-export type MBZEventDict = {[key:string]: MBZEvent};
+export type MBZEventDict = {[key: string]: MBZEvent;}
+
+
 
 export const EventModel: React.FC<CalModelProps> = ({children}) => {
-    // creates a dummy objects because of SSR and client-server HTML dif exception
-    const [events, setEvents] = useState<CalEvent[]>([]); 
-    const [courseEvents, setCourseEvents] = useState<EventDict>({}); 
-    const [MBZEvents, setMBZEvents] = useState<MBZEventDict>({}); 
+    // creates a dummy objects because of SSR and client-server HTML dif exception -->
+
+    const [events, setEvents] = useState<CalEvent[]>([]);
+
+    const [courseEvents, setCourseEvents] = useState<EventDict>({});
+    const [MBZEvents, setMBZEvents] = useState<MBZEventDict>({});
+
+    const [selectedEvent, setSelectedEvent] = useState<CalEvent|undefined>(undefined);
 
     const isFirstRender = useRef<boolean>(true);
 
@@ -45,7 +56,7 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
     }, [courseEvents, MBZEvents]);
 
     return (
-        <EventModelContext.Provider value = {{events, setEvents, courseEvents, setCourseEvents, MBZEvents, setMBZEvents}}>
+        <EventModelContext.Provider value = {{events, setEvents, courseEvents, setCourseEvents, MBZEvents, setMBZEvents, selectedEvent, setSelectedEvent}}>
             {children}
         </ EventModelContext.Provider>
     )

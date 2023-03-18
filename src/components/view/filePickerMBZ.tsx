@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, {useState, useContext} from "react";
 import {EventControllerContext} from "@/components/controller/eventController";
 
 interface Props {}
@@ -6,18 +6,23 @@ interface Props {}
 const FilePickerMBZ: React.FC<Props> = () => {
   const [selectedFile, setSelectedFile] = useState<string>("");
 
-  const {notifyMBZSubmited} = useContext(EventControllerContext);
+  const {notifyMBZSubmitted} = useContext(EventControllerContext);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedFile(event.target.value);
-    if (event.target.files != null) {
-      notifyMBZSubmited(event.target.files[0]);
+    console.log("not")
+    if (event.target.files != null && event.target.value !== "") {
+      setSelectedFile(event.target.value);
+      notifyMBZSubmitted(event.target.files[0]);
     }
-    };
+  };
+
+  const handleFocus = () => {
+    setSelectedFile("");
+  }
 
   return (
     <div>
-      <input type="file" onInput={handleFileChange} />
+      <input type="file" value={selectedFile} onFocus={handleFocus} onInput={handleFileChange} />
     </div>
   );
 };
