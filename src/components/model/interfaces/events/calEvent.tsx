@@ -4,10 +4,13 @@ export interface CalEvent {
     title: string;
     type: CalEventType;
     uid: string;
+    colour?: string;
 }
 
-
-
+export interface CalEventTypeColour {
+    type: CalEventType,
+    colour: string
+}
 
 export enum CalEventType {
     Seminar,
@@ -15,5 +18,6 @@ export enum CalEventType {
     Evaluation,
     Homework,
     Undefined,
-    Practica
+    Practica,
+    Projection
 }

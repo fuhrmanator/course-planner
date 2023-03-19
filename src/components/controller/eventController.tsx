@@ -3,9 +3,9 @@ import fetchCourseICAL from './util/fetchOperations'
 import {parseICALEvents} from './util/icalInterpreter';
 import { EventModelContext } from '@/components/model/eventModel';
 import { applyChangesToArchive, extractData, makeEvents, parseActivities, zipData } from './util/mbz/mbzInterpreter';
-import {addUniqueEvents, findEarliestEvent} from './util/eventsOperations';
+import {addUniqueEvents, findEarliestEvent, setEventsColour} from './util/eventsOperations';
 import MBZArchive from '../model/interfaces/archive/MBZArchive';
-import {CalEvent} from "@/components/model/interfaces/events/calEvent";
+import {CalEvent, CalEventTypeColour, CalEventType} from "@/components/model/interfaces/events/calEvent";
 
 
 type EventControllerContextProps = {
@@ -14,6 +14,7 @@ type EventControllerContextProps = {
     notifyEventSelected: (event:CalEvent) => void;
     notifyMBZSubmitted : (file: File) => void;
     notifyMBZDownload : (oldURL: string) => string;
+    notifyEventColourUpdated: (type: CalEventType, newColour: string) => void;
 }
 
 export const EventControllerContext = createContext<EventControllerContextProps>({} as EventControllerContextProps);
@@ -23,7 +24,7 @@ type CalControllerProps = {
 }
 
 export const EventController: React.FC<CalControllerProps> = ({children}) => {
-    const {courseEvents, setCourseEvents, MBZEvents, setMBZEvents, setSelectedEvent} = useContext(EventModelContext);
+    const {courseEvents, setCourseEvents, MBZEvents, setMBZEvents, setSelectedEvent, eventTypeColour, setEventTypeColour} = useContext(EventModelContext);
     const [mbzData, setMVZData] = useState<MBZArchive>(new MBZArchive());
     
 
@@ -67,8 +68,18 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setSelectedEvent(event);
     }
 
+    const notifyEventColourUpdated = (type: CalEventType, newColour: string) => {
+        for (let event of eventTypeColour) {
+            if (event.type === type) {
+                event.colour = newColour;
+                break;
+            }
+        }
+        setEventTypeColour([...eventTypeColour]);
+    };
+
     return (
-        <EventControllerContext.Provider value={{notifyCourseFormSubmit, notifyClearCal, notifyEventSelected, notifyMBZSubmitted, notifyMBZDownload}}>
+        <EventControllerContext.Provider value={{notifyCourseFormSubmit, notifyClearCal, notifyEventSelected, notifyMBZSubmitted, notifyMBZDownload, notifyEventColourUpdated}}>
             {children}
         </EventControllerContext.Provider>
     );
