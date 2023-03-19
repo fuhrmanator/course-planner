@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="1563" moduleid="1124021" modulename="scheduler" contextid="1530033">
+  <scheduler id="1563">
+    <name>Prise de rdv pour la démonstration G01</name>
+    <intro></intro>
+    <introformat>1</introformat>
+    <schedulermode>oneonly</schedulermode>
+    <maxbookings>1</maxbookings>
+    <guardtime>0</guardtime>
+    <defaultslotduration>15</defaultslotduration>
+    <allownotifications>1</allownotifications>
+    <staffrolename></staffrolename>
+    <scale>0</scale>
+    <gradingstrategy>0</gradingstrategy>
+    <bookingrouping>0</bookingrouping>
+    <usenotes>1</usenotes>
+    <usebookingform>0</usebookingform>
+    <bookinginstructions></bookinginstructions>
+    <bookinginstructionsformat>1</bookinginstructionsformat>
+    <usestudentnotes>0</usestudentnotes>
+    <requireupload>0</requireupload>
+    <uploadmaxfiles>0</uploadmaxfiles>
+    <uploadmaxsize>0</uploadmaxsize>
+    <usecaptcha>0</usecaptcha>
+    <timemodified>1619354902</timemodified>
+    <slots>
+    </slots>
+  </scheduler>
+</activity>

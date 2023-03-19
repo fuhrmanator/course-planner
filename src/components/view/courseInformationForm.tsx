@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Form, Input, Select } from "antd";
-import {CalControllerContext} from "@/components/controller/calController";
+import {EventControllerContext} from "@/components/controller/eventController";
 import {getValue, setValue} from 'src/components/model/localStore'
 
 interface Props {}
@@ -30,7 +30,7 @@ const CourseInformationForm: React.FC<Props> = () => {
       setSession(getValue(SESSION_STORE_KEY, Session.Fall));
     },[]);
 
-    const {notifyCourseFormSubmit} = useContext(CalControllerContext);
+    const {notifyCourseFormSubmit} = useContext(EventControllerContext);
 
     const handleSubmit = (e: React.FormEvent) => {
         setValue(CODE_STORE_KEY, code);

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="42736" moduleid="1124019" modulename="quiz" contextid="1530031">
+  <quiz id="42736">
+    <name>Examen intra</name>
+    <intro>## VOUS DEVEZ RESPECTER LE RÈGLEMENT SUR LES INFRACTIONS DE NATURE ACADÉMIQUE
+
+NOTAMMENT :
+
+En poursuivant cette évaluation vous vous engagez sur votre honneur à :
+
+- Ne pas communiquer avec une autre personne pendant l’examen d’aucune façon que ce soit.
+- Ne pas utiliser un appareil électronique.
+- Ne pas consulter une documentation quelconque (sur papier, dans une autre fenêtre ou onglet sur votre PC, etc.).
+- Respecter le règlement sur la politique de l’École sur les infractions de nature académique et à faire preuve d’éthique tel qu’attendu pour les futurs candidats à la profession d’ingénieur.
+
+**Une sanction allant jusqu’à l’échec au cours pourrait vous être imposée en cas d’infraction au Règlement.**</intro>
+    <introformat>4</introformat>
+    <timeopen>1655382600</timeopen>
+    <timeclose>1655389800</timeclose>
+    <timelimit>7200</timelimit>
+    <overduehandling>autosubmit</overduehandling>
+    <graceperiod>0</graceperiod>
+    <preferredbehaviour>deferredfeedback</preferredbehaviour>
+    <canredoquestions>0</canredoquestions>
+    <attempts_number>1</attempts_number>
+    <attemptonlast>1</attemptonlast>
+    <grademethod>1</grademethod>
+    <decimalpoints>2</decimalpoints>
+    <questiondecimalpoints>-1</questiondecimalpoints>
+    <reviewattempt>65536</reviewattempt>
+    <reviewcorrectness>0</reviewcorrectness>
+    <reviewmarks>0</reviewmarks>
+    <reviewspecificfeedback>0</reviewspecificfeedback>
+    <reviewgeneralfeedback>0</reviewgeneralfeedback>
+    <reviewrightanswer>0</reviewrightanswer>
+    <reviewoverallfeedback>0</reviewoverallfeedback>
+    <questionsperpage>1</questionsperpage>
+    <navmethod>free</navmethod>
+    <shuffleanswers>1</shuffleanswers>
+    <sumgrades>0.00000</sumgrades>
+    <grade>52.00000</grade>
+    <timecreated>1654122047</timecreated>
+    <timemodified>1658192849</timemodified>
+    <password></password>
+    <subnet></subnet>
+    <browsersecurity>-</browsersecurity>
+    <delay1>0</delay1>
+    <delay2>0</delay2>
+    <showuserpicture>0</showuserpicture>
+    <showblocks>0</showblocks>
+    <completionattemptsexhausted>0</completionattemptsexhausted>
+    <completionpass>0</completionpass>
+    <completionminattempts>0</completionminattempts>
+    <allowofflineattempts>0</allowofflineattempts>
+    <subplugin_quizaccess_seb_quiz>
+    </subplugin_quizaccess_seb_quiz>
+    <question_instances>
+    </question_instances>
+    <sections>
+      <section id="46979">
+        <firstslot>1</firstslot>
+        <heading></heading>
+        <shufflequestions>1</shufflequestions>
+      </section>
+    </sections>
+    <feedbacks>
+      <feedback id="106544">
+        <feedbacktext></feedbacktext>
+        <feedbacktextformat>1</feedbacktextformat>
+        <mingrade>0.00000</mingrade>
+        <maxgrade>57.20000</maxgrade>
+      </feedback>
+    </feedbacks>
+    <overrides>
+    </overrides>
+    <grades>
+    </grades>
+    <attempts>
+    </attempts>
+  </quiz>
+</activity>

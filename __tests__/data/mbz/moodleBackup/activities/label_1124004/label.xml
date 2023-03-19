@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="187964" moduleid="1124004" modulename="label" contextid="1530016">
+  <label id="187964">
+    <name>Informations importantes:
+
+ - [Serveur Discord](...</name>
+    <intro>Informations importantes:
+
+ - [Serveur Discord](https://discord.gg/5sfr3HNr)
+ - [Google Classroom (nécessite un accès sur ETSMTL.NET)](https://classroom.google.com/c/NDg2NTUzMTMwMTA5?cjc=4cbtccj)
+ - [Énoncé pour lab 0 (GitHub Classroom)](https://classroom.github.com/a/Jc8Ziqu7)
+ - [Énoncé pour lab 1 (GitHub Classroom) à venir]()</intro>
+    <introformat>4</introformat>
+    <timemodified>1652133983</timemodified>
+  </label>
+</activity>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="120962" moduleid="1124023" modulename="url" contextid="1530035">
+  <url id="120962">
+    <name>Lab 0 - Tutoriel sur les technologies (individuel, deux semaines)</name>
+    <intro>&lt;p dir="ltr"&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Vous devez utiliser votre compte GitHub (ou en créer un).&lt;/li&gt;&lt;li&gt;À l'étape "Join the classroom:" indiquez votre &lt;strong&gt;code universel&lt;/strong&gt; (2 lettres et 5 chiffres) pour vous identifier - c'est important pour relier votre compte GitHub avec votre compte ETS.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;br&gt;</intro>
+    <introformat>1</introformat>
+    <externalurl>https://classroom.github.com/a/ZMRFJIXE</externalurl>
+    <display>3</display>
+    <displayoptions>a:0:{}</displayoptions>
+    <parameters>a:0:{}</parameters>
+    <timemodified>1619712138</timemodified>
+  </url>
+</activity>

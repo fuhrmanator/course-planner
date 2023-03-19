@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<question_categories>
+  <question_category id="260328">
+    <name>top</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184348+eqiFTQ</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260329">
+    <name>Analyse</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210429135009+DBWmiE</stamp>
+    <parent>260328</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260330">
+    <name>Complexité</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210429135125+mnQr9i</stamp>
+    <parent>260328</parent>
+    <sortorder>1</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260331">
+    <name>Mdd</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210429135227+dmoX4G</stamp>
+    <parent>260328</parent>
+    <sortorder>8</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260332">
+    <name>DSS</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210503024854+8jIuFD</stamp>
+    <parent>260328</parent>
+    <sortorder>3</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260333">
+    <name>random_dss</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210503024944+TQDiwk</stamp>
+    <parent>260332</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260334">
+    <name>RDCU</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210503030312+Ka3oGi</stamp>
+    <parent>260328</parent>
+    <sortorder>9</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260335">
+    <name>GRASP</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210513170537+LiBRmM</stamp>
+    <parent>260328</parent>
+    <sortorder>7</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260336">
+    <name>Expert</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210513170851+Ey6OYB</stamp>
+    <parent>260335</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260337">
+    <name>Créateur</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210513170908+ggD4rn</stamp>
+    <parent>260335</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260338">
+    <name>Contrôleur</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210513170922+7QaPIU</stamp>
+    <parent>260335</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260339">
+    <name>Contrat</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210513172839+xSz6jQ</stamp>
+    <parent>260328</parent>
+    <sortorder>2</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260340">
+    <name>Equipe</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210516200830+nsC6wx</stamp>
+    <parent>260328</parent>
+    <sortorder>4</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260341">
+    <name>HRC-matching</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210516200830+qlBqww</stamp>
+    <parent>260340</parent>
+    <sortorder>5</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260342">
+    <name>TypeScript_old</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210516220810+LkAdZD</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260343">
+    <name>TypeScript</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210516235137+YXqad5</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260344">
+    <name>TDD</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210517001357+iTXDkP</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260345">
+    <name>ID en objet</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210525194541+dR1f3s</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260346">
+    <name>Fabrication Pure</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210525194731+6JdvfD</stamp>
+    <parent>260335</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260347">
+    <name>FaireSoiMême</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210525194810+T1CgAi</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260348">
+    <name>Polymorphisme (random)</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210525195129+pBGBY0</stamp>
+    <parent>260335</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260349">
+    <name>Indirection</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210601194752+ITNBjz</stamp>
+    <parent>260335</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260350">
+    <name>Protection des variations</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210601195029+AA6z10</stamp>
+    <parent>260335</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260351">
+    <name>GoF (révision)</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210601195314+sud7VT</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260352">
+    <name>Observer et PV</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210601195509+wtBlXv</stamp>
+    <parent>260351</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260353">
+    <name>Dette technique</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210611165901+MGcZqi</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260354">
+    <name>Réusinage</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210611165913+xaCEDS</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260355">
+    <name>Architecture en couches</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210611165939+hqLl4H</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260356">
+    <name>Conception de packages</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210611165955+4i3Mov</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260357">
+    <name>Exemples de service</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210611180107+yKLHGK</stamp>
+    <parent>260355</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260358">
+    <name>DiagrammeActivite</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210615184122+iR2G4i</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260359">
+    <name>Diagramme d'état</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210617171628+dAh1nw</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260360">
+    <name>Processus unifié</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210623145728+pqmrA7</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260361">
+    <name>FURPS</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210623145751+3b1Cjl</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260362">
+    <name>FURPS-Random</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+210623150041+pCj5RD</stamp>
+    <parent>260361</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260363">
+    <name>Faute Erreur et Échec</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210623200203+trAOh6</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260364">
+    <name>Fiabilité</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210623200221+NJW72H</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260365">
+    <name>Basculement-services-locaux</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210623200221+9CwvSA</stamp>
+    <parent>260364</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260366">
+    <name>GRASP in GOF</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210714032843+ulgO7K</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260367">
+    <name>Déploiement</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+210719221343+Lm4Cip</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260368">
+    <name>GIFT-experiment</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+211215173624+oHC2GN</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260369">
+    <name>Stationnement de questions mal classifiées</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info>Mettre les questions ici qui sont mal classifiées et que la bonne catégorie n'est pas encore créée</info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+220601231817+prJGyg</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260370">
+    <name>Diagramme de séquence</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+220601231836+1o1HXD</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260371">
+    <name>Spectre de la conception</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+220601234210+fyUDLl</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260372">
+    <name>Intra</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220603132656+ezrFau</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260373">
+    <name>questions-problématiques</name>
+    <contextid>1511686</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>17014</contextinstanceid>
+    <info></info>
+    <infoformat>1</infoformat>
+    <stamp>ena.etsmtl.ca+220616010815+XTgevg</stamp>
+    <parent>260328</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260374">
+    <name>Default for Test bidon</name>
+    <contextid>1530018</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124006</contextinstanceid>
+    <info>The default category for questions shared in context 'Test bidon'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220505054331+eZDbOZ</stamp>
+    <parent>260387</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260387">
+    <name>top</name>
+    <contextid>1530018</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124006</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+4HcCAr</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260375">
+    <name>Default for Test bidon</name>
+    <contextid>1530019</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124007</contextinstanceid>
+    <info>The default category for questions shared in context 'Test bidon'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220718231254+uVekhR</stamp>
+    <parent>260388</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260388">
+    <name>top</name>
+    <contextid>1530019</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124007</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+5JEiUa</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260376">
+    <name>Default for Test bidon</name>
+    <contextid>1530020</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124008</contextinstanceid>
+    <info>The default category for questions shared in context 'Test bidon'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220505054331+5G7m9K</stamp>
+    <parent>260389</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260389">
+    <name>top</name>
+    <contextid>1530020</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124008</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+pCgE45</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260377">
+    <name>Default for Test bidon</name>
+    <contextid>1530021</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124009</contextinstanceid>
+    <info>The default category for questions shared in context 'Test bidon'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220505054331+QN4XTG</stamp>
+    <parent>260390</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260390">
+    <name>top</name>
+    <contextid>1530021</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124009</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+6WdMWH</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260378">
+    <name>Default for Test bidon</name>
+    <contextid>1530022</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124010</contextinstanceid>
+    <info>The default category for questions shared in context 'Test bidon'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220505054331+7toUtA</stamp>
+    <parent>260391</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260391">
+    <name>top</name>
+    <contextid>1530022</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124010</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+ByoJN0</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260379">
+    <name>Default for Test bidon</name>
+    <contextid>1530023</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124011</contextinstanceid>
+    <info>The default category for questions shared in context 'Test bidon'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220505054331+UlqUAG</stamp>
+    <parent>260392</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260392">
+    <name>top</name>
+    <contextid>1530023</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124011</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+1SxTlQ</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260380">
+    <name>Default for Test bidon</name>
+    <contextid>1530024</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124012</contextinstanceid>
+    <info>The default category for questions shared in context 'Test bidon'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220505054331+1zaSXd</stamp>
+    <parent>260393</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260393">
+    <name>top</name>
+    <contextid>1530024</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124012</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+a4Hn2i</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260381">
+    <name>Default for Test bidon</name>
+    <contextid>1530025</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124013</contextinstanceid>
+    <info>The default category for questions shared in context 'Test bidon'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220505054331+cGJu2Y</stamp>
+    <parent>260394</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260394">
+    <name>top</name>
+    <contextid>1530025</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124013</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+fV2ptp</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260382">
+    <name>Default for Test bidon</name>
+    <contextid>1530026</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124014</contextinstanceid>
+    <info>The default category for questions shared in context 'Test bidon'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220505054331+4m2GJt</stamp>
+    <parent>260395</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260395">
+    <name>top</name>
+    <contextid>1530026</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124014</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+mqbPHX</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260383">
+    <name>Default for Test bidon</name>
+    <contextid>1530027</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124015</contextinstanceid>
+    <info>The default category for questions shared in context 'Test bidon'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220505054331+4clvDg</stamp>
+    <parent>260396</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260396">
+    <name>top</name>
+    <contextid>1530027</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124015</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+I3X8g1</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260384">
+    <name>Default for Test bidon</name>
+    <contextid>1530028</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124016</contextinstanceid>
+    <info>The default category for questions shared in context 'Test bidon'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220505054331+8UKsSh</stamp>
+    <parent>260397</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260397">
+    <name>top</name>
+    <contextid>1530028</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124016</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+ZWALrP</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260385">
+    <name>Default for Test bidon</name>
+    <contextid>1530029</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124017</contextinstanceid>
+    <info>The default category for questions shared in context 'Test bidon'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220505054331+kjUe3p</stamp>
+    <parent>260398</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260398">
+    <name>top</name>
+    <contextid>1530029</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124017</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+EFMq8J</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260386">
+    <name>Default for Examen intra</name>
+    <contextid>1530031</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124019</contextinstanceid>
+    <info>The default category for questions shared in context 'Examen intra'.</info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220601223403+gzTfz1</stamp>
+    <parent>260399</parent>
+    <sortorder>999</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="260399">
+    <name>top</name>
+    <contextid>1530031</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>1124019</contextinstanceid>
+    <info></info>
+    <infoformat>0</infoformat>
+    <stamp>ena.etsmtl.ca+220731184351+fqU5Aa</stamp>
+    <parent>0</parent>
+    <sortorder>0</sortorder>
+    <idnumber>$@NULL@$</idnumber>
+    <questions>
+    </questions>
+  </question_category>
+</question_categories>

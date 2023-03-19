@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<course id="17014" contextid="1511686">
+  <shortname>S20222-LOG210-99</shortname>
+  <fullname>LOG210-99 Analyse et conception de logiciels (É2022)</fullname>
+  <idnumber>S20222-LOG210-99</idnumber>
+  <summary></summary>
+  <summaryformat>4</summaryformat>
+  <format>topicstabs</format>
+  <showgrades>1</showgrades>
+  <newsitems>1</newsitems>
+  <startdate>1655309460</startdate>
+  <enddate>0</enddate>
+  <marker>0</marker>
+  <maxbytes>104857600</maxbytes>
+  <legacyfiles>0</legacyfiles>
+  <showreports>0</showreports>
+  <visible>0</visible>
+  <groupmode>0</groupmode>
+  <groupmodeforce>0</groupmodeforce>
+  <defaultgroupingid>0</defaultgroupingid>
+  <lang></lang>
+  <theme></theme>
+  <timecreated>1655309477</timecreated>
+  <timemodified>1655339519</timemodified>
+  <requested>0</requested>
+  <showactivitydates>0</showactivitydates>
+  <showcompletionconditions>$@NULL@$</showcompletionconditions>
+  <enablecompletion>0</enablecompletion>
+  <completionnotify>0</completionnotify>
+  <category id="60">
+    <name>Été 2022</name>
+    <description></description>
+  </category>
+  <tags>
+  </tags>
+  <customfields>
+  </customfields>
+  <courseformatoptions>
+    <courseformatoption>
+      <format>topicstabs</format>
+      <sectionid>0</sectionid>
+      <name>coursedisplay</name>
+      <value>0</value>
+    </courseformatoption>
+    <courseformatoption>
+      <format>topicstabs</format>
+      <sectionid>0</sectionid>
+      <name>hiddensections</name>
+      <value>1</value>
+    </courseformatoption>
+  </courseformatoptions>
+</course>

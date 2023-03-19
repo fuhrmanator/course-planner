@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<roles_definition>
+  <role id="5">
+    <name>Étudiant</name>
+    <shortname>student</shortname>
+    <nameincourse>$@NULL@$</nameincourse>
+    <description>&lt;p&gt;Les étudiants ont en général moins de privilèges dans un cours.&lt;/p&gt;</description>
+    <sortorder>5</sortorder>
+    <archetype>student</archetype>
+  </role>
+</roles_definition>

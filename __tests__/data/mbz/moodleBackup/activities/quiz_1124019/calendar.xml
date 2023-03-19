@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+  <event id="223894">
+    <name>Examen intra s'ouvre</name>
+    <description>&lt;div class="no-overflow"&gt;&lt;h2&gt;VOUS DEVEZ RESPECTER LE RÈGLEMENT SUR LES INFRACTIONS DE NATURE ACADÉMIQUE&lt;/h2&gt;
+
+&lt;p&gt;NOTAMMENT :&lt;/p&gt;
+
+&lt;p&gt;En poursuivant cette évaluation vous vous engagez sur votre honneur à :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ne pas communiquer avec une autre personne pendant l’examen d’aucune façon que ce soit.&lt;/li&gt;
+&lt;li&gt;Ne pas utiliser un appareil électronique.&lt;/li&gt;
+&lt;li&gt;Ne pas consulter une documentation quelconque (sur papier, dans une autre fenêtre ou onglet sur votre PC, etc.).&lt;/li&gt;
+&lt;li&gt;Respecter le règlement sur la politique de l’École sur les infractions de nature académique et à faire preuve d’éthique tel qu’attendu pour les futurs candidats à la profession d’ingénieur.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Une sanction allant jusqu’à l’échec au cours pourrait vous être imposée en cas d’infraction au Règlement.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2</userid>
+    <repeatid>0</repeatid>
+    <modulename>quiz</modulename>
+    <instance>42736</instance>
+    <type>0</type>
+    <eventtype>open</eventtype>
+    <timestart>1655382600</timestart>
+    <timeduration>0</timeduration>
+    <timesort>1655382600</timesort>
+    <visible>1</visible>
+    <uuid></uuid>
+    <sequence>1</sequence>
+    <timemodified>1659293054</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>$@NULL@$</location>
+  </event>
+</events>

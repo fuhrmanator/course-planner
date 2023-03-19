@@ -1,13 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const fetch = require('isomorphic-unfetch')
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const { url } = req.query;
-    const response = await fetch(url);
-    const text = await response.text();
+  const { url } = req.query;
+  if (typeof url === 'undefined') {
+    throw new Error("Request url is undefinied");
+  }
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Content-Type','text/calendar');
-    res.status(200).send(text);
+  const urlObj = new URL(url as string);
+  const response = await fetch(urlObj);
+  const text = await response.text();
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'text/calendar');
+  res.status(200).send(text);
 }

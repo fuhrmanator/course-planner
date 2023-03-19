@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="4181" moduleid="1124018" modulename="feedback" contextid="1530030">
+  <feedback id="4181">
+    <name>Feedback (expérience)</name>
+    <intro></intro>
+    <introformat>1</introformat>
+    <anonymous>1</anonymous>
+    <email_notification>0</email_notification>
+    <multiple_submit>0</multiple_submit>
+    <autonumbering>0</autonumbering>
+    <site_after_submit></site_after_submit>
+    <page_after_submit></page_after_submit>
+    <page_after_submitformat>0</page_after_submitformat>
+    <publish_stats>0</publish_stats>
+    <timeopen>0</timeopen>
+    <timeclose>0</timeclose>
+    <timemodified>1658791045</timemodified>
+    <completionsubmit>0</completionsubmit>
+    <items>
+    </items>
+    <completeds>
+    </completeds>
+  </feedback>
+</activity>

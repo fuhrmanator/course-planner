@@ -1,0 +1,1235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+  <event id="223854">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1651739400</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328273-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223855">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1652344200</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328274-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223856">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1652949000</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328275-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223857">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1653553800</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328276-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223858">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1654158600</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328277-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223859">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1654763400</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328278-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223860">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1655368200</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328279-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223861">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1655973000</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328280-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223862">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1657182600</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328281-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223863">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1657787400</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328282-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223864">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1658392200</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328283-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223865">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1658997000</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328284-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223866">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1659601800</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328285-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="223867">
+    <name>LOG210-01 (Final)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Examen Final - Sous-groupe A</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1660294800</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/197694</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-3010</location>
+  </event>
+  <event id="223868">
+    <name>LOG210-01 (Final)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Examen Final - Sous-groupe B</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1660294800</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/197695</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-3017</location>
+  </event>
+  <event id="223869">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1652171400</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328286-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="223870">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1652776200</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328287-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="223871">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1653381000</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328288-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="223872">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1653985800</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328289-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="223873">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1654590600</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328290-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="223874">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1655195400</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328291-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="223875">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1655800200</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328292-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="223876">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1656405000</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328293-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="223877">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1657009800</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328294-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="223878">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1657614600</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328295-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="223879">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1658219400</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328296-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="223880">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1658824200</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328297-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="223881">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>0</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>2050456</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1659429000</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328298-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1658194136</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224034">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1651739400</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328273-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224035">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1652344200</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328274-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224036">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1652949000</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328275-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224037">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1653553800</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328276-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224038">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1654158600</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328277-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224039">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1654763400</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328278-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224040">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1655368200</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328279-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224041">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1655973000</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328280-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224042">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1657182600</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328281-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224043">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1657787400</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328282-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224044">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1658392200</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328283-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224045">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1658997000</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328284-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224046">
+    <name>LOG210-01 (C)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Activité de cours</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1659601800</timestart>
+    <timeduration>12600</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328285-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-4019</location>
+  </event>
+  <event id="224047">
+    <name>LOG210-01 (Final)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Examen Final - Sous-groupe A</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1660294800</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/197694</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-3010</location>
+  </event>
+  <event id="224048">
+    <name>LOG210-01 (Final)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Examen Final - Sous-groupe B</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1660294800</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/197695</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>D-3017</location>
+  </event>
+  <event id="224049">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1652171400</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328286-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224050">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1652776200</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328287-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224051">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1653381000</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328288-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224052">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1653985800</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328289-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224053">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1654590600</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328290-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224054">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1655195400</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328291-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224055">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1655800200</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328292-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224056">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1656405000</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328293-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224057">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1657009800</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328294-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224058">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1657614600</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328295-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224059">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1658219400</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328296-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224060">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1658824200</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328297-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403976</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+  <event id="224061">
+    <name>LOG210-01 (Labo)</name>
+    <description>LOG210 - Analyse et conception de logiciels - Laboratoire</description>
+    <format>1</format>
+    <courseid>17014</courseid>
+    <groupid>0</groupid>
+    <userid>8</userid>
+    <repeatid>0</repeatid>
+    <modulename></modulename>
+    <instance>0</instance>
+    <type>0</type>
+    <eventtype>course</eventtype>
+    <timestart>1659429000</timestart>
+    <timeduration>10800</timeduration>
+    <timesort>$@NULL@$</timesort>
+    <visible>1</visible>
+    <uuid>http://signets.etsmtl.ca/horaire/328298-1</uuid>
+    <sequence>1</sequence>
+    <timemodified>1659403977</timemodified>
+    <priority>$@NULL@$</priority>
+    <location>A-3344</location>
+  </event>
+</events>
