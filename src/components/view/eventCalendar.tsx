@@ -28,17 +28,6 @@ const EventCalendar: React.FC = () => {
         notifyEventSelected(event);
     };
 
-    const getEventColour = (event:CourseEvent):string => {
-        const foundTypeColour = eventTypeColour.find((typeColour) => (typeColour.type === event.type));
-        let eventColour;
-        if (typeof foundTypeColour === "undefined") {
-            eventColour = "blue";
-        } else {
-            eventColour = foundTypeColour.colour;
-        }
-        return eventColour;
-    }
-
     const addColourToEventsCallback = useCallback(
         (event:CourseEvent, start:Date, end:Date, isSelected:boolean) => {
             return {
@@ -46,7 +35,7 @@ const EventCalendar: React.FC = () => {
                 start,
                 end,
                 isSelected,
-                style: { backgroundColor: getEventColour(event) }}},
+                style: { backgroundColor: eventTypeColour[event.type] }}},
         [eventTypeColour]
     )
 

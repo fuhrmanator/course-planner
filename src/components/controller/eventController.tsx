@@ -82,13 +82,8 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
     }
 
     const notifyEventColourUpdated = (type: EventType, newColour: string) => {
-        for (let event of eventTypeColour) {
-            if (event.type === type) {
-                event.colour = newColour;
-                break;
-            }
-        }
-        setEventTypeColour([...eventTypeColour]);
+        eventTypeColour[type] = newColour;
+        setEventTypeColour({...eventTypeColour});
     };
 
     return (

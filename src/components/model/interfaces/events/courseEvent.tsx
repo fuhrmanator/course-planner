@@ -17,7 +17,5 @@ export enum EventType {
     Laboratories,
     Evaluation,
     Homework,
-    Undefined,
-    Practica,
-    Projection
+    Practica
 }

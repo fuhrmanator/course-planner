@@ -2,7 +2,7 @@ import {CourseEvent, EventTypeColour} from './interfaces/events/courseEvent'
 import React, {useState, createContext, useEffect, useRef} from 'react'
 import {callbackIfValuePresent, getValue, setValue} from './localStore';
 import { ActivityEvent } from './interfaces/events/activityEvent';
-import {defaultEventColours} from "@/components/model/ressource/eventRessource";
+import {defaultEventColours, TypeColourDict} from "@/components/model/ressource/eventRessource";
 import {findEarliestEvent} from "@/components/controller/util/eventsOperations";
 
 type EventModelContextProps = {
@@ -15,8 +15,8 @@ type EventModelContextProps = {
     setActivityEvents: React.Dispatch<React.SetStateAction<ActivityEvent[]>>;
     selectedEvent: CourseEvent | undefined,
     setSelectedEvent: React.Dispatch<React.SetStateAction<CourseEvent | undefined>>,
-    eventTypeColour: EventTypeColour[],
-    setEventTypeColour: React.Dispatch<React.SetStateAction<EventTypeColour[]>>;
+    eventTypeColour: TypeColourDict,
+    setEventTypeColour: React.Dispatch<React.SetStateAction<TypeColourDict>>;
 }
 
 export const EventModelContext = createContext<EventModelContextProps>({} as EventModelContextProps);
@@ -55,7 +55,7 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
         setEvents([...oldCourseEvents,...newCourseEvents, ...activityEvents]);
     }, [oldCourseEvents, newCourseEvents, activityEvents]);
 
-    const [eventTypeColour, setEventTypeColour] = useState<EventTypeColour[]>(defaultEventColours);
+    const [eventTypeColour, setEventTypeColour] = useState<TypeColourDict>(defaultEventColours);
 
     const areColoursLoadedFromStore = useRef<boolean>(false);
     useEffect(()=>{
