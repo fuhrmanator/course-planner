@@ -1,18 +1,18 @@
-export interface CalEvent {
+export interface CourseEvent {
     start: Date;
     end: Date;
     title: string;
-    type: CalEventType;
+    type: EventType;
     uid: string;
     colour?: string;
 }
 
-export interface CalEventTypeColour {
-    type: CalEventType,
+export interface EventTypeColour {
+    type: EventType,
     colour: string
 }
 
-export enum CalEventType {
+export enum EventType {
     Seminar,
     Laboratories,
     Evaluation,

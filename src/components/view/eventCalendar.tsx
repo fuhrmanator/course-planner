@@ -4,7 +4,7 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { EventModelContext } from '@/components/model/eventModel';
 import {findEarliestEvent, setEventsColour} from '@/components/controller/util/eventsOperations';
-import {CalEvent, CalEventType, CalEventTypeColour} from "@/components/model/interfaces/events/calEvent";
+import {CourseEvent, EventType, EventTypeColour} from "@/components/model/interfaces/events/courseEvent";
 import {EventControllerContext} from "@/components/controller/eventController";
 import CalLegend from "@/components/view/calLegend";
 
@@ -24,11 +24,11 @@ const EventCalendar: React.FC = () => {
         setSelectedDate(newDate);
     }
 
-    const onSelectEvent = (event: CalEvent, e: any) => {
+    const onSelectEvent = (event: CourseEvent, e: any) => {
         notifyEventSelected(event);
     };
 
-    const getEventColour = (event:CalEvent):string => {
+    const getEventColour = (event:CourseEvent):string => {
         const foundTypeColour = eventTypeColour.find((typeColour) => (typeColour.type === event.type));
         let eventColour;
         if (typeof foundTypeColour === "undefined") {
@@ -40,7 +40,7 @@ const EventCalendar: React.FC = () => {
     }
 
     const addColourToEventsCallback = useCallback(
-        (event:CalEvent, start:Date, end:Date, isSelected:boolean) => {
+        (event:CourseEvent, start:Date, end:Date, isSelected:boolean) => {
             return {
                 event,
                 start,

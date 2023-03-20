@@ -2,7 +2,7 @@ import {describe, expect, test} from '@jest/globals';
 import * as fs from 'fs';
 import path from 'path';
 import {parseICALEvents} from '@/components/controller/util/icalInterpreter'
-import { CalEvent, CalEventType } from '@/components/model/interfaces/events/calEvent';
+import { CourseEvent, EventType } from '@/components/model/interfaces/events/courseEvent';
 const ical = require('ical');
 const dataPath = "__tests__/data";
 
@@ -22,7 +22,7 @@ function parseIcal(icalData:string): any {
   return ical.parseICS(icalData);
 }
 
-function eventEqualExpected(expectedResult: any, toTest: CalEvent):boolean {
+function eventEqualExpected(expectedResult: any, toTest: CourseEvent):boolean {
   let isEqual = true;
   for (let expectedField in icalToEventField) {
     // @ts-ignore

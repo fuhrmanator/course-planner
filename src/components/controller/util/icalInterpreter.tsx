@@ -1,7 +1,7 @@
-import {CalEvent, CalEventType} from '@/components/model/interfaces/events/calEvent'
+import {CourseEvent, EventType} from '@/components/model/interfaces/events/courseEvent'
 const ical = require('ical.js');
 
-function icalToEvent(ical:any): CalEvent | undefined {
+function icalToEvent(ical:any): CourseEvent | undefined {
     const type = iCalCategoryToType(ical.getFirstPropertyValue('categories').trim());
     if (typeof type === 'undefined') {
         return;
@@ -15,27 +15,27 @@ function icalToEvent(ical:any): CalEvent | undefined {
     }
 }
 
-export const parseICALEvents = (icalData: string):CalEvent[] => {
+export const parseICALEvents = (icalData: string):CourseEvent[] => {
     const baseComponent = new ical.Component(ical.parse(icalData));
     const vEvents = baseComponent.getAllSubcomponents('vevent');
-    const calEvents = vEvents.map((vEvent: any) => icalToEvent(vEvent)).filter((event:CalEvent) => {return typeof event !== 'undefined'});
+    const calEvents = vEvents.map((vEvent: any) => icalToEvent(vEvent)).filter((event:CourseEvent) => {return typeof event !== 'undefined'});
 
     return calEvents;
 }
 
-function iCalCategoryToType(icalCategory: string): CalEventType|undefined {
-    let type: CalEventType|undefined;
+function iCalCategoryToType(icalCategory: string): EventType|undefined {
+    let type: EventType|undefined;
     switch (icalCategory) {
         case "Labo": {
-            type= CalEventType.Laboratories
+            type= EventType.Laboratories
             break;
         }
         case "C": {
-            type= CalEventType.Seminar
+            type= EventType.Seminar
             break;
         }
         case "TP": {
-            type= CalEventType.Practica
+            type= EventType.Practica
             break;
         }
         default: { 

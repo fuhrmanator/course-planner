@@ -1,23 +1,23 @@
 import React, {useState} from "react";
-import {CalEvent, CalEventType} from "@/components/model/interfaces/events/calEvent";
+import {CourseEvent, EventType} from "@/components/model/interfaces/events/courseEvent";
 
 interface Props {
-    id: CalEventType,
+    type: EventType,
     label: string,
     colour: string,
-    notifyChange: (id: CalEventType, newColour:string) => void;
+    notifyChange: (id: EventType, newColour:string) => void;
 }
 
-const ColorPicker: React.FC<Props> = ({id, label, colour, notifyChange}) => {
+const ColorPicker: React.FC<Props> = ({type, label, colour, notifyChange}) => {
     const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        notifyChange(id, event.target.value);
+        notifyChange(type, event.target.value);
     };
 
     return (
         <div>
-            <label htmlFor={id.toString()}>{label}</label>
+            <label htmlFor={type.toString()}>{label}</label>
             <input
-                id={id.toString()}
+                id={type.toString()}
                 type="color"
                 value={colour}
                 onChange={handleColorChange}

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Form, Input, Select } from "antd";
 import {EventControllerContext} from "@/components/controller/eventController";
 import {getValue, setValue} from 'src/components/model/localStore'
+import RadioButton from "@/components/view/radioButton";
 
 interface Props {}
 
@@ -17,6 +18,7 @@ const YEAR_STORE_KEY = 'year';
 const SESSION_STORE_KEY = 'session';
 
 const CourseInformationForm: React.FC<Props> = () => {
+    const [isOldCourse, setIsOldCourse] = useState<boolean>(false);
     const [code, setCode] = useState<string>("");
     const [group, setGroup] = useState<number>(0);
     const [year, setYear] = useState<number>(0);
@@ -37,48 +39,52 @@ const CourseInformationForm: React.FC<Props> = () => {
         setValue(GROUP_STORE_KEY, group);
         setValue(YEAR_STORE_KEY, year);
         setValue(SESSION_STORE_KEY, session);
-        notifyCourseFormSubmit(code, group, year, session);        
+        notifyCourseFormSubmit(code, group, year, session, isOldCourse);
         return false;
     };
 
   return (
-    <Form onFinish={handleSubmit}>
-      <Form.Item label="Sigle">
-        <Input
-          value={code}
-          onChange={e => setCode(e.target.value)}
-          type="text"
-        />
-      </Form.Item>
-      <Form.Item label="Groupe">
-        <Input
-          value={group}
-          onChange={e => setGroup(parseInt(e.target.value))}
-          type="number"
-        />
-      </Form.Item>
-      <Form.Item label="Année">
-        <Input
-          value={year}
-          onChange={e => setYear(parseInt(e.target.value))}
-          type="number"
-        />
-      </Form.Item>
-      <Form.Item label="Session">
-        <Select
-          value={session}
-          onChange={setSession}
-          style={{ width: 120 }}
-        >
-          <Select.Option value={Session.Winter}>Hiver</Select.Option>
-          <Select.Option value={Session.Summer}>Été</Select.Option>
-          <Select.Option value={Session.Fall}>Automne</Select.Option>
-        </Select>
-      </Form.Item>
-      <Form.Item>
-        <button type="submit">Submit</button>
-      </Form.Item>
-    </Form>
+      <div>
+        <Form onFinish={handleSubmit}>
+          <Form.Item label="Sigle">
+            <Input
+              value={code}
+              onChange={e => setCode(e.target.value)}
+              type="text"
+            />
+          </Form.Item>
+          <Form.Item label="Groupe">
+            <Input
+              value={group}
+              onChange={e => setGroup(parseInt(e.target.value))}
+              type="number"
+            />
+          </Form.Item>
+          <Form.Item label="Année">
+            <Input
+              value={year}
+              onChange={e => setYear(parseInt(e.target.value))}
+              type="number"
+            />
+          </Form.Item>
+          <Form.Item label="Session">
+            <Select
+              value={session}
+              onChange={setSession}
+              style={{ width: 120 }}
+            >
+              <Select.Option value={Session.Winter}>Hiver</Select.Option>
+              <Select.Option value={Session.Summer}>Été</Select.Option>
+              <Select.Option value={Session.Fall}>Automne</Select.Option>
+            </Select>
+          </Form.Item>
+            <RadioButton labelTrue={"Cours de l'archive moodle"} labelFalse={"Nouveau cours plannifié"} value={isOldCourse} onChange={setIsOldCourse} />
+          <Form.Item>
+            <button type="submit">Submit</button>
+          </Form.Item>
+        </Form>
+
+      </div>
   );
 };
 
