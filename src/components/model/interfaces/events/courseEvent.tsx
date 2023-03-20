@@ -19,3 +19,6 @@ export enum EventType {
     Homework,
     Practica
 }
+
+export type ActivityType = EventType.Homework | EventType.Evaluation
+export type CourseType = EventType.Seminar | EventType.Laboratories | EventType.Practica

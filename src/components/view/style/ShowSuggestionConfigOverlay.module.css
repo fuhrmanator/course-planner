@@ -1,0 +1,17 @@
+.hidden {
+    display: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Ajoute un fond semi-transparent pour l'overlay */
+    z-index: 1000; /* Place l'overlay au-dessus de tous les autres éléments */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

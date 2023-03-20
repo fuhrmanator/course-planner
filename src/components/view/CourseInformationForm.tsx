@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Form, Input, Select } from "antd";
 import {EventControllerContext} from "@/components/controller/eventController";
 import {getValue, setValue} from 'src/components/model/localStore'
-import RadioButton from "@/components/view/radioButton";
+import RadioButton from "@/components/view/RadioButton";
 
 interface Props {}
 

@@ -2,11 +2,11 @@ import React, {useCallback, useContext, useEffect, useState} from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { EventModelContext } from '@/components/model/eventModel';
+import { EventModelContext } from '@/components/model/EventModel';
 import {findEarliestEvent, setEventsColour} from '@/components/controller/util/eventsOperations';
 import {CourseEvent, EventType, EventTypeColour} from "@/components/model/interfaces/events/courseEvent";
 import {EventControllerContext} from "@/components/controller/eventController";
-import CalLegend from "@/components/view/calLegend";
+import CalLegend from "@/components/view/colour/CalLegend";
 
 
 const EventCalendar: React.FC = () => {

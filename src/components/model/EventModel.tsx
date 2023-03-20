@@ -2,7 +2,12 @@ import {CourseEvent, EventTypeColour} from './interfaces/events/courseEvent'
 import React, {useState, createContext, useEffect, useRef} from 'react'
 import {callbackIfValuePresent, getValue, setValue} from './localStore';
 import { ActivityEvent } from './interfaces/events/activityEvent';
-import {defaultEventColours, TypeColourDict} from "@/components/model/ressource/eventRessource";
+import {
+    defaultEventColours,
+    defaultSuggestionTypeMapping,
+    SuggestionConfigDict,
+    TypeColourDict
+} from "@/components/model/ressource/eventRessource";
 import {findEarliestEvent} from "@/components/controller/util/eventsOperations";
 
 type EventModelContextProps = {
@@ -17,6 +22,9 @@ type EventModelContextProps = {
     setSelectedEvent: React.Dispatch<React.SetStateAction<CourseEvent | undefined>>,
     eventTypeColour: TypeColourDict,
     setEventTypeColour: React.Dispatch<React.SetStateAction<TypeColourDict>>;
+
+    suggestionConfig: SuggestionConfigDict,
+    setSuggestionConfig: React.Dispatch<React.SetStateAction<SuggestionConfigDict>>;
 }
 
 export const EventModelContext = createContext<EventModelContextProps>({} as EventModelContextProps);
@@ -29,6 +37,7 @@ const LOCAL_STORE_OLD_COURSE_KEY = 'old_course_events';
 const LOCAL_STORE_NEW_COURSE_KEY = 'new_course_events';
 const LOCAL_STORE_ACTIVITY_KEY = 'activity_events';
 const LOCAL_STORE_COLOUR_KEY = 'type_colours';
+const LOCAL_STORE_SUGGESTION_KEY = 'suggestion_config';
 
 export const EventModel: React.FC<CalModelProps> = ({children}) => {
 
@@ -39,6 +48,8 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
     const [activityEvents, setActivityEvents] = useState<ActivityEvent[]>([]);
 
     const [selectedEvent, setSelectedEvent] = useState<CourseEvent|undefined>(undefined);
+
+    const [suggestionConfig, setSuggestionConfig] = useState<SuggestionConfigDict>(defaultSuggestionTypeMapping);
 
     const areEventsLoadedFromStore = useRef<boolean>(false);
     useEffect(()=>{
@@ -67,8 +78,30 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
             }
     }, [eventTypeColour]);
 
+    const isSuggestionConfigLoadedFromStore = useRef<boolean>(false);
+    useEffect(()=>{
+        if (isSuggestionConfigLoadedFromStore.current) {
+            setValue(LOCAL_STORE_SUGGESTION_KEY, suggestionConfig);
+        } else {
+            isSuggestionConfigLoadedFromStore.current = true;
+            callbackIfValuePresent(LOCAL_STORE_SUGGESTION_KEY, setSuggestionConfig);
+        }
+    }, [suggestionConfig]);
+
     return (
-        <EventModelContext.Provider value = {{events, oldCourseEvents, setOldCourseEvents, newCourseEvents, setNewCourseEvents, activityEvents, setActivityEvents, selectedEvent, setSelectedEvent, eventTypeColour, setEventTypeColour}}>
+        <EventModelContext.Provider value = {{events,
+            oldCourseEvents,
+            setOldCourseEvents,
+            newCourseEvents,
+            setNewCourseEvents,
+            activityEvents,
+            setActivityEvents,
+            selectedEvent,
+            setSelectedEvent,
+            eventTypeColour,
+            setEventTypeColour,
+            suggestionConfig,
+            setSuggestionConfig}}>
             {children}
         </ EventModelContext.Provider>
     )

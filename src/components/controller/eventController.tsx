@@ -1,11 +1,11 @@
 import React, {useState, useContext, createContext} from 'react';
 import fetchCourseICAL from './util/fetchOperations'
 import {parseICALEvents} from './util/icalInterpreter';
-import { EventModelContext } from '@/components/model/eventModel';
+import { EventModelContext } from '@/components/model/EventModel';
 import { applyChangesToArchive, extractData, makeEvents, parseActivities, zipData } from './util/mbz/mbzInterpreter';
 import { findEarliestEvent } from './util/eventsOperations';
 import MBZArchive from '../model/interfaces/archive/MBZArchive';
-import {CourseEvent, EventType} from "@/components/model/interfaces/events/courseEvent";
+import {ActivityType, CourseEvent, CourseType, EventType} from "@/components/model/interfaces/events/courseEvent";
 import {ActivityEvent} from "@/components/model/interfaces/events/activityEvent";
 
 
@@ -15,7 +15,8 @@ type EventControllerContextProps = {
     notifyEventSelected: (event:CourseEvent) => void;
     notifyMBZSubmitted : (file: File) => void;
     notifyMBZDownload : (oldURL: string) => string;
-    notifyEventColourUpdated: (type: EventType, newColour: string) => void;
+    notifyEventColourUpdate: (type: EventType, newColour: string) => void;
+    notifySuggestionConfigUpdate: (type: ActivityType, mapping: CourseType) => void;
 }
 
 export const EventControllerContext = createContext<EventControllerContextProps>({} as EventControllerContextProps);
@@ -25,7 +26,7 @@ type CalControllerProps = {
 }
 
 export const EventController: React.FC<CalControllerProps> = ({children}) => {
-    const {oldCourseEvents, setOldCourseEvents, newCourseEvents, setNewCourseEvents, activityEvents, setActivityEvents, setSelectedEvent, eventTypeColour, setEventTypeColour} = useContext(EventModelContext);
+    const {oldCourseEvents, setOldCourseEvents, newCourseEvents, setNewCourseEvents, activityEvents, setActivityEvents, setSelectedEvent, eventTypeColour, setEventTypeColour, suggestionConfig, setSuggestionConfig} = useContext(EventModelContext);
     const [mbzData, setMVZData] = useState<MBZArchive>(new MBZArchive());
     
 
@@ -81,13 +82,18 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setSelectedEvent(event);
     }
 
-    const notifyEventColourUpdated = (type: EventType, newColour: string) => {
+    const notifyEventColourUpdate = (type: EventType, newColour: string) => {
         eventTypeColour[type] = newColour;
         setEventTypeColour({...eventTypeColour});
     };
 
+    const notifySuggestionConfigUpdate = (type: ActivityType, mapping: CourseType):void => {
+        suggestionConfig[type] = mapping;
+        setSuggestionConfig({...suggestionConfig});
+    }
+
     return (
-        <EventControllerContext.Provider value={{notifyCourseFormSubmit, notifyClearCal, notifyEventSelected, notifyMBZSubmitted, notifyMBZDownload, notifyEventColourUpdated}}>
+        <EventControllerContext.Provider value={{notifyCourseFormSubmit, notifyClearCal, notifyEventSelected, notifyMBZSubmitted, notifyMBZDownload, notifyEventColourUpdate, notifySuggestionConfigUpdate}}>
             {children}
         </EventControllerContext.Provider>
     );
