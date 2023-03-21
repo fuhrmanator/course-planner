@@ -13,7 +13,7 @@ import {
     defaultSuggestionTypeMapping,
 
 } from "@/components/model/ressource/eventRessource";
-import {findEarliestEvent, getUnsavedStates} from "@/components/controller/util/eventsOperations";
+import {findEarliestEvent, flattenUnsavedStates} from "@/components/controller/util/eventsOperations";
 
 type EventModelContextProps = {
     events: CourseEvent[],
@@ -43,6 +43,7 @@ const LOCAL_STORE_NEW_COURSE_KEY = 'new_course_events';
 const LOCAL_STORE_ACTIVITY_KEY = 'activity_events';
 const LOCAL_STORE_COLOUR_KEY = 'type_colours';
 const LOCAL_STORE_SUGGESTION_KEY = 'suggestion_config';
+const LOCAL_STORE_SELECTED_KEY = 'selected_event';
 
 export const EventModel: React.FC<CalModelProps> = ({children}) => {
 
@@ -62,13 +63,16 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
             setValue(LOCAL_STORE_OLD_COURSE_KEY, oldCourseEvents);
             setValue(LOCAL_STORE_NEW_COURSE_KEY, newCourseEvents);
             setValue(LOCAL_STORE_ACTIVITY_KEY, activityEvents);
+            setValue(LOCAL_STORE_SELECTED_KEY, selectedEvent);
         } else { // replace dummy array with true values when it's created
             areEventsLoadedFromStore.current = true;
             callbackIfValuePresent(LOCAL_STORE_OLD_COURSE_KEY, setOldCourseEvents);
             callbackIfValuePresent(LOCAL_STORE_NEW_COURSE_KEY, setNewCourseEvents);
             callbackIfValuePresent(LOCAL_STORE_ACTIVITY_KEY, setActivityEvents);
+            callbackIfValuePresent(LOCAL_STORE_SELECTED_KEY, setSelectedEvent);
         }
-        setEvents([...oldCourseEvents,...newCourseEvents, ...activityEvents, ...getUnsavedStates(activityEvents)]);
+        flattenUnsavedStates(activityEvents);
+        setEvents([...oldCourseEvents,...newCourseEvents, ...activityEvents]);
     }, [oldCourseEvents, newCourseEvents, activityEvents]);
 
     const [eventTypeColour, setEventTypeColour] = useState<TypeColourDict>(defaultEventColours);

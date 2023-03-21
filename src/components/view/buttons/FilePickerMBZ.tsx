@@ -9,7 +9,6 @@ const FilePickerMBZ: React.FC<Props> = () => {
   const {notifyMBZSubmitted} = useContext(EventControllerContext);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("not")
     if (event.target.files != null && event.target.value !== "") {
       setSelectedFile(event.target.value);
       notifyMBZSubmitted(event.target.files[0]);

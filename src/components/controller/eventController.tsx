@@ -3,7 +3,13 @@ import fetchCourseICAL from './util/fetchOperations'
 import {parseICALEvents} from './util/icalInterpreter';
 import { EventModelContext } from '@/components/model/EventModel';
 import { applyChangesToArchive, extractData, makeEvents, parseActivities, zipData } from './util/mbz/mbzInterpreter';
-import {addSuggestion, findEarliestEvent, getUnsavedStates} from './util/eventsOperations';
+import {
+    addSuggestion, cancelAllUnsavedState,
+    findEarliestEvent,
+    flattenUnsavedStates,
+    getUnsavedStates,
+    saveAll
+} from './util/eventsOperations';
 import MBZArchive from '../model/interfaces/archive/MBZArchive';
 import {
     ActivityEvent,
@@ -13,6 +19,7 @@ import {
     EventType
 } from "@/components/model/interfaces/courseEvent";
 import suggestionButton from "@/components/view/buttons/SuggestionButton";
+import cancelChangesButton from "@/components/view/buttons/CancelChangesButton";
 
 
 
@@ -25,6 +32,8 @@ type EventControllerContextProps = {
     notifyEventColourUpdate: (type: EventType, newColour: string) => void;
     notifySuggestionConfigUpdate: (type: ActivityType, mapping: CourseType) => void;
     notifySuggestion: ()=>void;
+    notifySaveAllChanges: ()=>void;
+    notifyCancelChanges: ()=>void;
 }
 
 export const EventControllerContext = createContext<EventControllerContextProps>({} as EventControllerContextProps);
@@ -105,9 +114,31 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setSelectedToEarliest(getUnsavedStates(activityEvents));
         setActivityEvents([...activityEvents]);
     };
+    const notifyCancelChanges = () => {
+
+        cancelAllUnsavedState(activityEvents);
+
+        setActivityEvents([... activityEvents]);
+    }
+    const notifySaveAllChanges = () => {
+        console.log(activityEvents)
+        saveAll(activityEvents);
+        console.log(activityEvents)
+        setActivityEvents([...activityEvents]);
+    }
 
     return (
-        <EventControllerContext.Provider value={{notifyCourseFormSubmit, notifyClearCal, notifyEventSelected, notifyMBZSubmitted, notifyMBZDownload, notifyEventColourUpdate, notifySuggestionConfigUpdate, notifySuggestion}}>
+        <EventControllerContext.Provider value={{
+            notifyCourseFormSubmit,
+            notifyClearCal,
+            notifyEventSelected,
+            notifyMBZSubmitted,
+            notifyMBZDownload,
+            notifyEventColourUpdate,
+            notifySuggestionConfigUpdate,
+            notifySuggestion,
+            notifySaveAllChanges,
+            notifyCancelChanges}}>
             {children}
         </EventControllerContext.Provider>
     );

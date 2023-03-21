@@ -10,11 +10,17 @@ export const findEarliestEvent = (events: CourseEvent[]):CourseEvent => {
     return events.reduce((earliestEventYet:CourseEvent, event:CourseEvent) => {return earliestEventYet.start < event.start ? earliestEventYet : event});
 }
 
-export const addUnsavedState = (event: CourseEvent):CourseEvent => {
-    const newUnsavedState = {...event}
-    newUnsavedState.unsavedState = null;
-    event.unsavedState = newUnsavedState;
-    return newUnsavedState;
+export const getOrAddUnsavedState = (event: CourseEvent):CourseEvent => {
+    let gotUnsavedState;
+    if (hasUnsavedState(event)) {
+        gotUnsavedState = event.unsavedState as CourseEvent;
+    } else {
+        gotUnsavedState = {...event}
+        gotUnsavedState.unsavedState = null;
+        event.unsavedState = gotUnsavedState;
+    }
+
+    return gotUnsavedState;
 }
 
 export const saveAll = (events: CourseEvent[]):void => {
@@ -23,6 +29,26 @@ export const saveAll = (events: CourseEvent[]):void => {
     }
 }
 
+export const cancelAllUnsavedState = (events: CourseEvent[]):void => {
+    for(let event of events) {
+        console.log(event.unsavedState)
+        removeUnsavedState(event);
+        console.log(event.unsavedState)
+    }
+}
+export const removeUnsavedState = (event:CourseEvent): CourseEvent | undefined | null => {
+    const unsavedState = event.unsavedState;
+    event.unsavedState = undefined;
+    return unsavedState;
+}
+
+export const flattenUnsavedStates = (events:CourseEvent[]):void => {
+    for (let event of events) {
+        if (hasUnsavedState(event)) {
+            events.push(removeUnsavedState(event) as CourseEvent);
+        }
+    }
+}
 export const getUnsavedStates = (events:CourseEvent[]):CourseEvent[] => {
     const unsavedStates = [];
     for (let event of events) {
@@ -68,16 +94,12 @@ export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents:
         if (oldCoursesWithTypeTo.length > 0) {
             for (let event of eventToSuggestionWithTypeFrom) {
                 let oldCourseIndex = findNearestEventIndex(event, oldCoursesWithTypeTo);
-                let eventSuggestion = addUnsavedState(event);
-                eventSuggestion.start = new Date(newCoursesWithTypeTo[oldCourseIndex].start.getTime() + getTimeDiff(event, oldCoursesWithTypeTo[oldCourseIndex]));
+                let eventSuggestion = getOrAddUnsavedState(event);
+                eventSuggestion.start = new Date(newCoursesWithTypeTo[oldCourseIndex].start.getTime() + event.start.getTime()- oldCoursesWithTypeTo[oldCourseIndex].start.getTime());
                 eventSuggestion.end = new Date(eventSuggestion.start.getTime() + event.end.getTime() - event.start.getTime())
             }
         }
     }
-}
-
-export const getTimeDiff = (a:CourseEvent, b:CourseEvent):number => {
-    return a.start.getTime() - b.start.getTime();
 }
 
 export const sortEvents = (events:CourseEvent[]):void => {

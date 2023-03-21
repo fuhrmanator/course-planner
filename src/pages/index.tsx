@@ -9,6 +9,8 @@ import FilePickerMBZ from '@/components/view/buttons/FilePickerMBZ'
 import DownloadMBZButton from '@/components/view/buttons/DownloadMBZButton'
 import ShowSuggestionConfigOverlay from "@/components/view/suggestion/ShowSuggestionConfigOverlay";
 import SuggestionButton from "@/components/view/buttons/SuggestionButton";
+import SaveAllChangesButton from "@/components/view/buttons/SaveAllChangesButton";
+import CancelChangesButton from "@/components/view/buttons/CancelChangesButton";
 
 export default function Home() {
   return (
@@ -30,6 +32,8 @@ export default function Home() {
               <DownloadMBZButton />
               <ShowSuggestionConfigOverlay />
               <SuggestionButton />
+              <SaveAllChangesButton />
+              <CancelChangesButton />
             </EventController>
           </EventModel>
         </div>

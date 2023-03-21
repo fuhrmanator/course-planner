@@ -18,7 +18,7 @@ const YEAR_STORE_KEY = 'year';
 const SESSION_STORE_KEY = 'session';
 
 const CourseInformationForm: React.FC<Props> = () => {
-    const [isOldCourse, setIsOldCourse] = useState<boolean>(false);
+    const [isOldCourse, setIsOldCourse] = useState<boolean>(true);
     const [code, setCode] = useState<string>("");
     const [group, setGroup] = useState<number>(0);
     const [year, setYear] = useState<number>(0);

@@ -9,7 +9,7 @@ export const callbackIfValuePresent = (key:string, callback:(value:any)=>void) =
     if (typeof window !== "undefined") {
         const maybeValue = localStorage.getItem(KEY_PREIFX+key);
         if (maybeValue != null) {
-            callback(JSON.parse(maybeValue));
+            callback( maybeValue === "undefined" ? maybeValue : JSON.parse(maybeValue));
         }
     }
 }
