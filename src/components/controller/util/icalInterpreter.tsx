@@ -1,4 +1,4 @@
-import {CourseEvent, EventType} from '@/components/model/interfaces/events/courseEvent'
+import {CourseEvent, EventType} from '@/components/model/interfaces/courseEvent'
 const ical = require('ical.js');
 
 function icalToEvent(ical:any): CourseEvent | undefined {

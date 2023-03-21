@@ -1,14 +1,19 @@
-import {CourseEvent, EventTypeColour} from './interfaces/events/courseEvent'
+import {
+    ActivityEvent,
+    CourseEvent,
+    EventTypeColour,
+    SuggestionConfigDict,
+    TypeColourDict
+} from './interfaces/courseEvent'
 import React, {useState, createContext, useEffect, useRef} from 'react'
 import {callbackIfValuePresent, getValue, setValue} from './localStore';
-import { ActivityEvent } from './interfaces/events/activityEvent';
+
 import {
     defaultEventColours,
     defaultSuggestionTypeMapping,
-    SuggestionConfigDict,
-    TypeColourDict
+
 } from "@/components/model/ressource/eventRessource";
-import {findEarliestEvent} from "@/components/controller/util/eventsOperations";
+import {findEarliestEvent, getUnsavedStates} from "@/components/controller/util/eventsOperations";
 
 type EventModelContextProps = {
     events: CourseEvent[],
@@ -63,7 +68,7 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
             callbackIfValuePresent(LOCAL_STORE_NEW_COURSE_KEY, setNewCourseEvents);
             callbackIfValuePresent(LOCAL_STORE_ACTIVITY_KEY, setActivityEvents);
         }
-        setEvents([...oldCourseEvents,...newCourseEvents, ...activityEvents]);
+        setEvents([...oldCourseEvents,...newCourseEvents, ...activityEvents, ...getUnsavedStates(activityEvents)]);
     }, [oldCourseEvents, newCourseEvents, activityEvents]);
 
     const [eventTypeColour, setEventTypeColour] = useState<TypeColourDict>(defaultEventColours);

@@ -3,10 +3,11 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { EventModelContext } from '@/components/model/EventModel';
-import {findEarliestEvent, setEventsColour} from '@/components/controller/util/eventsOperations';
-import {CourseEvent, EventType, EventTypeColour} from "@/components/model/interfaces/events/courseEvent";
+import {findEarliestEvent, isUnsavedState} from '@/components/controller/util/eventsOperations';
+import {CourseEvent} from "@/components/model/interfaces/courseEvent";
 import {EventControllerContext} from "@/components/controller/eventController";
 import CalLegend from "@/components/view/colour/CalLegend";
+import {lightenHexColor} from "@/components/controller/util/colourOperations";
 
 
 const EventCalendar: React.FC = () => {
@@ -35,7 +36,7 @@ const EventCalendar: React.FC = () => {
                 start,
                 end,
                 isSelected,
-                style: { backgroundColor: eventTypeColour[event.type] }}},
+                style: { backgroundColor: isUnsavedState(event) ? lightenHexColor(eventTypeColour[event.type], 0.5) : eventTypeColour[event.type]}}},
         [eventTypeColour]
     )
 

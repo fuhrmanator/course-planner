@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import ColourPicker from "@/components/view/colour/ColourPicker";
-import {EventType} from "@/components/model/interfaces/events/courseEvent";
+import {EventType} from "@/components/model/interfaces/courseEvent";
 import {EventModelContext} from "@/components/model/EventModel";
 import {EventControllerContext} from "@/components/controller/eventController";
 import {eventTypeToLabel} from "@/components/model/ressource/eventRessource";

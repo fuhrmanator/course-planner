@@ -1,5 +1,5 @@
 import {describe, expect, test} from '@jest/globals';
-import { CourseEvent, EventType } from '@/components/model/interfaces/events/courseEvent';
+import { CourseEvent, EventType } from '@/components/model/interfaces/courseEvent';
 import { findEarliestEvent } from '@/components/controller/util/eventsOperations';
 
 const startDate = new Date();

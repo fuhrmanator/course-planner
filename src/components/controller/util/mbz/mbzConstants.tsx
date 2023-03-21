@@ -1,4 +1,4 @@
-import { EventType } from "@/components/model/interfaces/events/courseEvent";
+import { EventType } from "@/components/model/interfaces/courseEvent";
 
 export const QUIZ_START_DATE = "timeopen";
 export const QUIZ_END_DATE = "timeclose";

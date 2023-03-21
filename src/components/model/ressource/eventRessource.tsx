@@ -1,8 +1,8 @@
 import {
     EventType,
-     ActivityType, CourseType
-} from "@/components/model/interfaces/events/courseEvent";
-export type TypeColourDict = {[key in EventType]: string};
+    ActivityType, CourseType, TypeColourDict, SuggestionConfigDict
+} from "@/components/model/interfaces/courseEvent";
+
 export const defaultEventColours: TypeColourDict = {
     [EventType.Seminar]:"#3a20fe",
     [EventType.Practica]:"#0055ff",
@@ -23,8 +23,6 @@ export const courseTypeToLabel: {[key in CourseType]: string} = {
 };
 
 export const eventTypeToLabel: {[key in EventType]: string} = {...activityTypeToLabel, ...courseTypeToLabel};
-
-export type SuggestionConfigDict = {[key in ActivityType]: CourseType};
 export const defaultSuggestionTypeMapping: SuggestionConfigDict = {
     [EventType.Homework]: EventType.Laboratories,
     [EventType.Evaluation]: EventType.Seminar,

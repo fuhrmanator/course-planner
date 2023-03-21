@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import {EventModelContext} from "@/components/model/EventModel";
 import {getKeysAsType} from "@/components/controller/util/eventsOperations";
-import {ActivityType, CourseEvent, CourseType} from "@/components/model/interfaces/events/courseEvent";
+import {ActivityType, CourseEvent, CourseType} from "@/components/model/interfaces/courseEvent";
 import {courseTypeToLabel, eventTypeToLabel} from "@/components/model/ressource/eventRessource";
 import {EventControllerContext} from "@/components/controller/eventController";
 interface SuggestionConfigItemProps {

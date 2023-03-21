@@ -2,7 +2,7 @@ import {describe, expect, test} from '@jest/globals';
 import * as fs from 'fs';
 import path from 'path';
 import {parseICALEvents} from '@/components/controller/util/icalInterpreter'
-import { CourseEvent, EventType } from '@/components/model/interfaces/events/courseEvent';
+import { CourseEvent, EventType } from '@/components/model/interfaces/courseEvent';
 const ical = require('ical');
 const dataPath = "__tests__/data";
 

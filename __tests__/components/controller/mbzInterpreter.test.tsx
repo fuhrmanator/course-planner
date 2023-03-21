@@ -1,6 +1,6 @@
 import { applyChangesToArchive, extractData, makeEvents, parseActivities } from '@/components/controller/util/mbz/mbzInterpreter';
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
-import { EventType } from '@/components/model/interfaces/events/courseEvent';
+import { EventType } from '@/components/model/interfaces/courseEvent';
 import {describe, expect, test} from '@jest/globals';
 const path = require('path');
 const fs = require('fs');
