@@ -13,7 +13,7 @@ import {
     defaultSuggestionTypeMapping,
 
 } from "@/components/model/ressource/eventRessource";
-import {findEarliestEvent, flattenUnsavedStates} from "@/components/controller/util/eventsOperations";
+import {findEarliestEvent, getUnsavedStates} from "@/components/controller/util/eventsOperations";
 
 type EventModelContextProps = {
     events: CourseEvent[],
@@ -71,8 +71,7 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
             callbackIfValuePresent(LOCAL_STORE_ACTIVITY_KEY, setActivityEvents);
             callbackIfValuePresent(LOCAL_STORE_SELECTED_KEY, setSelectedEvent);
         }
-        flattenUnsavedStates(activityEvents);
-        setEvents([...oldCourseEvents,...newCourseEvents, ...activityEvents]);
+        setEvents([...oldCourseEvents,...newCourseEvents, ...activityEvents, ...getUnsavedStates(activityEvents)]);
     }, [oldCourseEvents, newCourseEvents, activityEvents]);
 
     const [eventTypeColour, setEventTypeColour] = useState<TypeColourDict>(defaultEventColours);

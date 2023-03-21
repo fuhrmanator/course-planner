@@ -42,13 +42,6 @@ export const removeUnsavedState = (event:CourseEvent): CourseEvent | undefined |
     return unsavedState;
 }
 
-export const flattenUnsavedStates = (events:CourseEvent[]):void => {
-    for (let event of events) {
-        if (hasUnsavedState(event)) {
-            events.push(removeUnsavedState(event) as CourseEvent);
-        }
-    }
-}
 export const getUnsavedStates = (events:CourseEvent[]):CourseEvent[] => {
     const unsavedStates = [];
     for (let event of events) {
