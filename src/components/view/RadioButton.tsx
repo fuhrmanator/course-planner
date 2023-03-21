@@ -12,12 +12,14 @@ const RadioButton: React.FC<RadioButtonProps> = ({ labelTrue, labelFalse, value,
 
     return (
         <div>
-            <label>
+                <label>
                 <input type="radio" checked={value} onChange={handleChange} />
                 {labelTrue}
+                </label>
+                <label>
                 <input type="radio" checked={!value} onChange={handleChange} />
                 {labelFalse}
-            </label>
+                </label>
         </div>
     );
 };

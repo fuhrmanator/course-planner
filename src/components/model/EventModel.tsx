@@ -27,7 +27,6 @@ type EventModelContextProps = {
     setSelectedEvent: React.Dispatch<React.SetStateAction<CourseEvent | undefined>>,
     eventTypeColour: TypeColourDict,
     setEventTypeColour: React.Dispatch<React.SetStateAction<TypeColourDict>>;
-
     suggestionConfig: SuggestionConfigDict,
     setSuggestionConfig: React.Dispatch<React.SetStateAction<SuggestionConfigDict>>;
 }

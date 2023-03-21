@@ -6,7 +6,6 @@ import { applyChangesToArchive, extractData, makeEvents, parseActivities, zipDat
 import {
     addSuggestion, cancelAllUnsavedState,
     findEarliestEvent,
-    flattenUnsavedStates,
     getUnsavedStates,
     saveAll
 } from './util/eventsOperations';
@@ -115,15 +114,11 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setActivityEvents([...activityEvents]);
     };
     const notifyCancelChanges = () => {
-
         cancelAllUnsavedState(activityEvents);
-
         setActivityEvents([... activityEvents]);
     }
     const notifySaveAllChanges = () => {
-        console.log(activityEvents)
         saveAll(activityEvents);
-        console.log(activityEvents)
         setActivityEvents([...activityEvents]);
     }
 

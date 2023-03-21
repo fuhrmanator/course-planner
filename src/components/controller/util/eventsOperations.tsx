@@ -2,6 +2,7 @@
 import {
     ActivityEvent, ActivityType,
     CourseEvent,
+    EventType,
     SuggestionConfigDict
 } from "@/components/model/interfaces/courseEvent";
 
@@ -31,9 +32,7 @@ export const saveAll = (events: CourseEvent[]):void => {
 
 export const cancelAllUnsavedState = (events: CourseEvent[]):void => {
     for(let event of events) {
-        console.log(event.unsavedState)
         removeUnsavedState(event);
-        console.log(event.unsavedState)
     }
 }
 export const removeUnsavedState = (event:CourseEvent): CourseEvent | undefined | null => {
@@ -84,12 +83,17 @@ export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents:
         let oldCoursesWithTypeTo = oldCourseEvents.filter((event) => event.type === config[typeFrom]);
         let newCoursesWithTypeTo = newCourseEvents.filter((event) => event.type === config[typeFrom]);
         let eventToSuggestionWithTypeFrom = eventsToSuggest.filter((event) => event.type === typeFrom);
-        if (oldCoursesWithTypeTo.length > 0) {
+        if (oldCoursesWithTypeTo.length > 0 && newCoursesWithTypeTo.length > 0) {
             for (let event of eventToSuggestionWithTypeFrom) {
+                
                 let oldCourseIndex = findNearestEventIndex(event, oldCoursesWithTypeTo);
                 let eventSuggestion = getOrAddUnsavedState(event);
                 eventSuggestion.start = new Date(newCoursesWithTypeTo[oldCourseIndex].start.getTime() + event.start.getTime()- oldCoursesWithTypeTo[oldCourseIndex].start.getTime());
                 eventSuggestion.end = new Date(eventSuggestion.start.getTime() + event.end.getTime() - event.start.getTime())
+                if (event.type === EventType.Homework) {
+                    console.log(oldCourseIndex)
+                    console.log(event.start.getTime()- oldCoursesWithTypeTo[oldCourseIndex].start.getTime())
+                 }
             }
         }
     }
