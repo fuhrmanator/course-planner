@@ -5,11 +5,11 @@ export const getValue = (key:string, defaultValue:any) => {
 }
 
 
-export const callbackIfValuePresent = (key:string, callback:(value:any)=>void) => {
+export const callbackIfValuePresent = (key:string, parseFunction:(value:string)=>any, setFunction:(value:any)=>void):void => {
     if (typeof window !== "undefined") {
         const maybeValue = localStorage.getItem(KEY_PREIFX+key);
         if (maybeValue != null) {
-            callback( maybeValue === "undefined" ? maybeValue : JSON.parse(maybeValue));
+            setFunction(parseFunction(maybeValue));
         }
     }
 }

@@ -13,7 +13,11 @@ import {
     defaultSuggestionTypeMapping,
 
 } from "@/components/model/ressource/eventRessource";
-import {findEarliestEvent, getUnsavedStates} from "@/components/controller/util/eventsOperations";
+import {
+    getUnsavedStates,
+    parseStoredEvent,
+    parseStoredEvents
+} from "@/components/controller/util/eventsOperations";
 
 type EventModelContextProps = {
     events: CourseEvent[],
@@ -65,10 +69,10 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
             setValue(LOCAL_STORE_SELECTED_KEY, selectedEvent);
         } else { // replace dummy array with true values when it's created
             areEventsLoadedFromStore.current = true;
-            callbackIfValuePresent(LOCAL_STORE_OLD_COURSE_KEY, setOldCourseEvents);
-            callbackIfValuePresent(LOCAL_STORE_NEW_COURSE_KEY, setNewCourseEvents);
-            callbackIfValuePresent(LOCAL_STORE_ACTIVITY_KEY, setActivityEvents);
-            callbackIfValuePresent(LOCAL_STORE_SELECTED_KEY, setSelectedEvent);
+            callbackIfValuePresent(LOCAL_STORE_OLD_COURSE_KEY, parseStoredEvents, setOldCourseEvents);
+            callbackIfValuePresent(LOCAL_STORE_NEW_COURSE_KEY, parseStoredEvents, setNewCourseEvents);
+            callbackIfValuePresent(LOCAL_STORE_ACTIVITY_KEY, parseStoredEvents, setActivityEvents);
+            callbackIfValuePresent(LOCAL_STORE_SELECTED_KEY, parseStoredEvent, setSelectedEvent);
         }
         setEvents([...oldCourseEvents,...newCourseEvents, ...activityEvents, ...getUnsavedStates(activityEvents)]);
     }, [oldCourseEvents, newCourseEvents, activityEvents]);
@@ -81,7 +85,7 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
                 setValue(LOCAL_STORE_COLOUR_KEY, eventTypeColour);
             } else {
                 areColoursLoadedFromStore.current = true;
-                callbackIfValuePresent(LOCAL_STORE_COLOUR_KEY, setEventTypeColour);
+                callbackIfValuePresent(LOCAL_STORE_COLOUR_KEY, JSON.parse, setEventTypeColour);
             }
     }, [eventTypeColour]);
 
@@ -91,7 +95,7 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
             setValue(LOCAL_STORE_SUGGESTION_KEY, suggestionConfig);
         } else {
             isSuggestionConfigLoadedFromStore.current = true;
-            callbackIfValuePresent(LOCAL_STORE_SUGGESTION_KEY, setSuggestionConfig);
+            callbackIfValuePresent(LOCAL_STORE_SUGGESTION_KEY, JSON.parse, setSuggestionConfig);
         }
     }, [suggestionConfig]);
 

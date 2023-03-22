@@ -7,6 +7,30 @@ import {
 } from "@/components/model/interfaces/courseEvent";
 
 
+export const parseStoredEvents = (toParse:string): CourseEvent[] => {
+    const parsed:CourseEvent[] = JSON.parse(toParse);
+    for (let event of parsed) {
+        parseStringDates(event);
+    }
+    return parsed;
+}
+export const parseStoredEvent = (toParse: string): CourseEvent|undefined => {
+    let parsed;
+    if (toParse !== "undefined") {
+        parsed = JSON.parse(toParse);
+        parseStringDates(parsed);
+    }
+    return parsed
+}
+
+const parseStringDates = (event : CourseEvent) => {
+    event.start = new Date(event.start);
+    event.end = new Date(event.end);
+    if (hasUnsavedState(event)) {
+        parseStringDates(event.unsavedState as CourseEvent);
+    }
+}
+
 export const findEarliestEvent = (events: CourseEvent[]):CourseEvent => {
     return events.reduce((earliestEventYet:CourseEvent, event:CourseEvent) => {return earliestEventYet.start < event.start ? earliestEventYet : event});
 }
@@ -85,7 +109,6 @@ export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents:
         let eventToSuggestionWithTypeFrom = eventsToSuggest.filter((event) => event.type === typeFrom);
         if (oldCoursesWithTypeTo.length > 0 && newCoursesWithTypeTo.length > 0) {
             for (let event of eventToSuggestionWithTypeFrom) {
-                
                 let oldCourseIndex = findNearestEventIndex(event, oldCoursesWithTypeTo);
                 let eventSuggestion = getOrAddUnsavedState(event);
                 eventSuggestion.start = new Date(newCoursesWithTypeTo[oldCourseIndex].start.getTime() + event.start.getTime()- oldCoursesWithTypeTo[oldCourseIndex].start.getTime());
