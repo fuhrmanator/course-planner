@@ -77,8 +77,8 @@ export const findNearestEventIndex = (event: CourseEvent, events: CourseEvent[])
 }
 
 export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents: CourseEvent[], newCourseEvents: CourseEvent[], config: SuggestionConfigDict):void => {
-    sortEvents(oldCourseEvents)
-    sortEvents(newCourseEvents)
+    sortEventsByLatestStart(oldCourseEvents)
+    sortEventsByLatestStart(newCourseEvents)
     for (let typeFrom of getKeysAsType<ActivityType>(config)) {
         let oldCoursesWithTypeTo = oldCourseEvents.filter((event) => event.type === config[typeFrom]);
         let newCoursesWithTypeTo = newCourseEvents.filter((event) => event.type === config[typeFrom]);
@@ -99,8 +99,8 @@ export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents:
     }
 }
 
-export const sortEvents = (events:CourseEvent[]):void => {
-    events.sort((a,b) => a.start.getTime() - b.start.getTime());
+export const sortEventsByLatestStart = (events:CourseEvent[]):void => {
+    events.sort((a,b) => b.start.getTime() - a.start.getTime());
 }
 
 export const getKeysAsType = <T extends number>(dict: {[keys in T]: any}):T[] => {
