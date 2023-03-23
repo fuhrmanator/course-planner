@@ -2,6 +2,7 @@ import {
     ActivityEvent,
     CourseEvent,
     EventTypeColour,
+    SuggestionTypeMapConfig,
     TypeColourDict
 } from './interfaces/courseEvent'
 import React, {useState, createContext, useEffect, useRef} from 'react'
@@ -9,7 +10,7 @@ import {callbackIfValuePresent, getValue, setValue} from './localStore';
 
 import {
     defaultEventColours,
-
+    defaultSuggestionTypeMapping,
 
 } from "@/components/model/ressource/eventRessource";
 import {
@@ -17,8 +18,6 @@ import {
     parseStoredEvent,
     parseStoredEvents
 } from "@/components/controller/util/eventsOperations";
-import {SuggestionConfig, SuggestionTypeMapConfig} from "@/components/model/interfaces/suggestion";
-import {defaultSuggestionConfig, defaultSuggestionTypeMapping} from "@/components/model/ressource/suggestionRessource";
 
 type EventModelContextProps = {
     events: CourseEvent[],
@@ -32,8 +31,8 @@ type EventModelContextProps = {
     setSelectedEvent: React.Dispatch<React.SetStateAction<CourseEvent | undefined>>,
     eventTypeColour: TypeColourDict,
     setEventTypeColour: React.Dispatch<React.SetStateAction<TypeColourDict>>;
-    suggestionConfig: SuggestionConfig,
-    setSuggestionConfig: React.Dispatch<React.SetStateAction<SuggestionConfig>>;
+    suggestionConfig: SuggestionTypeMapConfig,
+    setSuggestionConfig: React.Dispatch<React.SetStateAction<SuggestionTypeMapConfig>>;
 }
 
 export const EventModelContext = createContext<EventModelContextProps>({} as EventModelContextProps);
@@ -59,7 +58,7 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
 
     const [selectedEvent, setSelectedEvent] = useState<CourseEvent|undefined>(undefined);
 
-    const [suggestionConfig, setSuggestionConfig] = useState<SuggestionConfig>(defaultSuggestionConfig);
+    const [suggestionConfig, setSuggestionConfig] = useState<SuggestionTypeMapConfig>(defaultSuggestionTypeMapping);
 
     const areEventsLoadedFromStore = useRef<boolean>(false);
     useEffect(()=>{
