@@ -11,6 +11,7 @@ import ShowSuggestionConfigOverlay from "@/components/view/suggestion/ShowSugges
 import SuggestionButton from "@/components/view/buttons/SuggestionButton";
 import SaveAllChangesButton from "@/components/view/buttons/SaveAllChangesButton";
 import CancelChangesButton from "@/components/view/buttons/CancelChangesButton";
+import ShowEventsByTypes from '@/components/view/dateEdit/ShowEventsByType'
 
 export default function Home() {
   return (
@@ -34,6 +35,8 @@ export default function Home() {
               <SuggestionButton />
               <SaveAllChangesButton />
               <CancelChangesButton />
+              <ShowEventsByTypes />
+
             </EventController>
           </EventModel>
         </div>

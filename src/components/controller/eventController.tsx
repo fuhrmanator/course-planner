@@ -15,7 +15,8 @@ import {
     ActivityType,
     CourseEvent,
     CourseType,
-    EventType
+    EventType,
+    TypeColourDict
 } from "@/components/model/interfaces/courseEvent";
 import suggestionButton from "@/components/view/buttons/SuggestionButton";
 import cancelChangesButton from "@/components/view/buttons/CancelChangesButton";
