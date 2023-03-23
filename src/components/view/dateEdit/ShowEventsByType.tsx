@@ -1,20 +1,23 @@
 import { EventModelContext } from "@/components/model/EventModel";
-import { EventType, CourseEvent } from "@/components/model/interfaces/courseEvent";
+import { CourseEvent, ActivityType} from "@/components/model/interfaces/courseEvent";
 import styles from "@/components/view/style/ShowEventsByType.module.css";
 import React, { useContext, useState } from "react";
 import moment from "moment";
 import EventItem from "@/components/view/dateEdit/EventItem";
+import {getKeysAsType} from "@/components/controller/util/eventsOperations";
+import {activityTypeToLabel} from "@/components/model/ressource/eventRessource";
+import {EventControllerContext} from "@/components/controller/eventController";
 
 
 const ShowEventsByType: React.FC = () => {
-  const { events } = useContext(EventModelContext);
+  // TODO amokrane utiliser cette fonction pour apporter des changemetns aux évènements
+  // étant donné qu'elle prend un évènement relativeTo en param, tu va devoir lui passer
+  // l'évènement sélectionné par le menu déroulant "évènement"
+  // Pour obtenir la liste des évènements de type scéance de cours assure toi d'aller chercher la bonne
+  // collection dans le contexte du model ( courseEvents )
 
-  const homeworkEvents = events.filter(
-    (event) => event.type === EventType.Homework
-  );
-  const evaluationEvents = events.filter(
-    (event) => event.type === EventType.Evaluation
-  );
+  const { notifyRelativeChange } = useContext(EventControllerContext);
+  const { activityEvents } = useContext(EventModelContext);
 
   const [isDetailsVisible, setIsDetailsVisible] = useState<{ [key: string]: boolean }>({});
 
@@ -47,18 +50,14 @@ const ShowEventsByType: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.col}>
-        <h2>Devoir</h2>
-        {homeworkEvents.map((event) => (
-          <EventItem event={event} key={event.uid} />
+        {getKeysAsType<ActivityType>(activityTypeToLabel).map((activityType) => (
+            <div className={styles.col}>
+                <h2>{activityTypeToLabel[activityType]}</h2>
+                {activityEvents.filter((event)=>event.type === activityType).map((event) => (
+                    <EventItem event={event} key={event.uid} />
+                ))}
+            </div>
         ))}
-      </div>
-      <div className={styles.col}>
-        <h2>Quiz</h2>
-        {evaluationEvents.map((event) => (
-          <EventItem event={event} key={event.uid} />
-        ))}
-      </div>
     </div>
   );
 };

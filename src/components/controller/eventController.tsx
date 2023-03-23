@@ -5,7 +5,7 @@ import { EventModelContext } from '@/components/model/EventModel';
 import { applyChangesToArchive, extractData, makeEvents, parseActivities, zipData } from './util/mbz/mbzInterpreter';
 import {
     addSuggestion, cancelAllUnsavedState,
-    findEarliestEvent,
+    findEarliestEvent, getOrAddUnsavedState,
     getUnsavedStates,
     saveAll
 } from './util/eventsOperations';
@@ -34,6 +34,8 @@ type EventControllerContextProps = {
     notifySuggestion: ()=>void;
     notifySaveAllChanges: ()=>void;
     notifyCancelChanges: ()=>void;
+
+    notifyRelativeChange: (event:CourseEvent, relativeTo: CourseEvent, offset:number)=> void;
 }
 
 export const EventControllerContext = createContext<EventControllerContextProps>({} as EventControllerContextProps);
@@ -123,6 +125,13 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setActivityEvents([...activityEvents]);
     }
 
+    const notifyRelativeChange = (event:CourseEvent, relativeTo: CourseEvent, offset:number): void => {
+        const unsavedState = getOrAddUnsavedState(event);
+        unsavedState.start = new Date(relativeTo.start.getTime() + offset);
+        unsavedState.end = new Date(unsavedState.start.getTime() + event.end.getTime() - event.start.getTime());
+        setActivityEvents([...activityEvents]);
+    }
+
     return (
         <EventControllerContext.Provider value={{
             notifyCourseFormSubmit,
@@ -134,7 +143,8 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
             notifySuggestionConfigUpdate,
             notifySuggestion,
             notifySaveAllChanges,
-            notifyCancelChanges}}>
+            notifyCancelChanges,
+            notifyRelativeChange}}>
             {children}
         </EventControllerContext.Provider>
     );
