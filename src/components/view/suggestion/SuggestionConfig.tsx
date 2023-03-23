@@ -4,6 +4,7 @@ import {getKeysAsType} from "@/components/controller/util/eventsOperations";
 import {ActivityType, CourseEvent, CourseType} from "@/components/model/interfaces/courseEvent";
 import {courseTypeToLabel, eventTypeToLabel} from "@/components/model/ressource/eventRessource";
 import {EventControllerContext} from "@/components/controller/eventController";
+import RadioButton from "@/components/view/RadioButton";
 interface SuggestionConfigItemProps {
     type: ActivityType,
     value: CourseType,
@@ -29,18 +30,25 @@ interface DropdownProps {
 const SuggestionConfig: React.FC<DropdownProps> = () => {
     const {suggestionConfig} = useContext(EventModelContext)
     const {notifySuggestionConfigUpdate} = useContext(EventControllerContext)
-    const handleChange = (type:ActivityType, value:string) => {
-        notifySuggestionConfigUpdate(type, parseInt(value) as CourseType); // will always be of CourseType
+    const handleTypeChange = (type:ActivityType, value:string) => {
+        suggestionConfig.typeMap[type] = parseInt(value) as CourseType;
+        notifySuggestionConfigUpdate(suggestionConfig); // will always be of CourseType
+    };
+
+    const handleBoolChange = (newBool: boolean) => {
+        suggestionConfig.useAbsoluteTime = newBool
+        notifySuggestionConfigUpdate(suggestionConfig); // will always be of CourseType
     };
 
     return (
         <div>
-            {getKeysAsType<ActivityType>(suggestionConfig).map((activityType) => (
+            {getKeysAsType<ActivityType>(suggestionConfig.typeMap).map((activityType) => (
                 <div key={activityType}>
                     <label>{eventTypeToLabel[activityType]}</label>
-                    <SuggestionConfigItem type={activityType} value={suggestionConfig[activityType]} onChange={handleChange} />
+                    <SuggestionConfigItem type={activityType} value={suggestionConfig.typeMap[activityType]} onChange={handleTypeChange} />
                 </div>
             ))}
+            <RadioButton labelTrue={"Durée absolue"} labelFalse={"Durée relative"} value={suggestionConfig.useAbsoluteTime} onChange={handleBoolChange} />
         </div>
     );
 };

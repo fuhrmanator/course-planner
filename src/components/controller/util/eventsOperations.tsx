@@ -2,9 +2,9 @@
 import {
     ActivityEvent, ActivityType,
     CourseEvent,
-    EventType,
-    SuggestionTypeMapConfig
+    EventType
 } from "@/components/model/interfaces/courseEvent";
+import {SuggestionConfig, SuggestionTypeMapConfig} from "@/components/model/interfaces/suggestion";
 
 
 export const parseStoredEvents = (toParse:string): CourseEvent[] => {
@@ -100,12 +100,12 @@ export const findNearestEventIndex = (event: CourseEvent, events: CourseEvent[])
     }
     return Math.max(nearest,0);
 }
-export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents: CourseEvent[], newCourseEvents: CourseEvent[], config: SuggestionTypeMapConfig):void => {
+export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents: CourseEvent[], newCourseEvents: CourseEvent[], config: SuggestionConfig):void => {
     sortEventsByOldestStart(oldCourseEvents)
     sortEventsByOldestStart(newCourseEvents)
-    for (let typeFrom of getKeysAsType<ActivityType>(config)) {
-        let oldCoursesWithTypeTo = oldCourseEvents.filter((event) => event.type === config[typeFrom]);
-        let newCoursesWithTypeTo = newCourseEvents.filter((event) => event.type === config[typeFrom]);
+    for (let typeFrom of getKeysAsType<ActivityType>(config.typeMap)) {
+        let oldCoursesWithTypeTo = oldCourseEvents.filter((event) => event.type === config.typeMap[typeFrom]);
+        let newCoursesWithTypeTo = newCourseEvents.filter((event) => event.type === config.typeMap[typeFrom]);
         let eventToSuggestionWithTypeFrom = eventsToSuggest.filter((event) => event.type === typeFrom);
         if (oldCoursesWithTypeTo.length > 0 && newCoursesWithTypeTo.length > 0) {
             for (let event of eventToSuggestionWithTypeFrom) {

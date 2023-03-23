@@ -19,6 +19,7 @@ import {
 } from "@/components/model/interfaces/courseEvent";
 import suggestionButton from "@/components/view/buttons/SuggestionButton";
 import cancelChangesButton from "@/components/view/buttons/CancelChangesButton";
+import {SuggestionConfig} from "@/components/model/interfaces/suggestion";
 
 
 
@@ -29,7 +30,7 @@ type EventControllerContextProps = {
     notifyMBZSubmitted : (file: File) => void;
     notifyMBZDownload : (oldURL: string) => string;
     notifyEventColourUpdate: (type: EventType, newColour: string) => void;
-    notifySuggestionConfigUpdate: (type: ActivityType, mapping: CourseType) => void;
+    notifySuggestionConfigUpdate: (newConfig: SuggestionConfig) => void;
     notifySuggestion: ()=>void;
     notifySaveAllChanges: ()=>void;
     notifyCancelChanges: ()=>void;
@@ -104,9 +105,8 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setEventTypeColour({...eventTypeColour});
     };
 
-    const notifySuggestionConfigUpdate = (type: ActivityType, mapping: CourseType):void => {
-        suggestionConfig[type] = mapping;
-        setSuggestionConfig({...suggestionConfig});
+    const notifySuggestionConfigUpdate = (newConfig: SuggestionConfig):void => {
+        setSuggestionConfig({...newConfig});
     }
 
     const notifySuggestion = () => {
