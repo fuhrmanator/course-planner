@@ -49,7 +49,7 @@ const EventCalendar: React.FC = () => {
                 events={events}
                 startAccessor="start"
                 endAccessor="end"
-                style={{ height: 500 }}
+                style={{ height: 800 }}
                 date={selectedDate}
                 onNavigate={onNavigate}
                 onSelectEvent={onSelectEvent}

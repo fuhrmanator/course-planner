@@ -27,4 +27,4 @@ export interface ActivityEvent extends CourseEvent {
 export type ActivityType = EventType.Homework | EventType.Evaluation
 export type CourseType = EventType.Seminar | EventType.Laboratories | EventType.Practica
 export type TypeColourDict = {[key in EventType]: string};
-export type SuggestionConfigDict = {[key in ActivityType]: CourseType};
+export type SuggestionTypeMapConfig = {[key in ActivityType]: CourseType};

@@ -3,7 +3,7 @@ import {
     ActivityEvent, ActivityType,
     CourseEvent,
     EventType,
-    SuggestionConfigDict
+    SuggestionTypeMapConfig
 } from "@/components/model/interfaces/courseEvent";
 
 
@@ -92,17 +92,15 @@ export const isUnsavedState = (event:CourseEvent):boolean => {
 export const findNearestEventIndex = (event: CourseEvent, events: CourseEvent[]):number => {
     let nearest = events.length -1;
     for (let i=0; i<events.length; i++) {
-        if (event.start <= events[i].start) {
-            nearest = i;
+
+        if (event.start < events[i].start) {
+            nearest = i - 1;
             break;
         }
     }
-    return nearest;
+    return Math.max(nearest,0);
 }
-//Le problème de dimension arrive dans avec les deux ordres de triage.
-// Seulement, avec l'ordre inverse il faut en plus de vérifier le suprplus, décaler l'index.
-// Addapte donc le code en ordre naturel
-export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents: CourseEvent[], newCourseEvents: CourseEvent[], config: SuggestionConfigDict):void => {
+export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents: CourseEvent[], newCourseEvents: CourseEvent[], config: SuggestionTypeMapConfig):void => {
     sortEventsByOldestStart(oldCourseEvents)
     sortEventsByOldestStart(newCourseEvents)
     for (let typeFrom of getKeysAsType<ActivityType>(config)) {
