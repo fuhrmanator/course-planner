@@ -99,31 +99,29 @@ export const findNearestEventIndex = (event: CourseEvent, events: CourseEvent[])
     }
     return nearest;
 }
-
+//Le problème de dimension arrive dans avec les deux ordres de triage.
+// Seulement, avec l'ordre inverse il faut en plus de vérifier le suprplus, décaler l'index.
+// Addapte donc le code en ordre naturel
 export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents: CourseEvent[], newCourseEvents: CourseEvent[], config: SuggestionConfigDict):void => {
-    sortEventsByLatestStart(oldCourseEvents)
-    sortEventsByLatestStart(newCourseEvents)
+    sortEventsByOldestStart(oldCourseEvents)
+    sortEventsByOldestStart(newCourseEvents)
     for (let typeFrom of getKeysAsType<ActivityType>(config)) {
         let oldCoursesWithTypeTo = oldCourseEvents.filter((event) => event.type === config[typeFrom]);
         let newCoursesWithTypeTo = newCourseEvents.filter((event) => event.type === config[typeFrom]);
         let eventToSuggestionWithTypeFrom = eventsToSuggest.filter((event) => event.type === typeFrom);
         if (oldCoursesWithTypeTo.length > 0 && newCoursesWithTypeTo.length > 0) {
             for (let event of eventToSuggestionWithTypeFrom) {
-                let oldCourseIndex = findNearestEventIndex(event, oldCoursesWithTypeTo);
+                let courseNumber = Math.min(findNearestEventIndex(event, oldCoursesWithTypeTo), newCoursesWithTypeTo.length - 1);
                 let eventSuggestion = getOrAddUnsavedState(event);
-                eventSuggestion.start = new Date(newCoursesWithTypeTo[oldCourseIndex].start.getTime() + event.start.getTime()- oldCoursesWithTypeTo[oldCourseIndex].start.getTime());
+                eventSuggestion.start = new Date(newCoursesWithTypeTo[courseNumber].start.getTime() + event.start.getTime()- oldCoursesWithTypeTo[courseNumber].start.getTime());
                 eventSuggestion.end = new Date(eventSuggestion.start.getTime() + event.end.getTime() - event.start.getTime())
-                if (event.type === EventType.Homework) {
-                    console.log(oldCourseIndex)
-                    console.log(event.start.getTime()- oldCoursesWithTypeTo[oldCourseIndex].start.getTime())
-                 }
             }
         }
     }
 }
 
-export const sortEventsByLatestStart = (events:CourseEvent[]):void => {
-    events.sort((a,b) => b.start.getTime() - a.start.getTime());
+export const sortEventsByOldestStart = (events:CourseEvent[]):void => {
+    events.sort((a,b) =>  a.start.getTime() - b.start.getTime());
 }
 
 export const getKeysAsType = <T extends number>(dict: {[keys in T]: any}):T[] => {

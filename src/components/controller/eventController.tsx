@@ -95,6 +95,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
     }
 
     const notifyEventSelected = (event:CourseEvent) => {
+        console.log(event)
         setSelectedEvent(event);
     }
 
