@@ -238,8 +238,7 @@ describe('Suggestion', () => {
 
     addSuggestion(eventToSuggest, oldCourse, newCourse, config);
 
-    for (let event of eventToSuggest) {
-      expect(event.unsavedState).toBeDefined();
-    }
+    expect(eventToSuggest[0].unsavedState).toBeDefined();
+    expect(eventToSuggest[0].unsavedState!.start.getTime() - newCourse[0].start.getTime()).toBe(offest);
   });
 });
