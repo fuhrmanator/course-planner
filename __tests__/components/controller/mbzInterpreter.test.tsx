@@ -1,6 +1,6 @@
 import { applyChangesToArchive, extractData, makeEvents, parseActivities } from '@/components/controller/util/mbz/mbzInterpreter';
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
-import { CalEventType } from '@/components/model/interfaces/events/calEvent';
+import { EventType } from '@/components/model/interfaces/courseEvent';
 import {describe, expect, test} from '@jest/globals';
 const path = require('path');
 const fs = require('fs');
@@ -56,8 +56,8 @@ async function readFilesFromDirectory(directoryPath:string, subpath:string=""):P
   }
 
 const moodleTypeToEventType = {
-  "quiz" : CalEventType.Evaluation,
-  "assign" : CalEventType.Homework
+  "quiz" : EventType.Evaluation,
+  "assign" : EventType.Homework
 };
 
 const eventAttributeToPattern: {[key: string]: RegExp} = {

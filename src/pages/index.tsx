@@ -1,12 +1,16 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
-import EventCalendar from '@/components/view/eventCalendar'
-import CourseInformationForm from '@/components/view/courseInformationForm'
+import EventCalendar from '@/components/view/EventCalendar'
+import CourseInformationForm from '@/components/view/CourseInformationForm'
 import {EventController} from '@/components/controller/eventController'
-import ClearCalButton from '@/components/view/clearCalButton'
-import {EventModel} from '@/components/model/eventModel'
-import FilePickerMBZ from '@/components/view/filePickerMBZ'
-import DownloadMBZButton from '@/components/view/downloadMBZButton'
+import ClearCalButton from '@/components/view/buttons/ClearCalButton'
+import {EventModel} from '@/components/model/EventModel'
+import FilePickerMBZ from '@/components/view/buttons/FilePickerMBZ'
+import DownloadMBZButton from '@/components/view/buttons/DownloadMBZButton'
+import ShowSuggestionConfigOverlay from "@/components/view/suggestion/ShowSuggestionConfigOverlay";
+import SuggestionButton from "@/components/view/buttons/SuggestionButton";
+import SaveAllChangesButton from "@/components/view/buttons/SaveAllChangesButton";
+import CancelChangesButton from "@/components/view/buttons/CancelChangesButton";
 
 export default function Home() {
   return (
@@ -26,6 +30,10 @@ export default function Home() {
               <ClearCalButton />
               <FilePickerMBZ />
               <DownloadMBZButton />
+              <ShowSuggestionConfigOverlay />
+              <SuggestionButton />
+              <SaveAllChangesButton />
+              <CancelChangesButton />
             </EventController>
           </EventModel>
         </div>

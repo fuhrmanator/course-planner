@@ -1,8 +1,8 @@
 import {decompressSync, Zippable, zipSync} from 'fflate';
 // @ts-ignore
 import FastXML from 'fast-xml-parser';
-import { CalEventType } from '@/components/model/interfaces/events/calEvent';
-import { MBZEvent } from '@/components/model/interfaces/events/mbzEvent';
+import { EventType } from '@/components/model/interfaces/courseEvent';
+import { ActivityEvent } from '@/components/model/interfaces/events/activityEvent';
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
 import MBZArchive from '@/components/model/interfaces/archive/MBZArchive';
 import * as mbzConstants from './mbzConstants';
@@ -34,17 +34,17 @@ function deleteActivitiesFromArchive(data: MBZArchive, toDelete: ArchiveFile[]):
     }
 }
 
-function applyChangesToFile(file: ArchiveFile, event:MBZEvent):void  {
+function applyChangesToFile(file: ArchiveFile, event:ActivityEvent):void  {
     const activityLevel = file.parsedData[mbzConstants.ACTIVITY_WRAPPER]
     const mbzType = getParsedAttribute(activityLevel, mbzConstants.ACTIVITY_TYPE);
     const dateLevel = activityLevel[mbzType];
     switch (event.type) {
-        case CalEventType.Evaluation: {
+        case EventType.Evaluation: {
             dateLevel[mbzConstants.QUIZ_START_DATE] = JSDateToMBZ(event.start);
             dateLevel[mbzConstants.QUIZ_END_DATE] = JSDateToMBZ(event.end);
             break;
         }
-        case CalEventType.Homework: {
+        case EventType.Homework: {
             dateLevel[mbzConstants.ASSIGN_START_DATE] = JSDateToMBZ(event.start);
             dateLevel[mbzConstants.ASSIGN_END_DATE] = JSDateToMBZ(event.end);
             break;
@@ -52,7 +52,7 @@ function applyChangesToFile(file: ArchiveFile, event:MBZEvent):void  {
     }
 }
 
-export const applyChangesToArchive = (data: MBZArchive, events: MBZEvent[]):void => {
+export const applyChangesToArchive = (data: MBZArchive, events: ActivityEvent[]):void => {
     const activitiesToDelete: ArchiveFile[] = [];
     for (let activityPath in data.activities) {
         let event = events.find((event) => event.path === activityPath);
@@ -115,8 +115,8 @@ export const parseActivities = (data: ArchiveFile[]): MBZArchive => {
     
 }
 
-export const makeEvents = (data:MBZArchive):MBZEvent[] => {
-    const calEvents:MBZEvent[] = [];
+export const makeEvents = (data:MBZArchive):ActivityEvent[] => {
+    const calEvents:ActivityEvent[] = [];
     
     for (let activityPath in data.activities) {
         let activityFile = data.activities[activityPath];
@@ -142,17 +142,17 @@ function mbzDateToJS(mbzDate : string): Date{
     return new Date(parseInt(mbzDate, 10)* 1000);
 }
 
-function mbzToEvent(obj:any, id:string, path:string, mbzType: string): MBZEvent {
+function mbzToEvent(obj:any, id:string, path:string, mbzType: string): ActivityEvent {
     let startDate;
     let endDate;
     const type = mbzConstants.ACTIVITY_TO_JS[mbzType];
     switch (type) {
-        case CalEventType.Evaluation: {
+        case EventType.Evaluation: {
             startDate = obj[mbzConstants.QUIZ_START_DATE]
             endDate = obj[mbzConstants.QUIZ_END_DATE]
             break;
         }
-        case CalEventType.Homework: {
+        case EventType.Homework: {
             startDate= obj[mbzConstants.ASSIGN_START_DATE]
             endDate= obj[mbzConstants.ASSIGN_END_DATE]
             break;
