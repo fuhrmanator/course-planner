@@ -1,8 +1,7 @@
 import {decompressSync, Zippable, zipSync} from 'fflate';
 // @ts-ignore
 import FastXML from 'fast-xml-parser';
-import { EventType } from '@/components/model/interfaces/courseEvent';
-import { ActivityEvent } from '@/components/model/interfaces/events/activityEvent';
+import {ActivityEvent, EventType} from '@/components/model/interfaces/courseEvent';
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
 import MBZArchive from '@/components/model/interfaces/archive/MBZArchive';
 import * as mbzConstants from './mbzConstants';
