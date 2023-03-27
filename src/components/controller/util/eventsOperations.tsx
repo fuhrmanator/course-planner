@@ -6,7 +6,15 @@ import {
     SuggestionTypeMapConfig
 } from "@/components/model/interfaces/courseEvent";
 
-
+export const hasDueDate = (event:CourseEvent):boolean => {
+    return typeof event.due !== "undefined";
+}
+export const getDueDate = (event:CourseEvent): Date => {
+    if (!(hasDueDate(event))) {
+        event.due = new Date(event.end.getTime());
+    }
+    return event.due!;
+}
 export const parseStoredEvents = (toParse:string): CourseEvent[] => {
     const parsed:CourseEvent[] = JSON.parse(toParse);
     for (let event of parsed) {

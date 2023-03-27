@@ -17,8 +17,7 @@ import {
     CourseType,
     EventType
 } from "@/components/model/interfaces/courseEvent";
-import suggestionButton from "@/components/view/buttons/SuggestionButton";
-import cancelChangesButton from "@/components/view/buttons/CancelChangesButton";
+import {parseDSL} from "@/components/controller/util/dsl/dslOperations";
 
 
 
@@ -33,6 +32,8 @@ type EventControllerContextProps = {
     notifySuggestion: ()=>void;
     notifySaveAllChanges: ()=>void;
     notifyCancelChanges: ()=>void;
+
+    notifySubmitDSL: (dsl:string) => void;
 }
 
 export const EventControllerContext = createContext<EventControllerContextProps>({} as EventControllerContextProps);
@@ -123,6 +124,10 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setActivityEvents([...activityEvents]);
     }
 
+    const notifySubmitDSL  = (dsl:string) => {
+        parseDSL(dsl, activityEvents, newCourseEvents);
+    }
+
     return (
         <EventControllerContext.Provider value={{
             notifyCourseFormSubmit,
@@ -134,7 +139,8 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
             notifySuggestionConfigUpdate,
             notifySuggestion,
             notifySaveAllChanges,
-            notifyCancelChanges}}>
+            notifyCancelChanges,
+            notifySubmitDSL}}>
             {children}
         </EventControllerContext.Provider>
     );

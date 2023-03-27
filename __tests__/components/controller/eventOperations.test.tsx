@@ -180,7 +180,7 @@ describe('Suggestion', () => {
     usedActivityType = EventType.Homework
     unusedActivityType= EventType.Evaluation
     usedCourseType = EventType.Seminar
-    unusedCourseType = EventType.Practica
+    unusedCourseType = EventType.Practicum
 
     oldStart = new Date(0);
     oldEnd = new Date(1);

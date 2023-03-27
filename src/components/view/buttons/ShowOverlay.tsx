@@ -2,7 +2,11 @@ import React, {MouseEventHandler, useState} from "react";
 import SuggestionConfig from "@/components/view/suggestion/SuggestionConfig";
 import styles from "@/components/view/style/ShowOverlay.module.css"
 import classNames from "classnames";
-const ShowSuggestionConfigOverlay: React.FC = () => {
+type ShowOverlayProps = {
+    children: React.ReactNode;
+    label: string;
+}
+const ShowOverlay: React.FC<ShowOverlayProps> = ({children, label}) => {
     const [showOverlay, setShowOverlay] = useState(false);
     const visibilityClass = classNames({
         [styles.hidden]: !showOverlay,
@@ -20,10 +24,10 @@ const ShowSuggestionConfigOverlay: React.FC = () => {
     return (
         <div>
             <a onClick={handleAnchorClick}>
-                Configurer la suggestion
+                {label}
             </a>
             <div className={visibilityClass}>
-                <SuggestionConfig />
+                {children}
                 <button onClick={handleCloseClick} >Fermer</button>
             </div>
 
@@ -31,4 +35,4 @@ const ShowSuggestionConfigOverlay: React.FC = () => {
     );
 };
 
-export default ShowSuggestionConfigOverlay;
+export default ShowOverlay;

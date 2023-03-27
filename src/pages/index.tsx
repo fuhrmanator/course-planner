@@ -11,6 +11,9 @@ import ShowSuggestionConfigOverlay from "@/components/view/suggestion/ShowSugges
 import SuggestionButton from "@/components/view/buttons/SuggestionButton";
 import SaveAllChangesButton from "@/components/view/buttons/SaveAllChangesButton";
 import CancelChangesButton from "@/components/view/buttons/CancelChangesButton";
+import ShowOverlay from "@/components/view/buttons/ShowOverlay";
+import SuggestionConfig from "@/components/view/suggestion/SuggestionConfig";
+import DSLWindow from "@/components/view/DSLWindow";
 
 export default function Home() {
   return (
@@ -30,10 +33,16 @@ export default function Home() {
               <ClearCalButton />
               <FilePickerMBZ />
               <DownloadMBZButton />
-              <ShowSuggestionConfigOverlay />
+              <ShowOverlay label={"Configurer la suggestion"}>
+                <SuggestionConfig />
+              </ShowOverlay>
+
               <SuggestionButton />
               <SaveAllChangesButton />
               <CancelChangesButton />
+              <ShowOverlay label={"DSL"}>
+                <DSLWindow />
+              </ShowOverlay>
             </EventController>
           </EventModel>
         </div>

@@ -4,7 +4,9 @@ import FastXML from 'fast-xml-parser';
 import {ActivityEvent, EventType} from '@/components/model/interfaces/courseEvent';
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
 import MBZArchive from '@/components/model/interfaces/archive/MBZArchive';
+import {getDueDate} from '@/components/controller/util/eventsOperations'
 import * as mbzConstants from './mbzConstants';
+import {ASSIGN_END_DATE} from "./mbzConstants";
 
 function deleteActivitiesFromArchive(data: MBZArchive, toDelete: ArchiveFile[]):void {
     data.throwIfNoMain();
@@ -46,6 +48,7 @@ function applyChangesToFile(file: ArchiveFile, event:ActivityEvent):void  {
         case EventType.Homework: {
             dateLevel[mbzConstants.ASSIGN_START_DATE] = JSDateToMBZ(event.start);
             dateLevel[mbzConstants.ASSIGN_END_DATE] = JSDateToMBZ(event.end);
+            dateLevel[mbzConstants.ASSIGN_DUE_DATE] = JSDateToMBZ(getDueDate(event));
             break;
         }
     }
@@ -144,6 +147,7 @@ function mbzDateToJS(mbzDate : string): Date{
 function mbzToEvent(obj:any, id:string, path:string, mbzType: string): ActivityEvent {
     let startDate;
     let endDate;
+    let dueDate = undefined;
     const type = mbzConstants.ACTIVITY_TO_JS[mbzType];
     switch (type) {
         case EventType.Evaluation: {
@@ -153,13 +157,15 @@ function mbzToEvent(obj:any, id:string, path:string, mbzType: string): ActivityE
         }
         case EventType.Homework: {
             startDate= obj[mbzConstants.ASSIGN_START_DATE]
-            endDate= obj[mbzConstants.ASSIGN_END_DATE]
+            endDate= obj[mbzConstants.ASSIGN_DUE_DATE]
+            dueDate= mbzDateToJS(obj[mbzConstants.ASSIGN_DUE_DATE]);
             break;
         }
     }
     return {
         start: mbzDateToJS(startDate),
         end: mbzDateToJS(endDate),
+        due:dueDate,
         title: obj[mbzConstants.ACTIVITY_NAME],
         type: type,
         uid: id,

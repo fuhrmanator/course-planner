@@ -3,6 +3,7 @@ import { EventType } from "@/components/model/interfaces/courseEvent";
 export const QUIZ_START_DATE = "timeopen";
 export const QUIZ_END_DATE = "timeclose";
 export const ASSIGN_START_DATE = "allowsubmissionsfromdate";
+export const ASSIGN_DUE_DATE = "cutoffdate";
 export const ASSIGN_END_DATE = "duedate";
 export const ACTIVITY_TYPE = "modulename";
 export const ACTIVITY_WRAPPER = "activity";

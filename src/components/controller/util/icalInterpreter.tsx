@@ -27,7 +27,7 @@ function iCalCategoryToType(icalCategory: string): EventType|undefined {
     let type: EventType|undefined;
     switch (icalCategory) {
         case "Labo": {
-            type= EventType.Laboratories
+            type= EventType.Laboratory
             break;
         }
         case "C": {
@@ -35,7 +35,7 @@ function iCalCategoryToType(icalCategory: string): EventType|undefined {
             break;
         }
         case "TP": {
-            type= EventType.Practica
+            type= EventType.Practicum
             break;
         }
         default: { 

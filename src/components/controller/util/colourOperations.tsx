@@ -1,3 +1,4 @@
+
 const hexToRgb = (hex:string) => {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
@@ -9,6 +10,7 @@ const rgbToHex = (r:number, g:number, b:number):string => {
     return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 };
 export const lightenHexColor = (hexColor:string, ratio:number):string => {
+
     const rgb = hexToRgb(hexColor);
     const newRgb = rgb.map((value) => Math.round(value + (255 - value) * ratio));
 
