@@ -51,6 +51,7 @@ const ADD_SYMBOL = "+";
 const SUB_SYMBOL = "-";
 const START_SYMBOL = "S";
 const END_SYMBOL = "F";
+const COMMENT_SYMBOL = "#";
 
 const recreateDSL = (node: any): any => {
     switch (node.type) {
@@ -139,6 +140,10 @@ const getEventReferencedByDSL = (dsl : DSLObject|undefined, events:CourseEvent[]
         }
     }
     return event;
+}
+
+export const getDSLWithTitle= (event:CourseEvent): string => {
+    return typeof event.dsl === "undefined" ? "" : `${event.dsl} ${COMMENT_SYMBOL}${event.title}`;
 }
 
 
