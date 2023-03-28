@@ -1,12 +1,11 @@
 import {
     ActivityEvent,
     CourseEvent,
-    EventTypeColour,
     SuggestionTypeMapConfig,
     TypeColourDict
 } from './interfaces/courseEvent'
 import React, {useState, createContext, useEffect, useRef} from 'react'
-import {callbackIfValuePresent, getValue, setValue} from './localStore';
+import {callbackIfValuePresent, setValue} from './localStore';
 
 import {
     defaultEventColours,

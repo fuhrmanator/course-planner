@@ -2,9 +2,12 @@ export interface CourseEvent {
     start: Date;
     end: Date;
     due?:Date; // for homework only
+    cutoff?:Date;
     title: string;
     type: EventType;
     uid: string;
+
+    dsl?:string;
     unsavedState?: CourseEvent|null; // null means it's an unsavedState of another CourseEvent
 }
 

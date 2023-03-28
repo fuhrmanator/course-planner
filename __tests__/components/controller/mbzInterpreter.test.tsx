@@ -1,7 +1,8 @@
-import { applyChangesToArchive, extractData, makeEvents, parseActivities } from '@/components/controller/util/mbz/mbzInterpreter';
+import {applyChangesToArchive, makeEvents, parseActivities} from '@/components/controller/util/mbz/mbzInterpreter';
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
-import { EventType } from '@/components/model/interfaces/courseEvent';
+import {EventType} from '@/components/model/interfaces/courseEvent';
 import {describe, expect, test} from '@jest/globals';
+
 const path = require('path');
 const fs = require('fs');
 const { TextDecoder } = require('util');
@@ -146,11 +147,21 @@ describe('MBZ interpreter operations', () => {
     for (let activityPath in mbzArchive.activities) {
         let delayedActivity = mbzArchive.activities[activityPath];
         let delayedStart = findFirstPropWithName(delayedActivity.parsedData, ["timeopen", "allowsubmissionsfromdate"])
-        let delayedEnd = findFirstPropWithName(delayedActivity.parsedData, ["timeclose", "duedate"])
         let referenceActivity = parsedActivities.find((a) => a.path === activityPath);
         expect(referenceActivity).toBeDefined();
         expect(delayedStart.toString()).toBe((Math.round(referenceActivity!.start.getTime()/ 1000)).toString())
-        expect(delayedEnd.toString()).toBe((Math.round(referenceActivity!.end.getTime()/ 1000)).toString())
+        if (referenceActivity!.type === EventType.Evaluation) {
+          let delayedEnd = findFirstPropWithName(delayedActivity.parsedData, ["timeclose"])
+          expect(delayedEnd.toString()).toBe((Math.round(referenceActivity!.end.getTime()/ 1000)).toString())
+        } else {
+          let delayedDue = findFirstPropWithName(delayedActivity.parsedData, ["duedate"]);
+          let expectedDue = typeof referenceActivity!.due === "undefined" ? "0" :  Math.round(referenceActivity!.due!.getTime()/ 1000).toString()
+          expect(delayedDue.toString()).toBe(expectedDue);
+
+          let delayedCutoff = findFirstPropWithName(delayedActivity.parsedData, ["cutoffdate"])
+          let expectedCutoff = typeof referenceActivity!.cutoff === "undefined" ? "0" :  Math.round(referenceActivity!.cutoff!.getTime()/ 1000).toString()
+          expect(delayedCutoff.toString()).toBe(expectedDue);
+        }
     }
   })
 

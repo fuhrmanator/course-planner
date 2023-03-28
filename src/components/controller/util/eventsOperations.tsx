@@ -1,6 +1,6 @@
-
 import {
-    ActivityEvent, ActivityType,
+    ActivityEvent,
+    ActivityType,
     CourseEvent,
     EventType,
     SuggestionTypeMapConfig
@@ -9,10 +9,21 @@ import {
 export const hasDueDate = (event:CourseEvent):boolean => {
     return typeof event.due !== "undefined";
 }
-export const getDueDate = (event:CourseEvent): Date => {
-    if (!(hasDueDate(event))) {
-        event.due = new Date(event.end.getTime());
+
+export const hasCutoffDate = (event:CourseEvent):boolean => {
+    return typeof event.cutoff !== "undefined";
+}
+export const setHomeworkEnd = (event:CourseEvent): Date => {
+    if (event.type === EventType.Homework) {
+        if (hasDueDate(event) && hasCutoffDate(event)) {
+            event.end = new Date(Math.max(event.cutoff!.getTime(), event.due!.getTime()))
+        } else if (hasDueDate(event)) {
+            event.end = event.due!;
+        } else {
+            event.end = event.cutoff!;
+        }
     }
+
     return event.due!;
 }
 export const parseStoredEvents = (toParse:string): CourseEvent[] => {
@@ -86,6 +97,13 @@ export const saveState = (event: CourseEvent):void => {
     if (hasUnsavedState(event)) {
         event.start = event.unsavedState!.start
         event.end = event.unsavedState!.end
+        if (hasDueDate(event.unsavedState!)) {
+            event.due = event.unsavedState!.due;
+        }
+        if (hasCutoffDate(event.unsavedState!)) {
+            event.cutoff = event.unsavedState!.cutoff;
+        }
+        setHomeworkEnd(event);
         event.unsavedState = undefined;
     }
 }
@@ -108,6 +126,7 @@ export const findNearestEventIndex = (event: CourseEvent, events: CourseEvent[])
     }
     return Math.max(nearest,0);
 }
+
 export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents: CourseEvent[], newCourseEvents: CourseEvent[], config: SuggestionTypeMapConfig):void => {
     sortEventsByOldestStart(oldCourseEvents)
     sortEventsByOldestStart(newCourseEvents)
@@ -120,7 +139,25 @@ export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents:
                 let courseNumber = Math.min(findNearestEventIndex(event, oldCoursesWithTypeTo), newCoursesWithTypeTo.length - 1);
                 let eventSuggestion = getOrAddUnsavedState(event);
                 eventSuggestion.start = new Date(newCoursesWithTypeTo[courseNumber].start.getTime() + event.start.getTime()- oldCoursesWithTypeTo[courseNumber].start.getTime());
-                eventSuggestion.end = new Date(eventSuggestion.start.getTime() + event.end.getTime() - event.start.getTime())
+                switch (typeFrom) {
+                    case EventType.Homework:
+                        if (typeof event.cutoff !== "undefined") {
+                            eventSuggestion.cutoff = new Date(eventSuggestion.start!.getTime() + event.cutoff!.getTime() - event.start.getTime())
+                        }
+                        if (typeof event.due !== "undefined") {
+                            eventSuggestion.due = new Date(eventSuggestion.start!.getTime() + event.due!.getTime() - event.start.getTime())
+                        }
+                        setHomeworkEnd(eventSuggestion);
+                        break;
+                    case EventType.Evaluation:
+                        eventSuggestion.end = new Date(eventSuggestion.start.getTime() + event.end.getTime() - event.start.getTime())
+                        break
+                    default:
+                        console.log(`Warning : unsupported type ${typeFrom} for suggestion`);
+                        break;
+
+                }
+
             }
         }
     }
@@ -128,6 +165,11 @@ export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents:
 
 export const sortEventsByOldestStart = (events:CourseEvent[]):void => {
     events.sort((a,b) =>  a.start.getTime() - b.start.getTime());
+}
+
+export const sortEventsWithTypeByOldestStart = (events:CourseEvent[], type:EventType):CourseEvent[] => {
+    sortEventsByOldestStart(events);
+    return events.filter((event)=>event.type === type);
 }
 
 export const getKeysAsType = <T extends number>(dict: {[keys in T]: any}):T[] => {

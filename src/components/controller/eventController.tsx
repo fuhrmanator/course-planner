@@ -126,6 +126,8 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
 
     const notifySubmitDSL  = (dsl:string) => {
         parseDSL(dsl, activityEvents, newCourseEvents);
+        setActivityEvents([...activityEvents]);
+        setSelectedToEarliest(getUnsavedStates(activityEvents));
     }
 
     return (
