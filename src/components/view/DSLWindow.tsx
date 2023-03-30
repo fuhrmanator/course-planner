@@ -2,7 +2,8 @@ import React, {useContext, useEffect, useState} from 'react'
 import TextEntry from "@/components/view/TextEntry";
 import {EventControllerContext} from "@/components/controller/eventController";
 import {EventModelContext} from "@/components/model/EventModel";
-import {getDSLWithTitle} from "@/components/controller/util/dsl/dslOperations";
+import {getTitleAsComment, hasDSL} from "@/components/controller/util/dsl/dslOperations";
+import {getUnsavedStates} from "@/components/controller/util/eventsOperations";
 
 interface DSLWindowProps {}
 
@@ -15,10 +16,9 @@ const DSLWindow: React.FC<DSLWindowProps> = ({}) => {
 
     useEffect(()=> {
         let newInputDSL = ""
-        for (const event of events) {
-            let dsl = getDSLWithTitle(event);
-            if (dsl !== "") {
-                newInputDSL = newInputDSL.concat(getDSLWithTitle(event), "\n");
+        for (const event of getUnsavedStates(events)) {
+            if (hasDSL(event)) {
+                newInputDSL = newInputDSL.concat(getTitleAsComment(event), "\n", event.dsl! , "\n");
             }
         }
         setCurrentDSL(newInputDSL);
@@ -29,7 +29,7 @@ const DSLWindow: React.FC<DSLWindowProps> = ({}) => {
             <h3>Input</h3>
             <TextEntry text={inputDSL} onChange={setInputDSL} onSubmit={notifySubmitDSL} />
             <h3>Current DSL</h3>
-            <pre style={{background:"white", width:"90%", height:"200px"}}>
+            <pre style={{background:"white", width:"90%", height:"200px", overflow:"scroll"}}>
                 {currentDSL}
             </pre>
         </div>

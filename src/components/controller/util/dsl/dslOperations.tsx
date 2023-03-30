@@ -2,74 +2,95 @@ import {CourseEvent, EventType} from "@/components/model/interfaces/courseEvent"
 import parser from "./grammar/dsl"
 import {
     getOrAddUnsavedState,
+    hasCutoffDate,
+    hasDueDate,
     setHomeworkEnd,
     sortEventsWithTypeByOldestStart
 } from "@/components/controller/util/eventsOperations";
+import {
+    ADD_SYMBOL,
+    AT_SYMBOL,
+    COMMENT_SYMBOL,
+    DSL_TIME_UNIT_TO_MS,
+    END_SYMBOL,
+    MS_DSL_UNIT_SORTED_BY_DURATION,
+    START_SYMBOL,
+    SUB_SYMBOL,
+    TIME_SEPARATOR,
+    TYPE_MAP_DSL_TO_EVENT,
+    TYPE_MAP_EVENT_TO_DSL
+} from "@/components/model/ressource/dslRessource";
+import {DSLActivity, DSLCourse, DSLObject, DSLTimeType} from "@/components/model/interfaces/dsl";
 
-interface DSLObject {
-    type:string,
-    i:number
+
+const dateOffsetAsDSL = (ref: Date, offset: Date, atRecursion:boolean = false): string => {
+
+    const operationSymbol = ref > offset ? SUB_SYMBOL : ADD_SYMBOL
+    const offsetToRepresent = Math.abs(offset.getTime()-ref.getTime());
+    let result = "";
+    if (offsetToRepresent !== 0) {
+        let unitToUse = MS_DSL_UNIT_SORTED_BY_DURATION.find((dslUnit:DSLTimeType) => offsetToRepresent % dslUnit.value === 0);
+        if (typeof unitToUse === "undefined") {
+            if (atRecursion) { // prevents infinite recursion due to precision
+                throw new Error(`No DSL units can accurately represent the duration between ${ref} and ${offset}`)
+            }
+            const hours = offset.getHours();
+            const minutes = offset.getMinutes();
+            const truncatedOffset = new Date(offset)
+            truncatedOffset.setHours(0)
+            truncatedOffset.setMinutes(0)
+            const truncatedResult = dateOffsetAsDSL(ref,truncatedOffset, true);
+            result = `${truncatedResult}${AT_SYMBOL}${hours}${TIME_SEPARATOR}${minutes}`
+        } else {
+            const numberOfUnitToUse = offsetToRepresent / unitToUse.value;
+            result = `${operationSymbol}${numberOfUnitToUse}${unitToUse.symbol}`
+        }
+    }
+
+
+    return result;
 }
+export const makeDSLRelativeToStart = (toSet:CourseEvent, toSetIndex:number, relativeTo:CourseEvent, relativeToIndex: number):string => {
+    const relativeToDSLType = TYPE_MAP_EVENT_TO_DSL[relativeTo.type]
+    const relativeToDSLIndex = relativeToIndex + 1;
+    const relativeToDSLPrefix = `${relativeToDSLType}${relativeToDSLIndex}Start`;
+    const openOffset = dateOffsetAsDSL(relativeTo.start, toSet.start);
+    let due = "";
+    if (hasDueDate(toSet)) {
+        const dueOffset = dateOffsetAsDSL(relativeTo.start, toSet.due!);
+        due = ` ${relativeToDSLPrefix}${dueOffset}`
+    }
+    let cutoff = "";
+    if (hasCutoffDate(toSet)) {
+        const dueOffset = dateOffsetAsDSL(relativeTo.start, toSet.cutoff!);
+        cutoff = ` ${relativeToDSLPrefix}${dueOffset}`
+    }
+    let close = "";
+    if (toSet.type === EventType.Evaluation) {
+        const closeOffset = dateOffsetAsDSL(relativeTo.start, toSet.end!);
+        close = ` ${relativeToDSLPrefix}${closeOffset}`
+    }
 
-interface DSLActivity extends DSLObject {
-    open:DSLCourse,
-    close?:DSLCourse,
-    due?:DSLCourse,
-    cutoff?:DSLCourse
+    return `${TYPE_MAP_EVENT_TO_DSL[toSet.type]}${toSetIndex + 1} ${relativeToDSLPrefix}${openOffset}${due}${cutoff}${close}`
 }
-
-interface DSLCourse extends DSLObject {
-    modifier?: string
-    time?: DSLTime
-}
-
-interface DSLTime {
-    type?: string,
-    at?:string,
-    number?:number,
-    modifier?:string
-}
-
-const TypeMapDSLtoEvent: {[key: string]: EventType} = {
-    "P": EventType.Practicum,
-    "L": EventType.Laboratory,
-    "S": EventType.Seminar,
-    "Q": EventType.Evaluation,
-    "E": EventType.Evaluation,
-    "H": EventType.Homework
-}
-
-const DSLTimeTypeToMS: {[key:string]: number} = {
-    "w": 6.048e+8,
-    "d": 8.64e+7,
-    "h": 3.6e+6,
-    "m": 60000
-}
-
-const TIME_SEPARATOR = ":";
-const ADD_SYMBOL = "+";
-const SUB_SYMBOL = "-";
-const START_SYMBOL = "S";
-const END_SYMBOL = "F";
-const COMMENT_SYMBOL = "#";
 
 const recreateDSL = (node: any): any => {
     switch (node.type) {
-        case 'Q':
-            return `Q${node.i} ${recreateDSL(node.open)} ${recreateDSL(node.close)}`;
-        case 'E':
-            return `E${node.i} ${recreateDSL(node.open)}`;
-        case 'S':
-        case 'L':
-        case 'P':
+        case 'Quiz':
+            return `${node.type}${node.i} ${recreateDSL(node.open)} ${recreateDSL(node.close)}`;
+        case 'Exam':
+            return `${node.type}${node.i} ${recreateDSL(node.open)}`;
+        case 'Seminar':
+        case 'Laboratory':
+        case 'Practicum':
             const time = node.time ?
                 node.time.modifier.concat(
                     node.time.number,
                     node.time.type,
                     node.time.at ? '@' + node.time.at : ''): '';
             return `${node.type}${node.i}${node.modifier ? node.modifier : ''}${time}`;
-        case 'H':
-            return `H${node.i} ${recreateDSL(node.open)} ${recreateDSL(node.due)} ${recreateDSL(node.cutoff)}`;
+        case 'Homework':
+            return `${node.type}${node.i} ${recreateDSL(node.open)} ${recreateDSL(node.due)} ${recreateDSL(node.cutoff)}`;
         default:
             throw new Error(`Unknown node type ${node.type}`);
     }
@@ -98,8 +119,8 @@ const parseDSLTimeToDate= (dsl: DSLCourse, relativeTo: Date):Date => {
         }
         if (typeof dsl.time.type !== "undefined") {
             // having a type guarantees having a number and modifier
-            if (dsl.time.type in DSLTimeTypeToMS) {
-                const offset = DSLTimeTypeToMS[dsl.time.type] * dsl.time.number!
+            if (dsl.time.type in DSL_TIME_UNIT_TO_MS) {
+                const offset = DSL_TIME_UNIT_TO_MS[dsl.time.type] * dsl.time.number!
                 switch (dsl.time.modifier!) {
                     case ADD_SYMBOL:
                         newDate = new Date(newDate.getTime() + offset);
@@ -121,8 +142,8 @@ const parseDSLTimeToDate= (dsl: DSLCourse, relativeTo: Date):Date => {
 const getEventReferencedByDSL = (dsl : DSLObject|undefined, events:CourseEvent[]): CourseEvent|undefined => {
     let event = undefined;
     if (typeof dsl !== "undefined") {
-        if (dsl.type in TypeMapDSLtoEvent) {
-            let sortedActivitiesWithType = sortEventsWithTypeByOldestStart(events, TypeMapDSLtoEvent[dsl.type])
+        if (dsl.type in TYPE_MAP_DSL_TO_EVENT) {
+            let sortedActivitiesWithType = sortEventsWithTypeByOldestStart(events, TYPE_MAP_DSL_TO_EVENT[dsl.type])
             let index = dsl.i - 1;
             if (index >= 0 && index < sortedActivitiesWithType.length) {
                 event = sortedActivitiesWithType[index];
@@ -142,8 +163,11 @@ const getEventReferencedByDSL = (dsl : DSLObject|undefined, events:CourseEvent[]
     return event;
 }
 
-export const getDSLWithTitle= (event:CourseEvent): string => {
-    return typeof event.dsl === "undefined" ? "" : `${event.dsl} ${COMMENT_SYMBOL}${event.title}`;
+export const hasDSL= (event:CourseEvent): boolean => {
+    return typeof event.dsl !== "undefined"
+}
+export const getTitleAsComment= (event:CourseEvent): string => {
+    return `${COMMENT_SYMBOL}${event.title}`;
 }
 
 

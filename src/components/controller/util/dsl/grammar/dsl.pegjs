@@ -101,23 +101,23 @@ _ "whitespace"
   = [ \t]*
 
 EXAM_ACTIVITY_CODE 
-  = 'E'
+  = ('Exam' / 'E') { return "Exam"}
 MOODLE_QUIZ_ACTIVITY_CODE 
-  = 'Q'
+  = ('Quiz' / 'Q') { return "Quiz"}
 MOODLE_HOMEWORK_ACTIVITY_CODE 
-  = 'H'
+  = ('Homework' / 'H') { return "Homework"}
 
 SEMINAR_MEETING 
-  = 'S'
+  = ('Seminar' / 'S'){return 'Seminar'; }
 LABORATORY_MEETING
-  = 'L'
+  = ('Laboratory' / 'L') {return 'Laboratory'; }
 PRACTICUM_MEETING
-  = 'P'
+  = ('Practicum'/ 'P') {return 'Practicum'; }
 
 MEETING_START 
-  = 'S'
+  = ('Start'/ 'S') {return 'Start'; }
 MEETING_END 
-  = 'F'
+  = ('Finish' / 'F' / 'End' / 'E') {return 'End'; }
 
 Spacing 
   = (Space / Comment)*

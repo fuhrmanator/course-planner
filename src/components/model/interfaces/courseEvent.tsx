@@ -1,3 +1,6 @@
+import {hasCutoffDate, setHomeworkEnd} from "@/components/controller/util/eventsOperations";
+import {event} from "next/dist/build/output/log";
+
 export interface CourseEvent {
     start: Date;
     end: Date;
@@ -10,6 +13,8 @@ export interface CourseEvent {
     dsl?:string;
     unsavedState?: CourseEvent|null; // null means it's an unsavedState of another CourseEvent
 }
+
+
 
 export interface EventTypeColour {
     type: EventType,

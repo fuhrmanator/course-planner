@@ -5,6 +5,7 @@ import {
     EventType,
     SuggestionTypeMapConfig
 } from "@/components/model/interfaces/courseEvent";
+import {makeDSLRelativeToStart} from "@/components/controller/util/dsl/dslOperations";
 
 export const hasDueDate = (event:CourseEvent):boolean => {
     return typeof event.due !== "undefined";
@@ -135,7 +136,8 @@ export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents:
         let newCoursesWithTypeTo = newCourseEvents.filter((event) => event.type === config[typeFrom]);
         let eventToSuggestionWithTypeFrom = eventsToSuggest.filter((event) => event.type === typeFrom);
         if (oldCoursesWithTypeTo.length > 0 && newCoursesWithTypeTo.length > 0) {
-            for (let event of eventToSuggestionWithTypeFrom) {
+            for (let i =0; i<eventToSuggestionWithTypeFrom.length; i++) {
+                let event = eventToSuggestionWithTypeFrom[i];
                 let courseNumber = Math.min(findNearestEventIndex(event, oldCoursesWithTypeTo), newCoursesWithTypeTo.length - 1);
                 let eventSuggestion = getOrAddUnsavedState(event);
                 eventSuggestion.start = new Date(newCoursesWithTypeTo[courseNumber].start.getTime() + event.start.getTime()- oldCoursesWithTypeTo[courseNumber].start.getTime());
@@ -157,14 +159,14 @@ export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents:
                         break;
 
                 }
-
+                eventSuggestion.dsl = makeDSLRelativeToStart(eventSuggestion, i, newCoursesWithTypeTo[courseNumber], courseNumber);
             }
         }
     }
 }
 
 export const sortEventsByOldestStart = (events:CourseEvent[]):void => {
-    events.sort((a,b) =>  a.start.getTime() - b.start.getTime());
+    events.sort((a,b) => a.start.getTime() - b.start.getTime());
 }
 
 export const sortEventsWithTypeByOldestStart = (events:CourseEvent[], type:EventType):CourseEvent[] => {
