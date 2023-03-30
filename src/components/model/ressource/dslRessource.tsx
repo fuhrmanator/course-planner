@@ -23,7 +23,7 @@ export const DSL_TIME_UNIT_TO_MS: {[key:string]: number} = {
     "m": 60000
 }
 
-export const MS_DSL_UNIT_SORTED_BY_DURATION: DSLTimeType[] = Object.entries(DSL_TIME_UNIT_TO_MS).map(([k, v]) => {return {symbol:k, value:v}}).sort((a:DSLTimeType, b:DSLTimeType) => a.value - b.value);
+export const MS_DSL_UNIT_SORTED_BY_DURATION: DSLTimeType[] = Object.entries(DSL_TIME_UNIT_TO_MS).map(([k, v]) => {return {symbol:k, value:v}}).sort((a:DSLTimeType, b:DSLTimeType) => b.value - a.value);
 
 export const TIME_SEPARATOR = ":";
 export const ADD_SYMBOL = "+";

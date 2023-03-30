@@ -21,6 +21,7 @@ import {
     TYPE_MAP_EVENT_TO_DSL
 } from "@/components/model/ressource/dslRessource";
 import {DSLActivity, DSLCourse, DSLObject, DSLTimeType} from "@/components/model/interfaces/dsl";
+import {all} from "deepmerge";
 
 
 const dateOffsetAsDSL = (ref: Date, offset: Date, atRecursion:boolean = false): string => {
@@ -50,28 +51,41 @@ const dateOffsetAsDSL = (ref: Date, offset: Date, atRecursion:boolean = false): 
 
     return result;
 }
-export const makeDSLRelativeToStart = (toSet:CourseEvent, toSetIndex:number, relativeTo:CourseEvent, relativeToIndex: number):string => {
-    const relativeToDSLType = TYPE_MAP_EVENT_TO_DSL[relativeTo.type]
-    const relativeToDSLIndex = relativeToIndex + 1;
-    const relativeToDSLPrefix = `${relativeToDSLType}${relativeToDSLIndex}Start`;
-    const openOffset = dateOffsetAsDSL(relativeTo.start, toSet.start);
-    let due = "";
-    if (hasDueDate(toSet)) {
-        const dueOffset = dateOffsetAsDSL(relativeTo.start, toSet.due!);
-        due = ` ${relativeToDSLPrefix}${dueOffset}`
+
+const makeDSLRelativeToClosestDate = (ref:Date, sortedEvents:CourseEvent[]):string => {
+    const allPossibleClosestDates = sortedEvents.flatMap((event:CourseEvent)=>[event.start, event.end]);
+    let closestIndex =-1;
+    let closestValue = Number.MAX_VALUE;
+    for (let i=0;i <allPossibleClosestDates.length;i++) {
+        let currentValue = Math.abs(allPossibleClosestDates[i].getTime() - ref.getTime())
+        if (currentValue<closestValue) {
+            closestValue = currentValue;
+            closestIndex = i;
+        }
     }
-    let cutoff = "";
-    if (hasCutoffDate(toSet)) {
-        const dueOffset = dateOffsetAsDSL(relativeTo.start, toSet.cutoff!);
-        cutoff = ` ${relativeToDSLPrefix}${dueOffset}`
+    const closestEventIndex = Math.floor(closestIndex / 2) ;
+    const closestDate = allPossibleClosestDates[closestIndex];
+    const closestDSLModifier = closestIndex % 2 ==0 ? START_SYMBOL : END_SYMBOL;
+    const closestOffset = dateOffsetAsDSL(closestDate, ref);
+    return `${closestEventIndex + 1}${TYPE_MAP_EVENT_TO_DSL[sortedEvents[closestEventIndex].type]}${closestDSLModifier}${closestOffset}`
+}
+export const makeDSLClosestMatch = (event:CourseEvent, eventIndex:number, sortedEvents:CourseEvent[]):string => {
+
+    const openDSL = makeDSLRelativeToClosestDate(event.start, sortedEvents);
+    let dueDSL = "";
+    if (hasDueDate(event)) {
+        dueDSL = dueDSL.concat(" ", makeDSLRelativeToClosestDate(event.due!, sortedEvents));
     }
-    let close = "";
-    if (toSet.type === EventType.Evaluation) {
-        const closeOffset = dateOffsetAsDSL(relativeTo.start, toSet.end!);
-        close = ` ${relativeToDSLPrefix}${closeOffset}`
+    let cutoffDSL = "";
+    if (hasCutoffDate(event)) {
+        cutoffDSL = cutoffDSL.concat(" ", makeDSLRelativeToClosestDate(event.cutoff!, sortedEvents));
+    }
+    let closeDSL = "";
+    if (event.type === EventType.Evaluation) {
+        closeDSL = closeDSL.concat(" ", makeDSLRelativeToClosestDate(event.end, sortedEvents));
     }
 
-    return `${TYPE_MAP_EVENT_TO_DSL[toSet.type]}${toSetIndex + 1} ${relativeToDSLPrefix}${openOffset}${due}${cutoff}${close}`
+    return `${TYPE_MAP_EVENT_TO_DSL[event.type]}${eventIndex + 1} ${openDSL}${dueDSL}${cutoffDSL}${closeDSL}`
 }
 
 const recreateDSL = (node: any): any => {

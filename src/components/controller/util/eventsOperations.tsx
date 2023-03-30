@@ -5,7 +5,7 @@ import {
     EventType,
     SuggestionTypeMapConfig
 } from "@/components/model/interfaces/courseEvent";
-import {makeDSLRelativeToStart} from "@/components/controller/util/dsl/dslOperations";
+import {makeDSLClosestMatch} from "@/components/controller/util/dsl/dslOperations";
 
 export const hasDueDate = (event:CourseEvent):boolean => {
     return typeof event.due !== "undefined";
@@ -46,6 +46,12 @@ export const parseStoredEvent = (toParse: string): CourseEvent|undefined => {
 const parseStringDates = (event : CourseEvent) => {
     event.start = new Date(event.start);
     event.end = new Date(event.end);
+    if (hasCutoffDate(event)) {
+        event.cutoff = new Date(event.cutoff!)
+    }
+    if (hasDueDate(event)) {
+        event.due = new Date(event.due!)
+    }
     if (hasUnsavedState(event)) {
         parseStringDates(event.unsavedState as CourseEvent);
     }
@@ -159,7 +165,7 @@ export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents:
                         break;
 
                 }
-                eventSuggestion.dsl = makeDSLRelativeToStart(eventSuggestion, i, newCoursesWithTypeTo[courseNumber], courseNumber);
+                eventSuggestion.dsl = makeDSLClosestMatch(eventSuggestion, i, newCoursesWithTypeTo);
             }
         }
     }
