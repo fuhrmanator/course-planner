@@ -14,6 +14,7 @@ import CancelChangesButton from "@/components/view/buttons/CancelChangesButton";
 import ShowOverlay from "@/components/view/buttons/ShowOverlay";
 import SuggestionConfig from "@/components/view/suggestion/SuggestionConfig";
 import DSLWindow from "@/components/view/DSLWindow";
+import ShowEventsByType from '@/components/view/editEvents/ShowEventsByType'
 
 export default function Home() {
   return (
@@ -43,7 +44,9 @@ export default function Home() {
               <ShowOverlay label={"DSL"}>
                 <DSLWindow />
               </ShowOverlay>
+              <ShowEventsByType/>
             </EventController>
+            
           </EventModel>
         </div>
       </main>

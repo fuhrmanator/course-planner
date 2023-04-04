@@ -32,7 +32,7 @@ type EventControllerContextProps = {
     notifySuggestion: ()=>void;
     notifySaveAllChanges: ()=>void;
     notifyCancelChanges: ()=>void;
-
+    setEventRelativeDate: (event: ActivityEvent, relativeTo: CourseEvent, multiple: number, value: number) => void;
     notifySubmitDSL: (dsl:string) => void;
 }
 
@@ -130,6 +130,18 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setSelectedToEarliest(getUnsavedStates(activityEvents));
     }
 
+    const setEventRelativeDate = (event: ActivityEvent, relativeTo: CourseEvent, multiple: number, value: number) => {
+        const timeInMs = value * multiple;
+        if (relativeTo.start) {
+          event.start = new Date(relativeTo.start.getTime() + timeInMs);
+        } else {
+          event.end = new Date(relativeTo.end.getTime() + timeInMs);
+        }
+        setActivityEvents([...activityEvents]);
+      };
+    
+      
+
     return (
         <EventControllerContext.Provider value={{
             notifyCourseFormSubmit,
@@ -142,7 +154,8 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
             notifySuggestion,
             notifySaveAllChanges,
             notifyCancelChanges,
-            notifySubmitDSL}}>
+            notifySubmitDSL,
+            setEventRelativeDate}}>
             {children}
         </EventControllerContext.Provider>
     );
