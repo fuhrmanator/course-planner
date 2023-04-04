@@ -4,7 +4,7 @@ import FastXML from 'fast-xml-parser';
 import {ActivityEvent, EventType} from '@/components/model/interfaces/courseEvent';
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
 import MBZArchive from '@/components/model/interfaces/archive/MBZArchive';
-import * as mbzConstants from './mbzConstants';
+import * as mbzConstants from '../../model/ressource/mbzConstants';
 
 function deleteActivitiesFromArchive(data: MBZArchive, toDelete: ArchiveFile[]):void {
     data.throwIfNoMain();
@@ -58,6 +58,11 @@ function applyChangesToFile(file: ArchiveFile, event:ActivityEvent):void  {
     }
 }
 
+/**
+ * Changes the data of the given archive to match the given events
+ * @param data that will be updated with events values
+ * @param events values that will update the archive
+ */
 export const applyChangesToArchive = (data: MBZArchive, events: ActivityEvent[]):void => {
     const activitiesToDelete: ArchiveFile[] = [];
     for (let activityPath in data.activities) {
@@ -70,7 +75,10 @@ export const applyChangesToArchive = (data: MBZArchive, events: ActivityEvent[])
     }
     deleteActivitiesFromArchive(data, activitiesToDelete);
 }
-
+/**
+ * Creates a zip archive with the given data
+ * @param data that will be zipped
+ */
 export const zipData = (data:MBZArchive): Uint8Array => {
 
   const pathToData: Zippable = {};
@@ -81,7 +89,10 @@ export const zipData = (data:MBZArchive): Uint8Array => {
 
   return zipSync(pathToData);
 }
-
+/**
+ * Returns a promise of the extracted data.
+ * @param file a file object picked by a HTML input tag. Data must be in the gz.tar format.
+ */
 export const extractData = async (file:File): Promise<ArchiveFile[]> => {
     
     const fileArrayBuffer = await readFileAsUint8Array(file);
@@ -92,7 +103,10 @@ export const extractData = async (file:File): Promise<ArchiveFile[]> => {
 
     return await untar(unzip.buffer);
 }
-
+/**
+ * Creates an MBZArchive representation of the given data. Also transforms all activity data into a JS representation.
+ * @param data data to parse
+ */
 export const parseActivities = (data: ArchiveFile[]): MBZArchive => {
     const extractedMBZ = new MBZArchive();
     
@@ -118,7 +132,10 @@ export const parseActivities = (data: ArchiveFile[]): MBZArchive => {
     return extractedMBZ;
     
 }
-
+/**
+ * Creates the events object based on an extracted MBZArchive. The events dates and ids will correspond to the one present in the given archive.
+ * @param data to parse and make events from.
+ */
 export const makeEvents = (data:MBZArchive):ActivityEvent[] => {
     const calEvents:ActivityEvent[] = [];
     

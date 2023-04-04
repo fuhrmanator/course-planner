@@ -16,7 +16,16 @@ const CODE_STORE_KEY = 'code';
 const GROUP_STORE_KEY = 'group';
 const YEAR_STORE_KEY = 'year';
 const SESSION_STORE_KEY = 'session';
+/**
 
+ A form component that allows the user to input course information.
+ This component uses antd form components and is connected to the EventControllerContext
+ to notify the application of form submission.
+ @component
+ @example
+ <CourseInformationForm />
+ @returns {JSX.Element} - Rendered component.
+ */
 const CourseInformationForm: React.FC<Props> = () => {
     const [isOldCourse, setIsOldCourse] = useState<boolean>(true);
     const [code, setCode] = useState<string>("");

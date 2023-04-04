@@ -10,8 +10,7 @@ interface DSLWindowProps {}
 const DSLWindow: React.FC<DSLWindowProps> = ({}) => {
     const {events} = useContext(EventModelContext)
     const {notifySubmitDSL} = useContext(EventControllerContext)
-    const [inputDSL, setInputDSL] = useState<string>(
-        `Q1 S1F S2S-30m\nQ2 S2F S3S-1h\nQ3 S2F S3S-1d\nQ4 S2F S3S-1w\nQ6 S2F S3S-1d@23:55\nH1 L2F L3S-1d@23:55 L3S-1d@23:55`);
+    const [inputDSL, setInputDSL] = useState<string>("");
     const [currentDSL, setCurrentDSL] = useState<string>("");
 
     useEffect(()=> {

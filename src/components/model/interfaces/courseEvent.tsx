@@ -1,5 +1,3 @@
-import {hasCutoffDate, setHomeworkEnd} from "@/components/controller/util/eventsOperations";
-import {event} from "next/dist/build/output/log";
 
 export interface CourseEvent {
     start: Date;
