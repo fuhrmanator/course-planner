@@ -137,7 +137,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         if (startOrend == "start") {
           event.start = new Date(relativeTo.start.getTime() - timeInMs)
         } else {
-          event.end = new Date(relativeTo.end.getTime() + timeInMs);
+          event.start = new Date(relativeTo.start.getTime() + timeInMs);
         }
         setActivityEvents([...activityEvents]);
       };
