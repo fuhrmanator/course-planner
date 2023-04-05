@@ -12,6 +12,7 @@ export interface CourseEvent {
 
     dsl?:string;
     unsavedState?: CourseEvent|null; // null means it's an unsavedState of another CourseEvent
+    path: string;
 }
 
 
