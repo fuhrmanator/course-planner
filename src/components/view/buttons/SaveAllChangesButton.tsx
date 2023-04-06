@@ -1,12 +1,15 @@
 import React, {useContext} from "react";
 import {EventControllerContext} from "@/components/controller/eventController";
+
 interface SaveAllChangesButtonProps {}
 
 const SaveAllChangesButton: React.FC<SaveAllChangesButtonProps> = () => {
-    const {notifySaveAllChanges} = useContext(EventControllerContext);
-
+    const {notifySaveChanges} = useContext(EventControllerContext);
+    const handleClick = ():void => {
+        notifySaveChanges(undefined);
+    }
     return (
-        <button onClick={notifySaveAllChanges}>
+        <button onClick={handleClick}>
             Save
         </button>
     );

@@ -120,4 +120,4 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
             {children}
         </ EventModelContext.Provider>
     )
-}
+};

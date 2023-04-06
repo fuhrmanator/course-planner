@@ -97,6 +97,35 @@ export const getOrAddUnsavedState = (event: CourseEvent):CourseEvent => {
     return gotUnsavedState;
 }
 /**
+ * Returns the parent of the unsaved state if it is present in the given events array
+ * @param unsavedState child
+ * @param events events that may contain the parent
+ */
+export const getUnsavedStateParent = (unsavedState: CourseEvent, events:CourseEvent[]):CourseEvent|undefined => {
+    let parent = undefined;
+    for (const event of events) {
+        if (unsavedState.uid === event.uid) {
+            parent = event;
+            break;
+        }
+    }
+
+    return parent;
+}
+
+/**
+ * Returns an unsaved state if it has one and the parent if it dosen't.
+ */
+export const getUnsavedStateOrParent = (event: CourseEvent):CourseEvent => {
+    let returned;
+    if(hasUnsavedState(event)) {
+        returned = event.unsavedState
+    } else {
+        returned = event;
+    }
+    return returned!;
+}
+/**
  * Saves all unsaved states of given events.
  * @param events whose unsaved states will be saved.
  */

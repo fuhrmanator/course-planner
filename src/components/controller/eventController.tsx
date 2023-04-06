@@ -5,9 +5,9 @@ import { EventModelContext } from '@/components/model/EventModel';
 import { applyChangesToArchive, extractData, makeEvents, parseActivities, zipData } from './util/mbzInterpreter';
 import {
     addSuggestion, cancelAllUnsavedState,
-    findEarliestEvent,
-    getUnsavedStates,
-    saveAll
+    findEarliestEvent, getOrAddUnsavedState,
+    getUnsavedStates, removeUnsavedState,
+    saveAll, saveState
 } from './util/eventsOperations';
 import MBZArchive from '../model/interfaces/archive/MBZArchive';
 import {
@@ -19,21 +19,22 @@ import {
     EventDate 
 } from "@/components/model/interfaces/courseEvent";
 import {parseDSL} from "@/components/controller/util/dsl/dslOperations";
+import {DSLTimeUnit} from "@/components/model/interfaces/dsl";
 
 
 
 type EventControllerContextProps = {
     notifyCourseFormSubmit : (code: string, group: number, year: number, semester:number, isOldCourse:boolean) => void;
     notifyClearCal : () => void;
-    notifyEventSelected: (event:CourseEvent) => void;
+    notifyEventSelected: (event:CourseEvent|undefined) => void;
     notifyMBZSubmitted : (file: File) => void;
     notifyMBZDownload : (oldURL: string) => string;
     notifyEventColourUpdate: (type: EventType, newColour: string) => void;
     notifySuggestionConfigUpdate: (type: ActivityType, mapping: CourseType) => void;
     notifySuggestion: ()=>void;
-    notifySaveAllChanges: ()=>void;
-    notifyCancelChanges: ()=>void;
-    setEventRelativeDate: (event: ActivityEvent, relativeTo: CourseEvent, startOrend: string, multiple: number, value: number) => void;
+    notifySaveChanges: (event:CourseEvent|undefined)=>void;
+    notifyCancelChanges: (event:CourseEvent|undefined)=>void;
+    setEventRelativeDate: (event: ActivityEvent, relativeTo: CourseEvent, startOrend: EventDate, timeUnit: DSLTimeUnit, multiple: number, value: number) => void;
     notifySubmitDSL: (dsl:string) => void;
 }
 
@@ -99,7 +100,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         return URL.createObjectURL(file);
     }
 
-    const notifyEventSelected = (event:CourseEvent) => {
+    const notifyEventSelected = (event:CourseEvent|undefined) => {
         console.log(event)
         setSelectedEvent(event);
     }
@@ -119,12 +120,22 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setSelectedToEarliest(getUnsavedStates(activityEvents));
         setActivityEvents([...activityEvents]);
     };
-    const notifyCancelChanges = () => {
-        cancelAllUnsavedState(activityEvents);
+    const notifyCancelChanges = (event:CourseEvent|undefined = undefined) => {
+        if (typeof event === "undefined") {
+            cancelAllUnsavedState(activityEvents);
+        } else {
+            console.log(event)
+            removeUnsavedState(event)
+
+        }
         setActivityEvents([... activityEvents]);
     }
-    const notifySaveAllChanges = () => {
-        saveAll(activityEvents);
+    const notifySaveChanges = (event:CourseEvent|undefined = undefined) => {
+        if (typeof event === "undefined") {
+            saveAll(activityEvents);
+        } else {
+            saveState(event)
+        }
         setActivityEvents([...activityEvents]);
     }
 
@@ -138,16 +149,18 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         event: ActivityEvent,
         relativeTo: CourseEvent,
         startOrEnd: EventDate,
+        timeUnit: DSLTimeUnit,
         multiple: number,
         value: number
       ) => {
         const timeInMs = value * multiple;
         console.log("timeInMS : " + timeInMs);
-      
+        console.log("timeInMS : " + timeUnit);
+        const eventState = getOrAddUnsavedState(event);
         if (startOrEnd === EventDate.Start) {
-          event.start = new Date(relativeTo.start.getTime() + timeInMs);
+            eventState.start = new Date(relativeTo.start.getTime() + timeInMs);
         } else {
-          event.start = new Date(relativeTo.end.getTime() + timeInMs);
+            eventState.start = new Date(relativeTo.end.getTime() + timeInMs);
         }
         setActivityEvents([...activityEvents]);
       };
@@ -165,7 +178,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
             notifyEventColourUpdate,
             notifySuggestionConfigUpdate,
             notifySuggestion,
-            notifySaveAllChanges,
+            notifySaveChanges,
             notifyCancelChanges,
             notifySubmitDSL,
             setEventRelativeDate}}>

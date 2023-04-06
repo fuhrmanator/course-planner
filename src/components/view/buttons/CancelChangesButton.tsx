@@ -9,9 +9,11 @@ interface CancelChangesButtonProps {}
  */
 const CancelChangesButton: React.FC<CancelChangesButtonProps> = () => {
     const {notifyCancelChanges} = useContext(EventControllerContext);
-
+    const handleClick = ():void => {
+        notifyCancelChanges(undefined);
+    }
     return (
-        <button onClick={notifyCancelChanges}>
+        <button onClick={handleClick}>
             Cancel
         </button>
     );

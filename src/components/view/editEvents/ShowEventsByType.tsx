@@ -1,69 +1,86 @@
-import React, { useContext, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import moment from "moment";
-import { EventModelContext } from "@/components/model/EventModel";
+import {EventModelContext} from "@/components/model/EventModel";
 import {
-  CourseEvent,
-  EventType,
-  CourseType,
-  EventDate,
+    CourseEvent,
+    EventType,
+    CourseType,
+    EventDate, ActivityType,
 } from "@/components/model/interfaces/courseEvent";
 import styles from "@/components/view/style/ShowEventsByType.module.css";
-import { courseTypeToLabel } from "@/components/model/ressource/eventRessource";
-import { DSL_TIME_UNIT_TO_MS } from "@/components/model/ressource/dslRessource";
-import { EventControllerContext } from "@/components/controller/eventController";
-
+import {activityTypeToLabel, courseTypeToLabel} from "@/components/model/ressource/eventRessource";
+import {DSL_TIME_UNIT_TO_LABEL, DSL_TIME_UNIT_TO_MS} from "@/components/model/ressource/dslRessource";
+import {EventControllerContext} from "@/components/controller/eventController";
+import {DSLTimeUnit} from "@/components/model/interfaces/dsl";
+import {getUnsavedStateOrParent, getUnsavedStateParent} from "@/components/controller/util/eventsOperations";
 
 
 const ShowEventsByType: React.FC = () => {
-  const { activityEvents, newCourseEvents } = useContext(EventModelContext);
-  const { setEventRelativeDate, notifyEventSelected } = useContext(
-    EventControllerContext
-  );
-  const [clickedActivity, setClickedActivity] = useState<CourseEvent | null>(null);
+    const {activityEvents, newCourseEvents, selectedEvent} = useContext(EventModelContext);
+    const {setEventRelativeDate, notifyEventSelected, notifySaveChanges, notifyCancelChanges} = useContext(EventControllerContext);
 
-  const [selectedEvent, setSelectedEvent] = useState<CourseEvent | undefined>();
-  const [selectedTime, setSelectedTime] = useState<number | undefined>();
-  const [selectedStartOrEnd, setSelectedStartOrEnd] = useState<
-    "start" | "end" | undefined
-  >();
-  const [selectedAdjustment, setSelectedAdjustment] = useState<
-    "+" | "-" | undefined
-  >();
-  const [timeInput, setTimeInput] = useState<string>("");
+    const [selectedActivity, setSelectedActivity] = useState<CourseEvent | undefined>();
+    const [selectedCourse, setSelectedCourse] = useState<CourseEvent | undefined>();
+    const [selectedTime, setSelectedTime] = useState<number | undefined>();
+    const [selectedStartOrEnd, setSelectedStartOrEnd] = useState<EventDate | undefined>();
+    const [selectedAdjustment, setSelectedAdjustment] = useState<"+" | "-" | undefined>();
+    const [timeInput, setTimeInput] = useState<string>("");
+    const [timeUnit, setTimeUnit] = useState<string>("");
 
-  const handleActivityClick = (activity: CourseEvent) => {
-
-    console.log("handleActivityClick called");
-    console.log("activity:", activity);
-
-    setClickedActivity(activity)
-    setSelectedEvent(activity);
-    setSelectedTime(undefined);
-    setSelectedStartOrEnd(undefined);
-    setSelectedAdjustment(undefined);
-  };
-
-  const handleEventChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-
-    const eventUid = event.target.value;
-    const selectedEvent = newCourseEvents.find(
-      (event) => event.uid === eventUid
-    );
-    setSelectedEvent(selectedEvent);
-    if (selectedEvent) {
-      notifyEventSelected(selectedEvent);
+    const validateInput = ():boolean => {
+        return typeof selectedActivity !== "undefined" &&
+            typeof selectedTime !== "undefined"&&
+            typeof timeInput !== "undefined" &&
+            !isNaN(parseInt(timeInput)) &&
+            typeof  selectedStartOrEnd !== "undefined" &&
+            typeof selectedCourse !== "undefined";
     }
-  };
+
+    useEffect(()=> {
+        if (typeof selectedEvent === "undefined") {
+            setSelectedActivity(selectedEvent);
+        } else if (selectedEvent.type in activityTypeToLabel) {
+            setSelectedActivity(getUnsavedStateParent(selectedEvent, activityEvents));
+        }
+    }, [selectedEvent])
+
+    useEffect(()=> {
+        if (validateInput()) {
+            setEventRelativeDate(selectedActivity!, selectedCourse!, selectedStartOrEnd as EventDate, timeUnit as DSLTimeUnit, parseInt(timeInput), selectedTime!);
+        }
+    }, [selectedTime, selectedStartOrEnd, selectedAdjustment, timeInput, timeUnit])
+
+    const handleActivityClick = (activity: CourseEvent) => {
+
+        console.log("handleActivityClick called");
+        console.log("activity:", activity);
+
+        notifyEventSelected(getUnsavedStateOrParent(activity));
+        setSelectedTime(undefined);
+        setSelectedStartOrEnd(undefined);
+        setSelectedAdjustment(undefined);
+    };
+
+    const handleEventChange = (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+
+        const eventUid = event.target.value;
+        const selectedEvent = newCourseEvents.find(
+            (event) => event.uid === eventUid
+        );
+        setSelectedCourse(selectedEvent)
+    };
 
     const handleTimeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedTime = parseInt(event.target.value, 10);
+        const unitName = event.target.value as DSLTimeUnit;
+        const selectedTime = DSL_TIME_UNIT_TO_MS[unitName];
         setSelectedTime(selectedTime);
+        setTimeUnit(unitName);
     };
 
     const handleStartOrEndChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedStartOrEnd = event.target.value as "start" | "end";
+        const selectedStartOrEnd = event.target.value as EventDate;
         setSelectedStartOrEnd(selectedStartOrEnd);
     };
 
@@ -72,35 +89,23 @@ const ShowEventsByType: React.FC = () => {
     };
 
     const handleSave = () => {
-      if (
-        clickedActivity &&
-        selectedEvent &&
-        selectedTime &&
-        timeInput &&
-        !isNaN(parseInt(timeInput)) &&
-        selectedStartOrEnd
-      ) {
-        
-        console.log(clickedActivity.title)
-        console.log(selectedEvent.title)
-        console.log(selectedTime)
-        console.log(timeInput)
-        console.log(selectedStartOrEnd)
-        
-        // Call the setEventRelativeDate function with the updated selectedEvent
-        setEventRelativeDate(clickedActivity,selectedEvent,selectedStartOrEnd,parseInt(timeInput), selectedTime);
-        setSelectedEvent(undefined);
-        setSelectedTime(undefined);
-        setSelectedStartOrEnd(undefined);
-        setTimeInput("");
-      }
+        if (validateInput()) {
+
+            console.log(selectedEvent?.title)
+            console.log(selectedTime)
+            console.log(timeInput)
+            console.log(selectedStartOrEnd)
+
+            notifySaveChanges(selectedActivity);
+        }
     };
-    
-    
-      
+
 
     const handleCancel = () => {
-        setSelectedEvent(undefined);
+
+        if (typeof selectedActivity !== "undefined") {
+            notifyCancelChanges(selectedActivity);
+        }
         setSelectedTime(undefined);
         setSelectedStartOrEnd(undefined);
         setTimeInput("");
@@ -126,31 +131,27 @@ const ShowEventsByType: React.FC = () => {
     }, [] as CourseEvent[]);
 
 
-    
-
-  
-
     return (
         <div className={styles.container}>
-        <div className={styles.col}>
-          <h2>Événements</h2>
-          {activityEvents.map((activity) => (
-            <div
-              key={activity.uid}
-              onClick={() => handleActivityClick(activity)}
-              className={styles.activity}
-            >
-              <div className={styles.title}>{activity.title}</div>
-              <div className={styles.date}>
-                {moment(activity.start).format("LLL")}
-              </div>
+            <div className={styles.col}>
+                <h2>Événements</h2>
+                {activityEvents.map((activity) => (
+                    <div
+                        key={activity.uid}
+                        onClick={() => handleActivityClick(activity)}
+                        className={styles.activity}
+                    >
+                        <div className={styles.title}>{activity.title}</div>
+                        <div className={styles.date}>
+                            {moment(activity.start).format("LLL")}
+                        </div>
+                    </div>
+                ))}
             </div>
-          ))}
-        </div>
-            {selectedEvent && (
+            {selectedActivity && (
                 <div className={styles.col}>
-                    <h2>{selectedEvent.title}</h2>
-                    <select value={selectedEvent?.uid ?? ""} onChange={handleEventChange}>
+                    <h2>{selectedActivity.title}</h2>
+                    <select value={selectedCourse?.uid ?? ""} onChange={handleEventChange}>
                         <option value="">Select event</option>
                         {formattedCourseEvents.map(event => (
                             <option key={event.uid} value={event.uid}>{event.title + event.start}</option>
@@ -165,8 +166,8 @@ const ShowEventsByType: React.FC = () => {
                     <input type="number" value={timeInput} onChange={handleTimeInputChange}/>
                     <select value={selectedTime ?? ""} onChange={handleTimeChange}>
                         <option value="">Select time</option>
-                        {Object.entries(DSL_TIME_UNIT_TO_MS).map(([unit, value]) => (
-                            <option key={unit} value={value}>{unit}</option>
+                        {Object.entries(DSL_TIME_UNIT_TO_LABEL).map(([unit, value]) =>  (
+                            <option key={unit} value={unit}>{value}</option>
                         ))}
                     </select>
                     <button onClick={handleSave}>Save</button>
