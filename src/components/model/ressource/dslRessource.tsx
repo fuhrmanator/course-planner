@@ -1,5 +1,5 @@
 import {EventType} from "@/components/model/interfaces/courseEvent";
-import {DSLTimeType} from "@/components/model/interfaces/dsl";
+import {DSLTimeType, DSLTimeUnit} from "@/components/model/interfaces/dsl";
 
 export const TYPE_MAP_EVENT_TO_DSL: {[key in EventType]: string} = {
     [EventType.Practicum]: "Practicum",
@@ -15,12 +15,11 @@ export const makeTypeMapDSLtoEvent = (dictToFlip : {[key in EventType]: string})
     return  flipped;
 }
 export const TYPE_MAP_DSL_TO_EVENT: {[key: string]: EventType} =makeTypeMapDSLtoEvent(TYPE_MAP_EVENT_TO_DSL)
-
-export const DSL_TIME_UNIT_TO_MS: {[key:string]: number} = {
-    "w": 6.048e+8,
-    "d": 8.64e+7,
-    "h": 3.6e+6,
-    "m": 60000
+export const DSL_TIME_UNIT_TO_MS: {[key in DSLTimeUnit]: number} = {
+    [DSLTimeUnit.Week]: 6.048e+8,
+    [DSLTimeUnit.Day]: 8.64e+7,
+    [DSLTimeUnit.Hour]: 3.6e+6,
+    [DSLTimeUnit.Minute]: 60000
 }
 
 export const MS_DSL_UNIT_SORTED_BY_DURATION: DSLTimeType[] = Object.entries(DSL_TIME_UNIT_TO_MS).map(([k, v]) => {return {symbol:k, value:v}}).sort((a:DSLTimeType, b:DSLTimeType) => b.value - a.value);

@@ -2,7 +2,7 @@ import React, {useState, useContext, createContext} from 'react';
 import fetchCourseICAL from './util/fetchOperations'
 import {parseICALEvents} from './util/icalInterpreter';
 import { EventModelContext } from '@/components/model/EventModel';
-import { applyChangesToArchive, extractData, makeEvents, parseActivities, zipData } from './util/mbz/mbzInterpreter';
+import { applyChangesToArchive, extractData, makeEvents, parseActivities, zipData } from './util/mbzInterpreter';
 import {
     addSuggestion, cancelAllUnsavedState,
     findEarliestEvent,
@@ -42,7 +42,10 @@ export const EventControllerContext = createContext<EventControllerContextProps>
 type CalControllerProps = {
     children: React.ReactNode;
 }
-
+/**
+ * Application's controller. Has the responsibility to expose functions used by the view to modify the data. It exposes
+ * these functions using react contexts (EventControllerContext).
+ */
 export const EventController: React.FC<CalControllerProps> = ({children}) => {
     const {oldCourseEvents, setOldCourseEvents, newCourseEvents, setNewCourseEvents, activityEvents, setActivityEvents, setSelectedEvent, eventTypeColour, setEventTypeColour, suggestionConfig, setSuggestionConfig} = useContext(EventModelContext);
     const [mbzData, setMVZData] = useState<MBZArchive>(new MBZArchive());

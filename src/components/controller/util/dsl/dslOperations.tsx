@@ -23,11 +23,17 @@ import {
 import {DSLActivity, DSLCourse, DSLObject, DSLTimeType} from "@/components/model/interfaces/dsl";
 import {all} from "deepmerge";
 
-
-const dateOffsetAsDSL = (ref: Date, offset: Date, atRecursion:boolean = false): string => {
+/**
+ * Creates the relative offset part of the DSL based on the time difference between two dates
+ * @param ref reference date. ref > offset -> negative offset (-). ref < offset -> positive offset (+)
+ * @param offset offset date.
+ * @param atRecursion for internal use.
+ */
+export const dateOffsetAsDSL = (ref: Date, offset: Date, atRecursion:boolean = false): string => {
 
     const operationSymbol = ref > offset ? SUB_SYMBOL : ADD_SYMBOL
     const offsetToRepresent = Math.abs(offset.getTime()-ref.getTime());
+
     let result = "";
     if (offsetToRepresent !== 0) {
         let unitToUse = MS_DSL_UNIT_SORTED_BY_DURATION.find((dslUnit:DSLTimeType) => offsetToRepresent % dslUnit.value === 0);
@@ -51,8 +57,13 @@ const dateOffsetAsDSL = (ref: Date, offset: Date, atRecursion:boolean = false): 
 
     return result;
 }
-
-const makeDSLRelativeToClosestDate = (ref:Date, sortedEvents:CourseEvent[]):string => {
+/**
+ * Finds the closest date to the given ref amongst the given sortedEvents and returns a DSL string that represents
+ * the ref date offset's to the closest date.
+ * @param ref date whose offset with the closest date will be represented by the returned DSL
+ * @param sortedEvents events containing dates (start or end) who are candidates to be the closest.
+ */
+export const makeDSLRelativeToClosestDate = (ref:Date, sortedEvents:CourseEvent[]):string => {
     const allPossibleClosestDates = sortedEvents.flatMap((event:CourseEvent)=>[event.start, event.end]);
     let closestIndex =-1;
     let closestValue = Number.MAX_VALUE;
@@ -69,6 +80,13 @@ const makeDSLRelativeToClosestDate = (ref:Date, sortedEvents:CourseEvent[]):stri
     const closestOffset = dateOffsetAsDSL(closestDate, ref);
     return `${closestEventIndex + 1}${TYPE_MAP_EVENT_TO_DSL[sortedEvents[closestEventIndex].type]}${closestDSLModifier}${closestOffset}`
 }
+/**
+ * Produce a DSL representation of the given event.
+ * Each element (open, cutoff, due, close) of the DSL will be relative to the closest date present in the given sortedEvents.
+ * @param event whose scheduling will be represented by the produced DSL
+ * @param eventIndex index of the given event element
+ * @param sortedEvents events whose dates are candidate to be the closest to the given event. Must be sorted in chronological order.
+ */
 export const makeDSLClosestMatch = (event:CourseEvent, eventIndex:number, sortedEvents:CourseEvent[]):string => {
 
     const openDSL = makeDSLRelativeToClosestDate(event.start, sortedEvents);
@@ -87,8 +105,11 @@ export const makeDSLClosestMatch = (event:CourseEvent, eventIndex:number, sorted
 
     return `${TYPE_MAP_EVENT_TO_DSL[event.type]}${eventIndex + 1} ${openDSL}${dueDSL}${cutoffDSL}${closeDSL}`
 }
-
-const recreateDSL = (node: any): any => {
+/**
+ * Recreates the DSL string based on the output of the DSL bundle
+ * @param node a property of the returned structure by the DSL bundle
+ */
+export const recreateDSL = (node: any): any => {
     switch (node.type) {
         case 'Quiz':
             return `${node.type}${node.i} ${recreateDSL(node.open)} ${recreateDSL(node.close)}`;
@@ -109,7 +130,11 @@ const recreateDSL = (node: any): any => {
             throw new Error(`Unknown node type ${node.type}`);
     }
 };
-
+/**
+ * Maps the DSL modifier (start, end, finish) to the actual properties of the event object and return the relevant date.
+ * @param dsl DSL course object (open, duedate, cutoff, close)
+ * @param event object whose date will be returned.
+ */
 const getDateReferenceByDSL = (dsl:DSLCourse, event:CourseEvent):Date => {
     let date;
     if (typeof dsl.modifier === "undefined" || dsl.modifier === START_SYMBOL) {
@@ -122,7 +147,12 @@ const getDateReferenceByDSL = (dsl:DSLCourse, event:CourseEvent):Date => {
     return date;
 }
 
-
+/**
+ * Takes a DSLCourse produced by the DSL bundle and the date to which it is relative and transforms it into
+ * a date representation.
+ * @param dsl DSL Course produced by the bundle
+ * @param relativeTo date who's referenced by the DSLCourse (i.e. Seminar1Start, date is the start of the first seminar)
+ */
 const parseDSLTimeToDate= (dsl: DSLCourse, relativeTo: Date):Date => {
     let newDate =new Date(relativeTo);
     if (typeof dsl.time !== "undefined") {
@@ -153,6 +183,7 @@ const parseDSLTimeToDate= (dsl: DSLCourse, relativeTo: Date):Date => {
     }
     return newDate;
 }
+
 const getEventReferencedByDSL = (dsl : DSLObject|undefined, events:CourseEvent[]): CourseEvent|undefined => {
     let event = undefined;
     if (typeof dsl !== "undefined") {
@@ -184,7 +215,12 @@ export const getTitleAsComment= (event:CourseEvent): string => {
     return `${COMMENT_SYMBOL}${event.title}`;
 }
 
-
+/**
+ * Applies DSL instructions to the given activities.
+ * @param dsl to apply to the activities.
+ * @param activities to modify using the DSL
+ * @param newCourseEvents events referenced by the DSL (seminars, practicums, laboratories)
+ */
 export const parseDSL= (dsl:string, activities:CourseEvent[], newCourseEvents:CourseEvent[]):void => {
     const rawParsed: any[] = parser.parse(dsl) as any[];
     const parsedDSL: DSLActivity[] = rawParsed[1] as DSLActivity[];

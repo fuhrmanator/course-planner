@@ -22,6 +22,13 @@ export interface DSLTime {
     modifier?:string
 }
 
+export enum DSLTimeUnit {
+    Week= "w",
+    Day="d",
+    Hour="h",
+    Minute="m"
+}
+
 export interface DSLTimeType {
     symbol: string,
     value: number

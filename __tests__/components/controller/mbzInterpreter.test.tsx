@@ -1,4 +1,4 @@
-import {applyChangesToArchive, makeEvents, parseActivities} from '@/components/controller/util/mbz/mbzInterpreter';
+import {applyChangesToArchive, makeEvents, parseActivities} from '@/components/controller/util/mbzInterpreter';
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
 import {EventType} from '@/components/model/interfaces/courseEvent';
 import {describe, expect, test} from '@jest/globals';
