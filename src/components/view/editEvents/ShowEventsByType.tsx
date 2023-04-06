@@ -5,11 +5,14 @@ import {
   CourseEvent,
   EventType,
   CourseType,
+  EventDate,
 } from "@/components/model/interfaces/courseEvent";
 import styles from "@/components/view/style/ShowEventsByType.module.css";
 import { courseTypeToLabel } from "@/components/model/ressource/eventRessource";
 import { DSL_TIME_UNIT_TO_MS } from "@/components/model/ressource/dslRessource";
 import { EventControllerContext } from "@/components/controller/eventController";
+
+
 
 const ShowEventsByType: React.FC = () => {
   const { activityEvents, newCourseEvents } = useContext(EventModelContext);
@@ -122,6 +125,11 @@ const ShowEventsByType: React.FC = () => {
         return [...acc, ...formattedEvents];
     }, [] as CourseEvent[]);
 
+
+    
+
+  
+
     return (
         <div className={styles.container}>
         <div className={styles.col}>
@@ -150,9 +158,10 @@ const ShowEventsByType: React.FC = () => {
                     </select>
                     <select value={selectedStartOrEnd ?? ""} onChange={handleStartOrEndChange}>
                         <option value="">Début ou Fin</option>
-                        <option value="start">Début</option>
-                        <option value="end">Fin</option>
+                        <option value={EventDate.Start}>Début</option>
+                        <option value={EventDate.End}>Fin</option>
                     </select>
+
                     <input type="number" value={timeInput} onChange={handleTimeInputChange}/>
                     <select value={selectedTime ?? ""} onChange={handleTimeChange}>
                         <option value="">Select time</option>

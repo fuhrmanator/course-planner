@@ -15,7 +15,8 @@ import {
     ActivityType,
     CourseEvent,
     CourseType,
-    EventType
+    EventType,
+    EventDate 
 } from "@/components/model/interfaces/courseEvent";
 import {parseDSL} from "@/components/controller/util/dsl/dslOperations";
 
@@ -130,17 +131,24 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setSelectedToEarliest(getUnsavedStates(activityEvents));
     }
 
-    const setEventRelativeDate = (event: ActivityEvent, relativeTo: CourseEvent,startOrend:string, multiple: number, value: number) => {
+    const setEventRelativeDate = (
+        event: ActivityEvent,
+        relativeTo: CourseEvent,
+        startOrEnd: EventDate,
+        multiple: number,
+        value: number
+      ) => {
         const timeInMs = value * multiple;
-        console.log("timeInMS : " + timeInMs)
-
-        if (startOrend == "start") {
-          event.start = new Date(relativeTo.start.getTime() - timeInMs)
+        console.log("timeInMS : " + timeInMs);
+      
+        if (startOrEnd === EventDate.Start) {
+          event.start = new Date(relativeTo.start.getTime() + timeInMs);
         } else {
           event.start = new Date(relativeTo.end.getTime() + timeInMs);
         }
         setActivityEvents([...activityEvents]);
       };
+      
     
       
 
