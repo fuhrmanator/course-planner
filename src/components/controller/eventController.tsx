@@ -146,25 +146,28 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
     }
 
     const setEventRelativeDate = (
-        event: ActivityEvent,
-        relativeTo: CourseEvent,
-        startOrEnd: EventDate,
-        multiple: number,
-        value: number
-      ) => {
-        const timeInMs = value * multiple;
-        console.log("timeInMS : " + timeInMs);
-
-        const eventState = getOrAddUnsavedState(event);
-
-        console.log(startOrEnd)
-        if (startOrEnd === EventDate.Start) {
-            eventState.start = new Date(relativeTo.start.getTime() + timeInMs);
-        } else if (startOrEnd === EventDate.End) {
-            eventState.end =  new Date(relativeTo.end.getTime() + timeInMs);
-        }
-        setActivityEvents([...activityEvents]);
-      };
+      event: ActivityEvent,
+      relativeTo: CourseEvent,
+      startOrEnd: EventDate,
+      multiple: number,
+      value: number
+    ) => {
+      const timeInMs = value * multiple;
+    
+      const eventState = getOrAddUnsavedState(event);
+    
+      console.log("startOrEnd du controller", startOrEnd);
+    
+      if (startOrEnd === EventDate.Start) {
+        eventState.start = new Date(relativeTo.start.getTime() + timeInMs);
+      } else if (startOrEnd === EventDate.End) {
+        eventState.end = new Date(relativeTo.end.getTime() + timeInMs);
+      }
+    
+      setActivityEvents([...activityEvents]);
+    };
+    
+    
       
     
       

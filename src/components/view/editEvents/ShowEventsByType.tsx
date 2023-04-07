@@ -98,28 +98,46 @@ const ShowEventsByType: React.FC = () => {
     setSelectedStartOrEnd(selectedStartOrEnd);
   };
 
+
   const handleTimeInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setTimeInput(value);
     console.log(`timeInput: ${value}`);
   };
   
-  
 
 
-  const handleSave = () => {
-    console.log(selectedActivity?.title + "Activity")
-    console.log(selectedCourse?.title + "Course")
-    if (validateInput() && selectedActivity && selectedStartOrEnd && selectedCourse && selectedTime) {
-      const keys = selectedActivity.type === EventType.Evaluation ? ["start", "end"] : ["start", "cutoff", "end"];
+  const handleSave = (startOrEnd: EventDate) => {
+    if (
+      validateInput() &&
+      selectedActivity &&
+      startOrEnd &&
+      selectedCourse &&
+      selectedTime
+    ) {
+      const keys =
+        selectedActivity.type === EventType.Evaluation
+          ? ["start", "end"]
+          : ["start", "cutoff", "end"];
   
       keys.forEach((key) => {
         console.log(`Key: ${selectedActivity.uid}-${key}`);
-        setEventRelativeDate(selectedActivity, selectedCourse, selectedStartOrEnd, timeUnit as DSLTimeUnit, parseInt(timeInput), selectedTime);
+        if (selectedActivity) {
+          setEventRelativeDate(
+            selectedActivity,
+            selectedCourse,
+            startOrEnd,  // use startOrEnd parameter here
+            parseInt(timeInput),
+            selectedTime
+          );
+          console.log("selectedStartOrEnd du ShowEvents: " + startOrEnd)  // use startOrEnd parameter here
+        }
       });
       notifySaveChanges(selectedActivity);
     }
-  };
+};
+
+  
 
   const handleCancel = () => {
     if (typeof selectedActivity !== "undefined") {
@@ -159,11 +177,14 @@ const ShowEventsByType: React.FC = () => {
   
   const handleSelectedStartOrEndChange = (startOrEnd: EventDate | undefined) => {
     setSelectedStartOrEnd(startOrEnd);
+    console.log("handleSelectedStartOrEndChange function: " + startOrEnd)
   };
   
   const handleSelectedTimeChange = (time: number | undefined) => {
     setSelectedTime(time);
   };
+
+  
 
   return (
     <div className={styles.container}>
@@ -224,7 +245,10 @@ const ShowEventsByType: React.FC = () => {
       onSelectedTimeChange={handleSelectedTimeChange}
      
     />
-    <button onClick={handleSave}>Save</button>
+    <button onClick={() => selectedStartOrEnd && handleSave(selectedStartOrEnd)} disabled={!selectedStartOrEnd}>
+  Save
+</button>
+
     <button onClick={handleCancel}>Cancel</button>
   </div>
 )}
@@ -288,7 +312,10 @@ const ShowEventsByType: React.FC = () => {
       
      
     />
-    <button onClick={handleSave}>Save</button>
+    <button onClick={() => selectedStartOrEnd && handleSave(selectedStartOrEnd)} disabled={!selectedStartOrEnd}>
+  Save
+</button>
+
     <button onClick={handleCancel}>Cancel</button>
   </div>
 )}

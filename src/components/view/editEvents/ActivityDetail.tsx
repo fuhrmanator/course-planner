@@ -19,8 +19,9 @@ type ActivityDetailProps = {
   onSelectedCourseChange: (course: CourseEvent | undefined) => void;
   onSelectedStartOrEndChange: (startOrEnd: EventDate | undefined) => void;
   onSelectedTimeChange: (time: number | undefined) => void;
+  
+  
 };
-
 const ActivityDetail: React.FC<ActivityDetailProps> = ({
   selectedActivity,
   selectedCourse,
@@ -48,6 +49,15 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
     onTimeInputChange(value);
   };
 
+  const handleLocalStartOrEndChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    console.log("handleLocalStartOrEndChange called"); // add this line
+    const value = e.target.value as EventDate;
+    setLocalSelectedStartOrEnd(value);
+    console.log("ActivityDetail localSelectedStartOrEnd:", value);
+    onSelectedStartOrEndChange(value);
+};
+
+
   const getKeyByValue = (object: any, value: any) => {
     return Object.keys(object).find(key => object[key] === value);
   };
@@ -73,15 +83,17 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
           </option>
         ))}
       </select>
-      <select value={localSelectedStartOrEnd ?? ''} onChange={(e) => {
-        setLocalSelectedStartOrEnd(e.target.value as EventDate);
-        handleStartOrEndChange(e);
-      }}>
-        <option value="">Début ou Fin</option>
-        <option value={EventDate.Start}>Début</option>
-        <option value={EventDate.End}>Fin</option>
-      </select>
-
+      <select
+      value={localSelectedStartOrEnd ?? ''}
+      onChange={handleLocalStartOrEndChange}
+      
+    >
+      
+      <option value="">Début ou Fin</option>
+      <option value={EventDate.Start}>Début</option>
+      <option value={EventDate.End}>Fin</option>
+    </select>
+      
       <input
         type="text"
         value={localTimeInput}
