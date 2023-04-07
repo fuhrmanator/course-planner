@@ -2,7 +2,7 @@ import React, {useState, useContext, createContext} from 'react';
 import fetchCourseICAL from './util/fetchOperations'
 import {parseICALEvents} from './util/icalInterpreter';
 import { EventModelContext } from '@/components/model/EventModel';
-import { applyChangesToArchive, extractData, makeEvents, parseActivities, zipData } from './util/mbz/mbzInterpreter';
+import { applyChangesToArchive, extractData, makeEvents, parseActivities, zipData } from './util/mbzInterpreter';
 import {
     addSuggestion, cancelAllUnsavedState,
     findEarliestEvent,
@@ -17,8 +17,7 @@ import {
     CourseType,
     EventType
 } from "@/components/model/interfaces/courseEvent";
-import suggestionButton from "@/components/view/buttons/SuggestionButton";
-import cancelChangesButton from "@/components/view/buttons/CancelChangesButton";
+import {parseDSL} from "@/components/controller/util/dsl/dslOperations";
 
 
 
@@ -33,6 +32,8 @@ type EventControllerContextProps = {
     notifySuggestion: ()=>void;
     notifySaveAllChanges: ()=>void;
     notifyCancelChanges: ()=>void;
+
+    notifySubmitDSL: (dsl:string) => void;
 }
 
 export const EventControllerContext = createContext<EventControllerContextProps>({} as EventControllerContextProps);
@@ -40,7 +41,10 @@ export const EventControllerContext = createContext<EventControllerContextProps>
 type CalControllerProps = {
     children: React.ReactNode;
 }
-
+/**
+ * Application's controller. Has the responsibility to expose functions used by the view to modify the data. It exposes
+ * these functions using react contexts (EventControllerContext).
+ */
 export const EventController: React.FC<CalControllerProps> = ({children}) => {
     const {oldCourseEvents, setOldCourseEvents, newCourseEvents, setNewCourseEvents, activityEvents, setActivityEvents, setSelectedEvent, eventTypeColour, setEventTypeColour, suggestionConfig, setSuggestionConfig} = useContext(EventModelContext);
     const [mbzData, setMVZData] = useState<MBZArchive>(new MBZArchive());
@@ -123,6 +127,12 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setActivityEvents([...activityEvents]);
     }
 
+    const notifySubmitDSL  = (dsl:string) => {
+        parseDSL(dsl, activityEvents, newCourseEvents);
+        setActivityEvents([...activityEvents]);
+        setSelectedToEarliest(getUnsavedStates(activityEvents));
+    }
+
     return (
         <EventControllerContext.Provider value={{
             notifyCourseFormSubmit,
@@ -134,7 +144,8 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
             notifySuggestionConfigUpdate,
             notifySuggestion,
             notifySaveAllChanges,
-            notifyCancelChanges}}>
+            notifyCancelChanges,
+            notifySubmitDSL}}>
             {children}
         </EventControllerContext.Provider>
     );

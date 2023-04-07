@@ -1,12 +1,11 @@
 import {
     ActivityEvent,
     CourseEvent,
-    EventTypeColour,
     SuggestionTypeMapConfig,
     TypeColourDict
 } from './interfaces/courseEvent'
 import React, {useState, createContext, useEffect, useRef} from 'react'
-import {callbackIfValuePresent, getValue, setValue} from './localStore';
+import {callbackIfValuePresent, setValue} from './localStore';
 
 import {
     defaultEventColours,
@@ -47,7 +46,12 @@ const LOCAL_STORE_ACTIVITY_KEY = 'activity_events';
 const LOCAL_STORE_COLOUR_KEY = 'type_colours';
 const LOCAL_STORE_SUGGESTION_KEY = 'suggestion_config';
 const LOCAL_STORE_SELECTED_KEY = 'selected_event';
-
+/**
+ * Application's model. Has the responsibility to old the application's data, save it to the local store when it changes,
+ * load it from the local store on startup and expose the data using react context (EventModelContext)
+ * @param children
+ * @constructor
+ */
 export const EventModel: React.FC<CalModelProps> = ({children}) => {
 
     const [events, setEvents] = useState<CourseEvent[]>([]);

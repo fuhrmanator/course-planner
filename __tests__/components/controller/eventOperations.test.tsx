@@ -180,10 +180,10 @@ describe('Suggestion', () => {
     usedActivityType = EventType.Homework
     unusedActivityType= EventType.Evaluation
     usedCourseType = EventType.Seminar
-    unusedCourseType = EventType.Practica
+    unusedCourseType = EventType.Practicum
 
     oldStart = new Date(0);
-    oldEnd = new Date(1);
+    oldEnd = new Date(1*60000);
     oldCourse=[{
       start:oldStart,
       end:oldEnd,
@@ -192,8 +192,8 @@ describe('Suggestion', () => {
       type:usedCourseType
     }]
     newCourse = [{
-      start:new Date(2),
-      end:new Date(3),
+      start:new Date(2*60000),
+      end:new Date(3*60000),
       uid:"new",
       title:"new",
       type:usedCourseType
@@ -233,7 +233,7 @@ describe('Suggestion', () => {
   });
 
   test('Should suggest date with same offset as reference', () => {
-    const offest = 10;
+    const offest = 10*60000;
     eventToSuggest[0].start = new Date (oldCourse[0].start.getTime() + offest)
 
     addSuggestion(eventToSuggest, oldCourse, newCourse, config);
