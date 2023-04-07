@@ -255,3 +255,4 @@ export const sortEventsWithTypeByOldestStart = (events:CourseEvent[], type:Event
 export const getKeysAsType = <T extends number>(dict: {[keys in T]: any}):T[] => {
     return Object.keys(dict).map(e => parseInt(e)) as T[];
 }
+
