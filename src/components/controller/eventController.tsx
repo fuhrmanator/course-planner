@@ -34,7 +34,7 @@ type EventControllerContextProps = {
     notifySuggestion: ()=>void;
     notifySaveChanges: (event:CourseEvent|undefined)=>void;
     notifyCancelChanges: (event:CourseEvent|undefined)=>void;
-    setEventRelativeDate: (event: ActivityEvent, relativeTo: CourseEvent, startOrend: EventDate, timeUnit: DSLTimeUnit, multiple: number, value: number) => void;
+    setEventRelativeDate: (event: ActivityEvent, relativeTo: CourseEvent, startOrend: EventDate, multiple: number, value: number) => void;
     notifySubmitDSL: (dsl:string) => void;
 }
 
@@ -149,18 +149,19 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         event: ActivityEvent,
         relativeTo: CourseEvent,
         startOrEnd: EventDate,
-        timeUnit: DSLTimeUnit,
         multiple: number,
         value: number
       ) => {
         const timeInMs = value * multiple;
         console.log("timeInMS : " + timeInMs);
-        console.log("timeInMS : " + timeUnit);
+
         const eventState = getOrAddUnsavedState(event);
+
+        console.log(startOrEnd)
         if (startOrEnd === EventDate.Start) {
             eventState.start = new Date(relativeTo.start.getTime() + timeInMs);
         } else {
-            eventState.start = new Date(relativeTo.end.getTime() + timeInMs);
+            eventState.end =  new Date(relativeTo.end.getTime() + timeInMs);
         }
         setActivityEvents([...activityEvents]);
       };
