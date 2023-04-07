@@ -62,11 +62,13 @@ const ShowEventsByType: React.FC = () => {
     }
   }, [selectedEvent])
 
+  /**
   useEffect(()=> {
     if (validateInput()) {
       setEventRelativeDate(selectedActivity!, selectedCourse!, selectedStartOrEnd as EventDate, parseInt(timeInput), selectedTime!);
     }
   }, [selectedTime, selectedStartOrEnd, selectedAdjustment, timeInput])
+   */
 
   const handleActivityClick = (activity: CourseEvent) => {
     notifyEventSelected(getUnsavedStateOrParent(activity));
