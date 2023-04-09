@@ -68,7 +68,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
         <option value="">Select event</option>
         {formattedCourseEvents.map((event) => (
           <option key={event.uid} value={event.uid}>
-            {event.title + event.start}
+            {event.title + " - " + event.start.toDateString()}
           </option>
         ))}
       </select>
