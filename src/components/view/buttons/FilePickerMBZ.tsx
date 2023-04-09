@@ -1,6 +1,6 @@
 import React, {useState, useContext} from "react";
 import {EventControllerContext} from "@/components/controller/eventController";
-import UI from '@/styles/CoursePlanner.module.scss';
+import UI from '@/styles/CoursePlanner.module.css';
 
 interface Props {}
 
@@ -21,9 +21,11 @@ const FilePickerMBZ: React.FC<Props> = () => {
   }
 
   return (
-    <div className={UI.selectButton}>
-      <input type="file" value={selectedFile} onFocus={handleFocus} onInput={handleFileChange} />
-    </div>
+      <label className={UI.button}>
+        <input className={UI.input} type="file" value={selectedFile} onFocus={handleFocus} onInput={handleFileChange} />
+        Sélectionner un fichier
+      </label>
+
   );
 };
 

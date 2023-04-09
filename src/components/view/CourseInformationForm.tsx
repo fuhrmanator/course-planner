@@ -87,9 +87,9 @@ const CourseInformationForm: React.FC<Props> = () => {
               <Select.Option value={Session.Fall}>Automne</Select.Option>
             </Select>
           </Form.Item>
-            <RadioButton labelTrue={"Cours de l'archive moodle"} labelFalse={"Nouveau cours plannifié"} value={isOldCourse} onChange={setIsOldCourse} />
+            <RadioButton labelTrue={"Cours Importé"} labelFalse={"Nouveau cours"} value={isOldCourse} onChange={setIsOldCourse} />
           <Form.Item>
-            <button type="submit">Submit</button>
+            <button type="submit">Soumettre</button>
           </Form.Item>
         </Form>
 

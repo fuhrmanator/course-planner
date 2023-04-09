@@ -20,10 +20,11 @@
 .courseCalendar {
   margin-bottom: 2.25px;
 }
-.flexWrapperEleven {
-  padding: 0 0 0 64px;
+.flexWrapperFile {
+  padding-top: 20px;
+  padding-bottom: 20px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 .importLabel {
   height: 47px;
@@ -54,9 +55,7 @@
   align-items: flex-start;
 }
 .allFilter {
-  &:not(:last-of-type) {
-    margin-right: 65px;
-  }
+
 }
 .evaluationFilter {
   margin-right: 71px;
@@ -67,21 +66,35 @@
   background-color: rgba(217, 217, 217, 1);
   border: 1px solid;
 }
-.flexWrapperTwo {
+.flexWrapperButton {
   margin-bottom: 24px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
-.selectButton {
-  &:not(:last-of-type) {
-    margin-right: 250px;
-  }
-}
-.flexWrapperThree {
-  margin-bottom: 2px;
-  padding: 0 0 0 82px;
+.button {
+  padding: 10px 24px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+  background-color: lightpink;
+  border: 2px solid;
+  border-radius: 25px;
+}
+label:hover.button {
+  cursor: pointer;
+}
+button:hover.button {
+  cursor: pointer;
+}
+.input {
+  display: none;
+}
+.flexWrapperLegend {
+  margin-bottom: 15px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 .universityDropdownMenu {
   width: 316px;
@@ -275,9 +288,7 @@
   background-color: rgba(217, 217, 217, 1);
   margin-top: 25px;
   border-radius: 50%;
-  &:not(:last-of-type) {
-    margin-right: 59px;
-  }
+
 }
 .flexWrapperEight {
   padding: 0 0 0 26px;
@@ -325,9 +336,8 @@
   align-items: flex-start;
 }
 .sendButton {
-  &:not(:last-of-type) {
-    margin-right: 48px;
-  }
+    margin-top: 21px;
+    margin-right: 54px;
 }
 .courseResetButton {
   margin-right: 44px;
@@ -350,4 +360,30 @@
 }
 .suggestionButton {
   margin-top: 22px;
+}
+.stateLayer {
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding: 50px 20px 100px;
+}
+
+/* Control the left side */
+.left {
+  left: 0;
+}
+
+/* Control the right side */
+.right {
+  right: 0;
 }

@@ -20,7 +20,7 @@ import {
     ActivityResetButton,
     SuggestionButton
 } from "components";
-import styles from "./CoursePlanner.module.scss";
+import styles from "./CoursePlanner.module.css";
 
 const CoursePlanner = () => {
     return (

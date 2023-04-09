@@ -1,5 +1,6 @@
 import React, {useContext, useState} from "react";
 import {EventControllerContext} from "@/components/controller/eventController";
+import UI from '@/styles/CoursePlanner.module.css';
 
 const DownloadMBZButton: React.FC<{}> = () => {
     const [downloadLink, setDownloadLink] = useState<string>("");
@@ -13,11 +14,13 @@ const DownloadMBZButton: React.FC<{}> = () => {
 
 
     return (
-        <a onClick={handleOnClick} download="moodle_course.zip" href={downloadLink}>
-            <button>
-            download
+
+        <a  onClick={handleOnClick} download="moodle_course.zip" href={downloadLink} >
+            <button className={UI.button}>
+            Exporté
             </button>
         </a>
+
     );
 };
 
