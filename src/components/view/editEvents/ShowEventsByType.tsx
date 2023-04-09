@@ -288,8 +288,8 @@ const ShowEventsByType: React.FC = () => {
       onTimeInputChange={handleLocalTimeInputChange}
       onSelectedCourseChange={handleSelectedCourseChange}
       onSelectedTimeChange={handleSelectedTimeChange}
-      handleSave={() => handleSave(EventDate.Start)}
-      selectedStartOrEnd={EventDate.Start}
+      handleSave={() => handleSave(EventDate.CutOff)}
+      selectedStartOrEnd={EventDate.CutOff}
       
     />
     <h3>Fin</h3>

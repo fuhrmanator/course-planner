@@ -194,11 +194,17 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
       const eventState = getOrAddUnsavedState(event);
     
       console.log("startOrEnd du controller", startOrEnd);
+
+      console.log("HAS CUTOFF : " + eventState.cutoff)
+
+
     
       if (startOrEnd === EventDate.Start) {
         eventState.start = new Date(relativeTo.start.getTime() + timeInMs);
       } else if (startOrEnd === EventDate.End) {
         eventState.end = new Date(relativeTo.end.getTime() + timeInMs);
+      } else if (relativeTo.cutoff && startOrEnd === EventDate.CutOff) {
+        eventState.cutoff = new Date(relativeTo.cutoff.getTime() + timeInMs);
       } 
         
         
