@@ -15,18 +15,14 @@ import {DSLTimeUnit} from "@/components/model/interfaces/dsl";
 import {getUnsavedStateOrParent, getUnsavedStateParent} from "@/components/controller/util/eventsOperations";
 import ActivityDetail from './ActivityDetail';
 
+
+
 const ShowEventsByType: React.FC = () => {
-  //const {activityEvents, newCourseEvents, selectedEvent} = useContext(EventModelContext);
-  //const {setEventRelativeDate, notifyEventSelected, notifySaveChanges, notifyCancelChanges} = useContext(EventControllerContext);
 
-  const {
-    activityEvents, newCourseEvents, selectedEvent
-  } = useContext(EventModelContext);
-  const {
-    setEventRelativeDate, notifyEventSelected, notifySaveChanges, notifyCancelChanges
-  } = useContext(EventControllerContext);
+  const {activityEvents, newCourseEvents, selectedEvent} = useContext(EventModelContext);
+  const { setEventRelativeDate, notifyEventSelected, notifySaveChanges, notifyCancelChanges } = useContext(EventControllerContext);
 
-
+  const { cancelRelativeDateChanges } = useContext(EventControllerContext);
   const [selectedActivity, setSelectedActivity] = useState<CourseEvent | undefined>();
   const [selectedCourse, setSelectedCourse] = useState<CourseEvent | undefined>();
   const [selectedTime, setSelectedTime] = useState<number | undefined>();
@@ -151,12 +147,7 @@ const ShowEventsByType: React.FC = () => {
   
 
   const handleCancel = () => {
-    if (typeof selectedActivity !== "undefined") {
-      notifyCancelChanges(selectedActivity);
-    }
-    setSelectedTime(undefined);
-    setSelectedStartOrEnd(undefined);
-    setTimeInput("");
+    cancelRelativeDateChanges();
   };
 
   const filteredCourseEvents: { [key: string]: CourseEvent[] } = {};
