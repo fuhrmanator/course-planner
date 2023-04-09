@@ -15,6 +15,7 @@ import ShowOverlay from "@/components/view/buttons/ShowOverlay";
 import SuggestionConfig from "@/components/view/suggestion/SuggestionConfig";
 import DSLWindow from "@/components/view/DSLWindow";
 import ShowEventsByType from '@/components/view/editEvents/ShowEventsByType'
+import UI from '@/styles/CoursePlanner.module.scss'
 
 export default function Home() {
   return (
@@ -32,8 +33,11 @@ export default function Home() {
               <EventCalendar />
               <CourseInformationForm />
               <ClearCalButton />
-              <FilePickerMBZ />
-              <DownloadMBZButton />
+              <div className={UI.flexWrapperTwo}>
+                <FilePickerMBZ />
+                <DownloadMBZButton />
+              </div>
+
               <ShowOverlay label={"Configurer la suggestion"}>
                 <SuggestionConfig />
               </ShowOverlay>
