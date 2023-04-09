@@ -30,7 +30,8 @@ export enum EventType {
 
 export enum EventDate {
     Start = "start",
-    End = "end"
+    End = "end",
+    CutOff = "cutOff"
 }
 
 export interface ActivityEvent extends CourseEvent {

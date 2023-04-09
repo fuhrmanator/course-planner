@@ -162,8 +162,9 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         eventState.start = new Date(relativeTo.start.getTime() + timeInMs);
       } else if (startOrEnd === EventDate.End) {
         eventState.end = new Date(relativeTo.end.getTime() + timeInMs);
-      }
-    
+      } 
+        
+        
       setActivityEvents([...activityEvents]);
     };
     
