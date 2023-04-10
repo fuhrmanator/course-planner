@@ -17,7 +17,9 @@ const DownloadMBZButton: React.FC<{}> = () => {
 
         <a  onClick={handleOnClick} download="moodle_course.zip" href={downloadLink} >
             <button className={UI.button}>
-            Exporté
+                <div className={UI.uiLabel}>
+                    Exporter
+                </div>
             </button>
         </a>
 

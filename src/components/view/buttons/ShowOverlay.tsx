@@ -2,6 +2,7 @@ import React, {MouseEventHandler, useState} from "react";
 import SuggestionConfig from "@/components/view/suggestion/SuggestionConfig";
 import styles from "@/components/view/style/ShowOverlay.module.css"
 import classNames from "classnames";
+import UI from '@/styles/CoursePlanner.module.css'
 type ShowOverlayProps = {
     children: React.ReactNode;
     label: string;
@@ -23,12 +24,16 @@ const ShowOverlay: React.FC<ShowOverlayProps> = ({children, label}) => {
 
     return (
         <div>
-            <a onClick={handleAnchorClick}>
+            <a onClick={handleAnchorClick} className={UI.button}>
+                <div className={UI.uiLabel}>
                 {label}
+                </div>
             </a>
             <div className={visibilityClass}>
-                {children}
-                <button onClick={handleCloseClick} >Fermer</button>
+                <div className={styles.popup}>
+                    {children}
+                    <button onClick={handleCloseClick}  className={UI.button}>Fermer</button>
+                </div>
             </div>
 
         </div>

@@ -46,22 +46,25 @@ export default function Home() {
               <div className={[UI.split, UI.right].join(' ')}>
                 <ShowEventsByType/>
 
+                <div className={styles.grid}>
+                  <ShowOverlay label={"Configurer la suggestion"}>
+                    <SuggestionConfig />
+                  </ShowOverlay>
+                  <SuggestionButton />
+                  <SaveAllChangesButton />
+                  <CancelChangesButton />
+                </div>
 
-
-              <ShowOverlay label={"Configurer la suggestion"}>
-                <SuggestionConfig />
-              </ShowOverlay>
-
-              <SuggestionButton />
-              <SaveAllChangesButton />
-              <CancelChangesButton />
-              <ShowOverlay label={"DSL"}>
-                <DSLWindow />
-              </ShowOverlay>
+                <div className={UI.flexWrapperFile}>
+                <h3 className={UI.uiLabel}>Options Avancées: </h3>
+                <ShowOverlay label={"DSL"}>
+                  <DSLWindow />
+                </ShowOverlay>
+                </div>
 
               </div>
+
             </EventController>
-            
           </EventModel>
         </div>
       </main>

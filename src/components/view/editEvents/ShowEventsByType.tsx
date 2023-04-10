@@ -14,6 +14,7 @@ import {EventControllerContext} from "@/components/controller/eventController";
 import {DSLTimeUnit} from "@/components/model/interfaces/dsl";
 import {getUnsavedStateOrParent, getUnsavedStateParent} from "@/components/controller/util/eventsOperations";
 import ActivityDetail from './ActivityDetail';
+import UI from "@/styles/CoursePlanner.module.css";
 
 const ShowEventsByType: React.FC = () => {
   //const {activityEvents, newCourseEvents, selectedEvent} = useContext(EventModelContext);
@@ -198,9 +199,9 @@ const ShowEventsByType: React.FC = () => {
   
 
   return (
-    <div className={styles.container}>
-        <div className={styles.col}>
-            <h2>Événements</h2>
+    <div className={styles.font}>
+        <h2>Événements</h2>
+        <div className={styles.container}>
             {activityEvents.map((activity) => (
                 <div
                     key={activity.uid}
@@ -215,54 +216,60 @@ const ShowEventsByType: React.FC = () => {
             ))}
         </div>
         {selectedActivity && (
-<>
-{selectedActivity.type === EventType.Evaluation && (
-  <div>
-    <h3>Début</h3>
-    <ActivityDetail
-      key={`${selectedActivity.uid}-start`}
-      selectedActivity={selectedActivity}
-      selectedCourse={selectedCourse}
-      selectedTime={selectedTime}
-      timeInput={timeInput}
-      formattedCourseEvents={formattedCourseEvents}
-      handleEventChange={handleEventChange}
-      handleStartOrEndChange={handleStartOrEndChange}
-      handleTimeInputChange={handleTimeInputChange}
-      handleTimeChange={handleTimeChange}
-      onTimeInputChange={handleLocalTimeInputChange}
-      onSelectedCourseChange={handleSelectedCourseChange}
-      onSelectedTimeChange={handleSelectedTimeChange}
-      handleSave={() => handleSave(EventDate.Start)}
-      selectedStartOrEnd={EventDate.Start}
-  
-    />
-    <h3>Fin</h3>
-    <ActivityDetail
-      key={`${selectedActivity.uid}-end`}
-      selectedActivity={selectedActivity}
-      selectedCourse={selectedCourse}
-      selectedTime={selectedTime}
-      timeInput={timeInput}
-      formattedCourseEvents={formattedCourseEvents}
-      handleEventChange={handleEventChange}
-      handleStartOrEndChange={handleStartOrEndChange}
-      handleTimeInputChange={handleTimeInputChange}
-      handleTimeChange={handleTimeChange}
-      onTimeInputChange={handleLocalTimeInputChange}
-      onSelectedCourseChange={handleSelectedCourseChange}
-      onSelectedTimeChange={handleSelectedTimeChange}
-      handleSave={() => handleSave(EventDate.End)}
-      selectedStartOrEnd={EventDate.End}
-     
-    />
-    
+      <>
+    {selectedActivity.type === EventType.Evaluation && (
+      <div>
+        <div className={styles.title}><h2> Activité sélectionnée: {selectedActivity.title} </h2></div>
+        <h3>Début</h3>
+        <ActivityDetail
+          key={`${selectedActivity.uid}-start`}
+          selectedActivity={selectedActivity}
+          selectedCourse={selectedCourse}
+          selectedTime={selectedTime}
+          timeInput={timeInput}
+          formattedCourseEvents={formattedCourseEvents}
+          handleEventChange={handleEventChange}
+          handleStartOrEndChange={handleStartOrEndChange}
+          handleTimeInputChange={handleTimeInputChange}
+          handleTimeChange={handleTimeChange}
+          onTimeInputChange={handleLocalTimeInputChange}
+          onSelectedCourseChange={handleSelectedCourseChange}
+          onSelectedTimeChange={handleSelectedTimeChange}
+          handleSave={() => handleSave(EventDate.Start)}
+          selectedStartOrEnd={EventDate.Start}
 
-    <button onClick={handleCancel}>Cancel</button>
+        />
+        <h3>Fin</h3>
+        <ActivityDetail
+          key={`${selectedActivity.uid}-end`}
+          selectedActivity={selectedActivity}
+          selectedCourse={selectedCourse}
+          selectedTime={selectedTime}
+          timeInput={timeInput}
+          formattedCourseEvents={formattedCourseEvents}
+          handleEventChange={handleEventChange}
+          handleStartOrEndChange={handleStartOrEndChange}
+          handleTimeInputChange={handleTimeInputChange}
+          handleTimeChange={handleTimeChange}
+          onTimeInputChange={handleLocalTimeInputChange}
+          onSelectedCourseChange={handleSelectedCourseChange}
+          onSelectedTimeChange={handleSelectedTimeChange}
+          handleSave={() => handleSave(EventDate.End)}
+          selectedStartOrEnd={EventDate.End}
+
+        />
+
+
+        <button onClick={handleCancel} className={UI.button}>
+          <div className={UI.uiLabel}>
+            Cancel
+          </div>
+        </button>
   </div>
 )}
 {selectedActivity.type === EventType.Homework && (
   <div>
+    <div className={styles.title}><h2> Activité sélectionnée: {selectedActivity.title} </h2></div>
     <h3>Début</h3>
     <ActivityDetail
       key={`${selectedActivity.uid}-start`}
@@ -280,8 +287,8 @@ const ShowEventsByType: React.FC = () => {
       onSelectedTimeChange={handleSelectedTimeChange}
       handleSave={() => handleSave(EventDate.Start)}
       selectedStartOrEnd={EventDate.Start}
-
     />
+
     <h3>CutOff</h3>
     <ActivityDetail
       key={`${selectedActivity.uid}-cutoff`}
@@ -299,8 +306,8 @@ const ShowEventsByType: React.FC = () => {
       onSelectedTimeChange={handleSelectedTimeChange}
       handleSave={() => handleSave(EventDate.Start)}
       selectedStartOrEnd={EventDate.Start}
-      
     />
+
     <h3>Fin</h3>
     <ActivityDetail
       key={`${selectedActivity.uid}-end`}
@@ -318,12 +325,14 @@ const ShowEventsByType: React.FC = () => {
       onSelectedTimeChange={handleSelectedTimeChange}
       handleSave={() => handleSave(EventDate.End)}
       selectedStartOrEnd={EventDate.End}
-      
-     
     />
     
 
-    <button onClick={handleCancel}>Cancel</button>
+    <button onClick={handleCancel} className={UI.button}>
+      <div className={UI.uiLabel}>
+        Cancel
+      </div>
+    </button>
   </div>
 )}
 </>

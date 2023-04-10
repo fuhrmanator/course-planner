@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import {EventControllerContext} from "@/components/controller/eventController";
+import UI from "@/styles/CoursePlanner.module.css";
 
 interface SaveAllChangesButtonProps {}
 
@@ -9,8 +10,10 @@ const SaveAllChangesButton: React.FC<SaveAllChangesButtonProps> = () => {
         notifySaveChanges(undefined);
     }
     return (
-        <button onClick={handleClick}>
-            Save
+        <button onClick={handleClick} className={UI.button}>
+            <div className={UI.uiLabel}>
+                Sauvegarder les suggestions
+            </div>
         </button>
     );
 };

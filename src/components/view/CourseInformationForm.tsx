@@ -3,6 +3,7 @@ import { Form, Input, Select } from "antd";
 import {EventControllerContext} from "@/components/controller/eventController";
 import {getValue, setValue} from 'src/components/model/localStore'
 import RadioButton from "@/components/view/RadioButton";
+import UI from "@/styles/CoursePlanner.module.css";
 
 interface Props {}
 
@@ -53,7 +54,7 @@ const CourseInformationForm: React.FC<Props> = () => {
     };
 
   return (
-      <div>
+      <div className={UI.formUI}>
         <Form onFinish={handleSubmit}>
           <Form.Item label="Sigle">
             <Input

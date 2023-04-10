@@ -1,8 +1,9 @@
 import { CourseEvent, EventDate, EventType } from "@/components/model/interfaces/courseEvent";
 import { DSLTimeUnit } from "@/components/model/interfaces/dsl";
 import { DSL_TIME_UNIT_TO_LABEL, DSL_TIME_UNIT_TO_MS } from "@/components/model/ressource/dslRessource";
-import { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent } from "react";
 import styles from "@/components/view/style/ShowEventsByType.module.css";
+import UI from "@/styles/CoursePlanner.module.css";
 
 type ActivityDetailProps = {
   selectedActivity: CourseEvent | undefined;
@@ -54,8 +55,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
   if (!selectedActivity) return null;
 
   return (
-    <div className={styles.col}>
-      <h2>{selectedActivity.title}</h2>
+    <div className={styles.detail}>
       <select
         value={localSelectedCourse?.uid ?? ""}
         onChange={(e) => {
@@ -73,33 +73,37 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
         ))}
       </select>
 
-      <input
-        type="text"
-        value={localTimeInput}
-        onChange={handleInputChange}
-      />
+        <h3 className={styles.font}>Décalage: </h3>
+        <input
+            type="text"
+            value={localTimeInput}
+            onChange={handleInputChange}
+        />
 
-<select
-        value={getKeyByValue(DSL_TIME_UNIT_TO_MS, localSelectedTime) ?? ""}
-        onChange={(e) => {
-          const unit = e.target.value as DSLTimeUnit;
-          setLocalSelectedTime(DSL_TIME_UNIT_TO_MS[unit]);
-          onSelectedTimeChange(DSL_TIME_UNIT_TO_MS[unit]);
-        }}
-      >
-        <option value="">Select time</option>
-        {Object.entries(DSL_TIME_UNIT_TO_LABEL).map(([unit, value]) => (
-          <option key={unit} value={unit}>
-            {value}
-          </option>
-        ))}
-      </select>
+        <select
+          value={getKeyByValue(DSL_TIME_UNIT_TO_MS, localSelectedTime) ?? ""}
+          onChange={(e) => {
+            const unit = e.target.value as DSLTimeUnit;
+            setLocalSelectedTime(DSL_TIME_UNIT_TO_MS[unit]);
+            onSelectedTimeChange(DSL_TIME_UNIT_TO_MS[unit]);
+          }}
+        >
+          <option value="">Select time</option>
+          {Object.entries(DSL_TIME_UNIT_TO_LABEL).map(([unit, value]) => (
+            <option key={unit} value={unit}>
+              {value}
+            </option>
+          ))}
+        </select>
 
       <button
         onClick={() => handleSave(selectedStartOrEnd)}
         disabled={!localTimeInput && !localSelectedCourse}
+        className={styles.button}
       >
-        Save
+          <div className={styles.font}>
+              Sauvegarder
+          </div>
       </button>
     </div>
   );

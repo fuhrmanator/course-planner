@@ -9,7 +9,9 @@ const ClearCalButton: React.FC<ClearCalProps> = () => {
     
     return (
         <button onClick={notifyClearCal} className={UI.button}>
-        Effacer le calendrier
+            <div className={UI.uiLabel}>
+                Effacer le calendrier
+            </div>
         </button>
     );
 };

@@ -45,6 +45,7 @@
   grid-template-columns: repeat(4, minmax(25%, auto));
   width: var(--max-width);
   max-width: 100%;
+  margin-top: 20px;
 }
 
 .card {

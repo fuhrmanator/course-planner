@@ -5,67 +5,45 @@
   flex-direction: column;
   align-items: flex-start;
 }
-.flexWrapperOne {
-  margin-bottom: 3px;
-  padding: 0 0 2px 53px;
-  display: flex;
-  align-items: flex-start;
-}
-.flexWrapperNine {
-  margin-right: 207.25px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.courseCalendar {
-  margin-bottom: 2.25px;
-}
+
 .flexWrapperFile {
   padding-top: 20px;
   padding-bottom: 20px;
   display: flex;
   align-items: center;
 }
-.importLabel {
-  height: 47px;
-  width: 94px;
+.flexWrapperLegend {
+  margin-bottom: 15px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 18px;
+  font-family: var(--font-sans);
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+.formUI {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+  font-family: var(--font-sans);
+}
+.uiLabel {
+  height: 40px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 15px;
   display: flex;
   align-items: center;
-  text-align: center;
-  margin-top: 3px;
-  margin-right: 7px;
   letter-spacing: 0.5px;
+  text-align: center;
+  font-family: var(--font-sans);
 }
-.importDropdownMenu {
-  width: 145px;
-  height: 41px;
-  background-color: rgba(217, 217, 217, 1);
-  border: 1px solid;
-}
-.flexWrapperTen {
-  padding: 31px 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.flexWrapperTwelve {
-  margin-bottom: 17px;
-  padding: 0 0 0 28px;
-  display: flex;
-  align-items: flex-start;
-}
-.allFilter {
 
-}
-.evaluationFilter {
-  margin-right: 71px;
-}
-.activityListBox {
-  width: 661px;
-  height: 311px;
-  background-color: rgba(217, 217, 217, 1);
-  border: 1px solid;
-}
 .flexWrapperButton {
   margin-bottom: 24px;
   display: flex;
@@ -81,293 +59,14 @@
   border: 2px solid;
   border-radius: 25px;
 }
-label:hover.button {
-  cursor: pointer;
-}
-button:hover.button {
+
+.button:hover {
   cursor: pointer;
 }
 .input {
   display: none;
 }
-.flexWrapperLegend {
-  margin-bottom: 15px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-.universityDropdownMenu {
-  width: 316px;
-  height: 41px;
-  background-color: rgba(217, 217, 217, 1);
-  margin-top: 2px;
-  margin-right: 247px;
-  border: 1px solid;
-}
-.activityLabel {
-  height: 60px;
-  width: 225px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 18px;
-  display: flex;
-  align-items: center;
-  letter-spacing: 0.48px;
-}
-.flexWrapperFour {
-  margin-bottom: 6px;
-  padding: 0 0 0 76px;
-  display: flex;
-  align-items: flex-start;
-}
-.acronymLabel {
-  height: 47px;
-  width: 94px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin-top: 6px;
-  margin-right: 6px;
-  letter-spacing: 0.5px;
-}
-.acronymComboBox {
-  margin-right: 266px;
-}
-.startLabel {
-  height: 36px;
-  width: 152px;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 18px;
-  display: flex;
-  align-items: center;
-  margin-top: 22px;
-  letter-spacing: 0.36px;
-}
-.flexWrapperFive {
-  margin-bottom: 7px;
-  padding: 0 0 0 78px;
-  display: flex;
-  align-items: flex-start;
-}
-.groupLabel {
-  height: 47px;
-  width: 94px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin-top: 19px;
-  margin-right: 6px;
-  letter-spacing: 0.5px;
-}
-.groupComboBox {
-  margin-top: 13px;
-  margin-right: 260px;
-}
-.startActivityDropdownMenu {
-  width: 145px;
-  height: 41px;
-  background-color: rgba(217, 217, 217, 1);
-  margin-top: 1px;
-  margin-right: 10px;
-  border: 1px solid;
-}
-.startdfDropdownMenu {
-  width: 145px;
-  height: 41px;
-  background-color: rgba(217, 217, 217, 1);
-  margin-top: 1px;
-  margin-right: 14px;
-  border: 1px solid;
-}
-.startAjustDropdownMenu {
-  width: 145px;
-  height: 41px;
-  background-color: rgba(217, 217, 217, 1);
-  margin-right: 23px;
-  border: 1px solid;
-}
-.startTimeLabel {
-  height: 41px;
-  width: 163px;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 18px;
-  display: flex;
-  align-items: center;
-  margin-top: 2px;
-  letter-spacing: 0.36px;
-}
-.flexWrapperSix {
-  margin-bottom: 8px;
-  padding: 0 0 0 79px;
-  display: flex;
-  align-items: flex-start;
-}
-.yearComboBox {
-  margin-top: 13px;
-  margin-right: 259px;
-}
-.flexWrapperThirteen {
-  margin-right: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.endLabel {
-  height: 36px;
-  width: 152px;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 18px;
-  display: flex;
-  align-items: center;
-  margin-bottom: 7px;
-  letter-spacing: 0.36px;
-}
-.enddfDropdownMenu {
-  width: 145px;
-  height: 41px;
-  background-color: rgba(217, 217, 217, 1);
-  margin-top: 42px;
-  margin-right: 14px;
-  border: 1px solid;
-}
-.endAjustDropdownMenu {
-  width: 145px;
-  height: 41px;
-  background-color: rgba(217, 217, 217, 1);
-  margin-top: 43px;
-  margin-right: 23px;
-  border: 1px solid;
-}
-.endTimeLabel {
-  height: 41px;
-  width: 163px;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 18px;
-  display: flex;
-  align-items: center;
-  margin-top: 43px;
-  letter-spacing: 0.36px;
-}
-.flexWrapperSeven {
-  margin-bottom: 1px;
-  padding: 0 0 0 76px;
-  display: flex;
-  align-items: flex-start;
-}
-.semesterLabel {
-  height: 45px;
-  width: 104px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: 0.5px;
-}
-.semesterDropdownMenu {
-  width: 207px;
-  height: 43px;
-  background-color: rgba(217, 217, 217, 1);
-  margin-right: 251px;
-  border: 1px solid ;
-}
-.relativeTimeLabel {
-  height: 36px;
-  width: 177px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin-top: 15px;
-  letter-spacing: 0.5px;
-}
-.relativeTimeRadioBox {
-  width: 16px;
-  height: 16px;
-  background-color: rgba(217, 217, 217, 1);
-  margin-top: 25px;
-  border-radius: 50%;
-
-}
-.flexWrapperEight {
-  padding: 0 0 0 26px;
-  display: flex;
-  align-items: flex-start;
-}
-.flexWrapperFourteen {
-  padding: 0 8px 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.flexWrapperFifteen {
-  margin-bottom: 13px;
-  padding: 0 0 0 8px;
-  display: flex;
-  align-items: center;
-}
-.importedCourseLabel {
-  height: 36px;
-  width: 177px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin-right: 14px;
-  letter-spacing: 0.5px;
-}
-.importedCourseRadioBox {
-  width: 16px;
-  height: 16px;
-  background-color: rgba(217, 217, 217, 1);
-  margin-right: 44px;
-  border-radius: 50%;
-}
-.newCourseLabel {
-  height: 36px;
-  width: 180px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: 0.5px;
-}
-.flexWrapperSixteen {
-  display: flex;
-  align-items: flex-start;
-}
-.sendButton {
-    margin-top: 21px;
-    margin-right: 54px;
-}
-.courseResetButton {
-  margin-right: 44px;
-}
-.newCourseRadioBox {
-  width: 16px;
-  height: 16px;
-  background-color: rgba(217, 217, 217, 1);
-  margin-top: 10px;
-  margin-right: 171px;
-  border-radius: 50%;
-}
-.activitySaveButton {
-  margin-top: 21px;
-  margin-right: 54px;
-}
-.activityResetButton {
-  margin-top: 21px;
-  margin-right: 65px;
-}
-.suggestionButton {
-  margin-top: 22px;
-}
-.stateLayer {
-  padding: 10px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+/* Split the screen in half */
 .split {
   height: 100%;
   width: 50%;

@@ -25,10 +25,10 @@ const DSLWindow: React.FC<DSLWindowProps> = ({}) => {
 
     return (
         <div>
-            <h3>Input</h3>
+            <h3>DSL Input</h3>
             <TextEntry text={inputDSL} onChange={setInputDSL} onSubmit={notifySubmitDSL} />
-            <h3>Current DSL</h3>
-            <pre style={{background:"white", width:"90%", height:"200px", overflow:"scroll"}}>
+            <h3>Current DSL Configuration</h3>
+            <pre style={{background:"white", width:"90%", height:"200px", overflow:"scroll", border: "1px solid"}}>
                 {currentDSL}
             </pre>
         </div>

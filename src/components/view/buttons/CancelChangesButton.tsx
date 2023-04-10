@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import {EventControllerContext} from "@/components/controller/eventController";
+import UI from "@/styles/CoursePlanner.module.css";
 interface CancelChangesButtonProps {}
 /**
 
@@ -13,8 +14,10 @@ const CancelChangesButton: React.FC<CancelChangesButtonProps> = () => {
         notifyCancelChanges(undefined);
     }
     return (
-        <button onClick={handleClick}>
-            Cancel
+        <button onClick={handleClick} className={UI.button}>
+            <div className={UI.uiLabel}>
+                Annuler les modifications
+            </div>
         </button>
     );
 };
