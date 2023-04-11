@@ -24,6 +24,7 @@ type CourseInformationContextProps = {
 export const CourseInformationContext = createContext<CourseInformationContextProps>({} as CourseInformationContextProps);
 
 type CourseInformationProps = {
+    isOldCourse:boolean
     children: React.ReactNode;
 }
 /**
@@ -36,8 +37,7 @@ type CourseInformationProps = {
  <CourseInformationForm />
  @returns {JSX.Element} - Rendered component.
  */
-const CourseInformationForm: React.FC<CourseInformationProps> = ({children}) => {
-    const [isOldCourse, setIsOldCourse] = useState<boolean>(true);
+const CourseInformationForm: React.FC<CourseInformationProps> = ({isOldCourse, children}) => {
     const [code, setCode] = useState<string>("");
     const [group, setGroup] = useState<number>(0);
     const [year, setYear] = useState<number>(0);
@@ -102,7 +102,6 @@ const CourseInformationForm: React.FC<CourseInformationProps> = ({children}) => 
                   <Select.Option value={Session.Fall}>Automne</Select.Option>
                 </Select>
               </Form.Item>
-                <RadioButton labelTrue={"Cours Importé"} labelFalse={"Nouveau cours"} value={isOldCourse} onChange={setIsOldCourse} />
             </Form>
               {children}
           </div>

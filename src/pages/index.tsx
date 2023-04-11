@@ -31,20 +31,7 @@ export default function Home() {
         <div>
           <EventModel>
             <EventController>
-              <div className={[UI.split, UI.left].join(' ')}>
-                <EventCalendar />
-                <div className={UI.flexWrapperFile}>
-                  <FilePickerMBZ />
-                </div>
-                <CourseInformationForm>
-                  <SubmitCourseButton />
-                </CourseInformationForm>
 
-                <div className={UI.flexWrapperButton}>
-                  <ClearCalButton />
-                  <DownloadMBZButton />
-                </div>
-              </div>
 
               <div className={[UI.split, UI.right].join(' ')}>
                 <ShowEventsByType/>
@@ -63,6 +50,21 @@ export default function Home() {
                 <ShowOverlay label={"DSL"}>
                   <DSLWindow />
                 </ShowOverlay>
+                </div>
+
+                <div className={[UI.split, UI.left].join(' ')}>
+                  <EventCalendar />
+                  <div className={UI.flexWrapperFile}>
+                    <FilePickerMBZ />
+                  </div>
+                  <CourseInformationForm isOldCourse={false}>
+                    <SubmitCourseButton />
+                  </CourseInformationForm>
+
+                  <div className={UI.flexWrapperButton}>
+                    <ClearCalButton />
+                    <DownloadMBZButton />
+                  </div>
                 </div>
 
               </div>
