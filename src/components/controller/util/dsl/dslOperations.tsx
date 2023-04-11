@@ -78,7 +78,7 @@ export const makeDSLRelativeToClosestDate = (ref:Date, sortedEvents:CourseEvent[
     const closestDate = allPossibleClosestDates[closestIndex];
     const closestDSLModifier = closestIndex % 2 ==0 ? START_SYMBOL : END_SYMBOL;
     const closestOffset = dateOffsetAsDSL(closestDate, ref);
-    return `${closestEventIndex + 1}${TYPE_MAP_EVENT_TO_DSL[sortedEvents[closestEventIndex].type]}${closestDSLModifier}${closestOffset}`
+    return `${TYPE_MAP_EVENT_TO_DSL[sortedEvents[closestEventIndex].type]}${closestEventIndex + 1}${closestDSLModifier}${closestOffset}`
 }
 /**
  * Produce a DSL representation of the given event.
