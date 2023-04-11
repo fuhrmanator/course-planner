@@ -41,7 +41,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
   const [localSelectedCourse, setLocalSelectedCourse] = useState<CourseEvent | undefined>(selectedCourse);
   const [localSelectedTime, setLocalSelectedTime] = useState<number | undefined>(selectedTime);
   const [localTimeInput, setLocalTimeInput] = useState<string>(timeInput);
-
+  const [isOffsetActivated, setIsOffsetActivated] = useState<boolean>(false);
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setLocalTimeInput(value);
@@ -51,6 +51,10 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
   const getKeyByValue = (object: any, value: any) => {
     return Object.keys(object).find(key => object[key] === value);
   };
+
+  const handleCheckboxChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+      setIsOffsetActivated(e.target.checked);
+  }
 
   if (!selectedActivity) return null;
 
@@ -72,15 +76,16 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
           </option>
         ))}
       </select>
-
+        <input type="checkbox" checked={isOffsetActivated} onChange={handleCheckboxChange}/>
         <h3 className={styles.font}>Décalage: </h3>
-        <input
+        <input disabled={!isOffsetActivated}
             type="text"
             value={localTimeInput}
             onChange={handleInputChange}
         />
 
         <select
+            disabled={!isOffsetActivated}
           value={getKeyByValue(DSL_TIME_UNIT_TO_MS, localSelectedTime) ?? ""}
           onChange={(e) => {
             const unit = e.target.value as DSLTimeUnit;
