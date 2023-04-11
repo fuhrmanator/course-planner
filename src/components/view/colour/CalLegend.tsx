@@ -5,6 +5,8 @@ import {EventModelContext} from "@/components/model/EventModel";
 import {EventControllerContext} from "@/components/controller/eventController";
 import {eventTypeToLabel} from "@/components/model/ressource/eventRessource";
 import {getKeysAsType} from "@/components/controller/util/eventsOperations";
+import UI from '@/styles/CoursePlanner.module.css';
+
 
 
 const CalLegend: React.FC = () => {
@@ -13,7 +15,7 @@ const CalLegend: React.FC = () => {
     const {eventTypeColour} = useContext(EventModelContext);
 
     return (
-        <div>
+        <div className={UI.flexWrapperLegend}>
             {getKeysAsType<EventType>(eventTypeColour).map((type: EventType)=> (
                 <ColourPicker key = {type.toString()}
                               type ={type}

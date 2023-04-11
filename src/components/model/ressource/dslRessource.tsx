@@ -15,6 +15,7 @@ export const makeTypeMapDSLtoEvent = (dictToFlip : {[key in EventType]: string})
     return  flipped;
 }
 export const TYPE_MAP_DSL_TO_EVENT: {[key: string]: EventType} =makeTypeMapDSLtoEvent(TYPE_MAP_EVENT_TO_DSL)
+
 export const DSL_TIME_UNIT_TO_MS: {[key in DSLTimeUnit]: number} = {
     [DSLTimeUnit.Week]: 6.048e+8,
     [DSLTimeUnit.Day]: 8.64e+7,

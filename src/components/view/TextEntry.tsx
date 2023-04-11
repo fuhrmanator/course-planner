@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import textearea from "@/components/view/style/TextEntry.module.css"
+import UI from "@/styles/CoursePlanner.module.css";
 interface TextEntryProps {
     text: string
     onChange:(text: string) => void;
@@ -19,7 +20,7 @@ const TextEntry: React.FC<TextEntryProps> = ({text, onChange, onSubmit }) => {
     return (
         <div>
             <textarea style={{ height: 500 , width: 500}} value={text} onChange={handleTextChange} />
-            <button onClick={handleSubmit}>Submit</button>
+            <button onClick={handleSubmit} className={UI.button}>Submit</button>
         </div>
     );
 };

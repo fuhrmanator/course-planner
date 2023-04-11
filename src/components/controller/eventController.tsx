@@ -49,9 +49,7 @@ type CalControllerProps = {
  * these functions using react contexts (EventControllerContext).
  */
 export const EventController: React.FC<CalControllerProps> = ({children}) => {
-    const {oldCourseEvents, setOldCourseEvents, newCourseEvents, setNewCourseEvents, activityEvents, setActivityEvents, setSelectedEvent, eventTypeColour, setEventTypeColour, suggestionConfig, setSuggestionConfig} = useContext(EventModelContext);
-    const [mbzData, setMVZData] = useState<MBZArchive>(new MBZArchive());
-    
+    const {oldCourseEvents, setOldCourseEvents, newCourseEvents, setNewCourseEvents, activityEvents, setActivityEvents, setSelectedEvent, eventTypeColour, setEventTypeColour, suggestionConfig, setSuggestionConfig, mbzData, setMVZData} = useContext(EventModelContext);
 
     const setSelectedToEarliest = (events: CourseEvent[]):void => {
         if (events.length > 0) {
@@ -84,6 +82,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setNewCourseEvents([]);
         setOldCourseEvents([]);
         setActivityEvents([]);
+        setMVZData(new MBZArchive());
     }
 
     const notifyMBZSubmitted = async (file: File) => {

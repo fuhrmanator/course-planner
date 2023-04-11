@@ -2,10 +2,10 @@ import React, {ChangeEvent, useContext, useEffect, useState} from "react";
 import moment from "moment";
 import {EventModelContext} from "@/components/model/EventModel";
 import {
-    CourseEvent,
-    EventType,
-    CourseType,
-    EventDate, ActivityType,
+  CourseEvent,
+  EventType,
+  CourseType,
+  EventDate, ActivityType, ActivityEvent,
 } from "@/components/model/interfaces/courseEvent";
 import styles from "@/components/view/style/ShowEventsByType.module.css";
 import {activityTypeToLabel, courseTypeToLabel} from "@/components/model/ressource/eventRessource";
@@ -15,14 +15,14 @@ import {DSLTimeUnit} from "@/components/model/interfaces/dsl";
 import {getUnsavedStateOrParent, getUnsavedStateParent} from "@/components/controller/util/eventsOperations";
 import ActivityDetail from './ActivityDetail';
 
-
-
 const ShowEventsByType: React.FC = () => {
+  //const {activityEvents, newCourseEvents, selectedEvent} = useContext(EventModelContext);
+  //const {setEventRelativeDate, notifyEventSelected, notifySaveChanges, notifyCancelChanges} = useContext(EventControllerContext);
 
   const {activityEvents, newCourseEvents, selectedEvent} = useContext(EventModelContext);
   const { setEventRelativeDate, notifyEventSelected, notifySaveChanges, notifyCancelChanges } = useContext(EventControllerContext);
 
-  const { cancelRelativeDateChanges } = useContext(EventControllerContext);
+
   const [selectedActivity, setSelectedActivity] = useState<CourseEvent | undefined>();
   const [selectedCourse, setSelectedCourse] = useState<CourseEvent | undefined>();
   const [selectedTime, setSelectedTime] = useState<number | undefined>();
@@ -68,7 +68,7 @@ const ShowEventsByType: React.FC = () => {
     if (typeof selectedEvent === "undefined") {
       setSelectedActivity(selectedEvent);
     } else if (selectedEvent.type in activityTypeToLabel) {
-      setSelectedActivity(getUnsavedStateParent(selectedEvent, activityEvents));
+      setSelectedActivity(getUnsavedStateParent(selectedEvent, activityEvents) as ActivityEvent);
     }
   }, [selectedEvent])
 
@@ -147,7 +147,12 @@ const ShowEventsByType: React.FC = () => {
   
 
   const handleCancel = () => {
-    cancelRelativeDateChanges();
+    if (typeof selectedActivity !== "undefined") {
+      notifyCancelChanges(selectedActivity);
+    }
+    setSelectedTime(undefined);
+    setSelectedStartOrEnd(undefined);
+    setTimeInput("");
   };
 
   const filteredCourseEvents: { [key: string]: CourseEvent[] } = {};
@@ -189,9 +194,9 @@ const ShowEventsByType: React.FC = () => {
   
 
   return (
-    <div className={styles.container}>
-        <div className={styles.col}>
-            <h2>Événements</h2>
+    <div className={styles.font}>
+        <h2>Événements</h2>
+        <div className={styles.container}>
             {activityEvents.map((activity) => (
                 <div
                     key={activity.uid}
@@ -288,8 +293,8 @@ const ShowEventsByType: React.FC = () => {
       onTimeInputChange={handleLocalTimeInputChange}
       onSelectedCourseChange={handleSelectedCourseChange}
       onSelectedTimeChange={handleSelectedTimeChange}
-      handleSave={() => handleSave(EventDate.CutOff)}
-      selectedStartOrEnd={EventDate.CutOff}
+      handleSave={() => handleSave(EventDate.Start)}
+      selectedStartOrEnd={EventDate.Start}
       
     />
     <h3>Fin</h3>

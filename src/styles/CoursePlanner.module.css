@@ -1,0 +1,88 @@
+.coursePlanner {
+  background-color: rgba(255, 255, 255, 1);
+  padding: 66px 124px 42px 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.flexWrapperFile {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+.flexWrapperLegend {
+  margin-bottom: 15px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 18px;
+  font-family: var(--font-sans);
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+.formUI {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+  font-family: var(--font-sans);
+}
+.uiLabel {
+  height: 40px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+  text-align: center;
+  font-family: var(--font-sans);
+}
+
+.flexWrapperButton {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.button {
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightpink;
+  border: 2px solid;
+  border-radius: 25px;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+.input {
+  display: none;
+}
+/* Split the screen in half */
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding: 50px 20px 100px;
+}
+
+/* Control the left side */
+.left {
+  left: 0;
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+}

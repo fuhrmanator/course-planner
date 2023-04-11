@@ -30,6 +30,8 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.4.0",
+    "eslint": "8.38.0",
+    "eslint-config-next": "13.3.0",
     "ical": "^0.8.0",
     "jest": "^29.4.3",
     "jest-environment-jsdom": "^29.4.3",

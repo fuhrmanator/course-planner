@@ -12,6 +12,10 @@ export default class MBZArchive {
         this.other = {}
     }
 
+    hasData(): boolean {
+        return Object.keys(this.activities).length > 0 || Object.keys(this.other).length > 0;
+    }
+
     addFile(file: ArchiveFile): void {
         this.other[file.name] = file;
     }
