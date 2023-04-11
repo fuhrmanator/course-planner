@@ -10,23 +10,21 @@ const FilePickerMBZ: React.FC<Props> = () => {
   const {notifyMBZSubmitted} = useContext(EventControllerContext);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("change")
     if (event.target.files != null && event.target.value !== "") {
-      setSelectedFile(event.target.value);
+
       notifyMBZSubmitted(event.target.files[0]);
+      setSelectedFile("");
     }
   };
 
-  const handleFocus = () => {
-    setSelectedFile("");
-  }
-
   return (
       <div className={UI.uiLabel}>
-      <label className={UI.button}>
-        <input className={UI.input} type="file" value={selectedFile} onFocus={handleFocus} onInput={handleFileChange} />
-        Sélectionner un fichier
-      </label>
-        </div>
+        <label className={UI.button}>
+          <input className={UI.input} type="file" value={selectedFile} onInput={handleFileChange} />
+          Sélectionner un fichier
+        </label>
+      </div>
 
   );
 };

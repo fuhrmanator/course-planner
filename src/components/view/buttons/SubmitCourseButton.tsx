@@ -6,11 +6,11 @@ import {CourseInformationContext} from "@/components/view/CourseInformationForm"
 interface SubmitCourseButtonProps {}
 
 const SubmitCourseButton: React.FC<SubmitCourseButtonProps> = () => {
-    const {handleSubmit} = useContext(CourseInformationContext);
+    const {handleSubmit, isFormValid} = useContext(CourseInformationContext);
 
     return (
 
-        <button onClick={handleSubmit} className={UI.button}>
+        <button disabled={!isFormValid} onClick={handleSubmit} className={UI.button}>
             <div className={UI.uiLabel}>
             Submit
             </div>

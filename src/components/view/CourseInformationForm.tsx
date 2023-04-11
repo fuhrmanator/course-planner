@@ -17,7 +17,8 @@ const YEAR_STORE_KEY = 'year';
 const SESSION_STORE_KEY = 'session';
 
 type CourseInformationContextProps = {
-    handleSubmit : () => void;
+    handleSubmit : () => void,
+    isFormValid: boolean;
 }
 
 export const CourseInformationContext = createContext<CourseInformationContextProps>({} as CourseInformationContextProps);
@@ -41,7 +42,7 @@ const CourseInformationForm: React.FC<CourseInformationProps> = ({children}) => 
     const [group, setGroup] = useState<number>(0);
     const [year, setYear] = useState<number>(0);
     const [session, setSession] = useState<number>(Session.Fall);
-
+    const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
     useEffect(()=>{
       setCode(getValue(CODE_STORE_KEY, '""'));
@@ -49,6 +50,10 @@ const CourseInformationForm: React.FC<CourseInformationProps> = ({children}) => 
       setYear(getValue(YEAR_STORE_KEY, new Date().getFullYear()));
       setSession(getValue(SESSION_STORE_KEY, Session.Fall));
     },[]);
+
+    useEffect(()=>{
+        setIsFormValid(code !== "" && group > 0 && year > 0)
+    },[code, group, year]);
 
     const {notifyCourseFormSubmit} = useContext(EventControllerContext);
 
@@ -62,7 +67,7 @@ const CourseInformationForm: React.FC<CourseInformationProps> = ({children}) => 
     };
 
   return (
-      <CourseInformationContext.Provider value={{handleSubmit}}>
+      <CourseInformationContext.Provider value={{handleSubmit, isFormValid}}>
           <div className={UI.formUI}>
             <Form onFinish={handleSubmit}>
               <Form.Item label="Sigle">

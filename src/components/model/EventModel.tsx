@@ -17,6 +17,7 @@ import {
     parseStoredEvent,
     parseStoredEvents
 } from "@/components/controller/util/eventsOperations";
+import MBZArchive from "@/components/model/interfaces/archive/MBZArchive";
 
 type EventModelContextProps = {
     events: CourseEvent[],
@@ -25,13 +26,15 @@ type EventModelContextProps = {
     newCourseEvents: CourseEvent[],
     setNewCourseEvents: React.Dispatch<React.SetStateAction<CourseEvent[]>>,
     activityEvents: ActivityEvent[],
-    setActivityEvents: React.Dispatch<React.SetStateAction<ActivityEvent[]>>;
+    setActivityEvents: React.Dispatch<React.SetStateAction<ActivityEvent[]>>,
     selectedEvent: CourseEvent | undefined,
     setSelectedEvent: React.Dispatch<React.SetStateAction<CourseEvent | undefined>>,
     eventTypeColour: TypeColourDict,
-    setEventTypeColour: React.Dispatch<React.SetStateAction<TypeColourDict>>;
+    setEventTypeColour: React.Dispatch<React.SetStateAction<TypeColourDict>>,
     suggestionConfig: SuggestionTypeMapConfig,
-    setSuggestionConfig: React.Dispatch<React.SetStateAction<SuggestionTypeMapConfig>>;
+    setSuggestionConfig: React.Dispatch<React.SetStateAction<SuggestionTypeMapConfig>>,
+    mbzData: MBZArchive,
+    setMVZData:React.Dispatch<React.SetStateAction<MBZArchive>>;
 }
 
 export const EventModelContext = createContext<EventModelContextProps>({} as EventModelContextProps);
@@ -53,7 +56,7 @@ const LOCAL_STORE_SELECTED_KEY = 'selected_event';
  * @constructor
  */
 export const EventModel: React.FC<CalModelProps> = ({children}) => {
-
+    const [mbzData, setMVZData] = useState<MBZArchive>(new MBZArchive());
     const [events, setEvents] = useState<CourseEvent[]>([]);
 
     const [oldCourseEvents, setOldCourseEvents] = useState<CourseEvent[]>([]);
@@ -116,7 +119,9 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
             eventTypeColour,
             setEventTypeColour,
             suggestionConfig,
-            setSuggestionConfig}}>
+            setSuggestionConfig,
+            mbzData,
+            setMVZData}}>
             {children}
         </ EventModelContext.Provider>
     )
