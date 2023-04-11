@@ -83,6 +83,18 @@ const ShowEventsByType: React.FC = () => {
     setSelectedTime(undefined);
     setSelectedStartOrEnd(undefined);
     setSelectedAdjustment(undefined);
+
+    // Remove highlight from previously selected event
+    const prevSelectedElement = document.querySelector(`.${styles.selected}`);
+    if (prevSelectedElement) {
+      prevSelectedElement.classList.remove(styles.selected);
+    }
+
+    // Highlight the selected event
+    const selectedElement = document.querySelector(`[data-event-id="${activity.uid}"]`);
+    if (selectedElement) {
+      selectedElement.classList.add(styles.selected);
+    }
   };
 
   const handleEventChange = (
@@ -205,8 +217,9 @@ const ShowEventsByType: React.FC = () => {
             {activityEvents.map((activity) => (
                 <div
                     key={activity.uid}
+                    className={activity.isSelected ? `${styles.activity} ${styles.selected}` : styles.activity}
                     onClick={() => handleActivityClick(activity)}
-                    className={styles.activity}
+                    data-event-id={activity.uid}
                 >
                     <div className={styles.title}>{activity.title}</div>
                     <div className={styles.date}>
@@ -289,7 +302,7 @@ const ShowEventsByType: React.FC = () => {
       selectedStartOrEnd={EventDate.Start}
     />
 
-    <h3>CutOff</h3>
+    <h3>Date de remise</h3>
     <ActivityDetail
       key={`${selectedActivity.uid}-cutoff`}
       selectedActivity={selectedActivity}
