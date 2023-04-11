@@ -34,14 +34,14 @@
 }
 .uiLabel {
   height: 40px;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 15px;
   display: flex;
   align-items: center;
   letter-spacing: 0.5px;
   text-align: center;
-  font-family: var(--font-sans);
+  font-family: 'Helvetica Neue';
 }
 
 .flexWrapperButton {
@@ -51,13 +51,14 @@
   justify-content: space-between;
 }
 .button {
-  padding: 10px 24px;
+  padding: 5px 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: lightpink;
+  background-color: #815bfe;
   border: 2px solid;
   border-radius: 25px;
+  color: white;
 }
 
 .button:hover {

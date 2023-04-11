@@ -21,8 +21,8 @@ const FilePickerMBZ: React.FC<Props> = () => {
   }
 
   return (
-      <div className={UI.uiLabel}>
-      <label className={UI.button}>
+      <div className={UI.button}>
+      <label className={UI.uiLabel}>
         <input className={UI.input} type="file" value={selectedFile} onFocus={handleFocus} onInput={handleFileChange} />
         Sélectionner un fichier
       </label>

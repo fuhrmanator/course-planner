@@ -13,6 +13,9 @@
     list-style: none;
     padding: 10px 10px;
     margin: 24px 24px;
+    border-radius: 10px;
+    background: whitesmoke;
+    border: 2px solid rgba(var(--card-border-rgb), 1);
 }
 
 .detail {
@@ -27,17 +30,20 @@
 }
 
 .button {
-    padding: 10px 24px;
+    padding: 5px 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: lightpink;
+    background-color: #815bfe;
     border: 2px solid;
     border-radius: 25px;
     position: absolute;
     bottom: 10px;
     right: 10px;
+    color: white;
 }
-
+.activity:hover {
+    cursor: pointer;
+}
 
 
