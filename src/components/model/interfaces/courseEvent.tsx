@@ -27,6 +27,12 @@ export enum EventType {
     Practicum
 }
 
+export enum EventDate {
+    Start = "start",
+    End = "end",
+    CutOff = "cutOff"
+}
+
 export interface ActivityEvent extends CourseEvent {
     path : string
 }

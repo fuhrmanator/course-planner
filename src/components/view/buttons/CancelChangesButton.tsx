@@ -1,5 +1,8 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {EventControllerContext} from "@/components/controller/eventController";
+import UI from "@/styles/CoursePlanner.module.css";
+import {getUnsavedStates} from "@/components/controller/util/eventsOperations";
+import {EventModelContext} from "@/components/model/EventModel";
 interface CancelChangesButtonProps {}
 /**
 
@@ -9,10 +12,22 @@ interface CancelChangesButtonProps {}
  */
 const CancelChangesButton: React.FC<CancelChangesButtonProps> = () => {
     const {notifyCancelChanges} = useContext(EventControllerContext);
+    const {events} = useContext(EventModelContext);
+    const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
+    useEffect(()=>{
+        setIsDisabled(getUnsavedStates(events).length <= 0)
+    },[events])
+    const handleClick = ():void => {
+        notifyCancelChanges(undefined);
+    }
+
 
     return (
-        <button onClick={notifyCancelChanges}>
-            Cancel
+        <button disabled={isDisabled} onClick={handleClick} className={UI.button}>
+            <div className={UI.uiLabel}>
+                Annuler les modifications
+            </div>
         </button>
     );
 };

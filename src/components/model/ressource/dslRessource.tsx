@@ -23,6 +23,13 @@ export const DSL_TIME_UNIT_TO_MS: {[key in DSLTimeUnit]: number} = {
     [DSLTimeUnit.Minute]: 60000
 }
 
+export const DSL_TIME_UNIT_TO_LABEL: {[key in DSLTimeUnit]: string} = {
+    [DSLTimeUnit.Week]: "Semaine",
+    [DSLTimeUnit.Day]: "Jour",
+    [DSLTimeUnit.Hour]: "Heure",
+    [DSLTimeUnit.Minute]: "Minutes"
+}
+
 export const MS_DSL_UNIT_SORTED_BY_DURATION: DSLTimeType[] = Object.entries(DSL_TIME_UNIT_TO_MS).map(([k, v]) => {return {symbol:k, value:v}}).sort((a:DSLTimeType, b:DSLTimeType) => b.value - a.value);
 
 export const TIME_SEPARATOR = ":";

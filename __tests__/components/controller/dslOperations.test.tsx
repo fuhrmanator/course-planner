@@ -108,7 +108,7 @@ describe("DSL date offset", () => {
         const multiplicity = -10
         // negative
         for (const dslTimeUnit in DSL_TIME_UNIT_TO_MS) {
-            let dslTimeOffset = dateOffsetAsDSL(new Date(0), new Date(DSL_TIME_UNIT_TO_MS[dslTimeUnit  as DSLTimeUnit] * multiplicity));
+            let dslTimeOffset = dateOffsetAsDSL(new Date(0), new Date(DSL_TIME_UNIT_TO_MS[dslTimeUnit as DSLTimeUnit] * multiplicity));
             expect(dslTimeOffset).toBe(`${multiplicity}${dslTimeUnit}`)
         }
 

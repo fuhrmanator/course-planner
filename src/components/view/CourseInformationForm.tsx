@@ -1,10 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, {useState, useContext, useEffect, createContext} from "react";
 import { Form, Input, Select } from "antd";
 import {EventControllerContext} from "@/components/controller/eventController";
 import {getValue, setValue} from 'src/components/model/localStore'
 import RadioButton from "@/components/view/RadioButton";
-
-interface Props {}
+import UI from "@/styles/CoursePlanner.module.css";
 
 enum Session {
   Winter = 1,
@@ -16,6 +15,18 @@ const CODE_STORE_KEY = 'code';
 const GROUP_STORE_KEY = 'group';
 const YEAR_STORE_KEY = 'year';
 const SESSION_STORE_KEY = 'session';
+
+type CourseInformationContextProps = {
+    handleSubmit : () => void,
+    isFormValid: boolean;
+}
+
+export const CourseInformationContext = createContext<CourseInformationContextProps>({} as CourseInformationContextProps);
+
+type CourseInformationProps = {
+    isOldCourse:boolean
+    children: React.ReactNode;
+}
 /**
 
  A form component that allows the user to input course information.
@@ -26,13 +37,12 @@ const SESSION_STORE_KEY = 'session';
  <CourseInformationForm />
  @returns {JSX.Element} - Rendered component.
  */
-const CourseInformationForm: React.FC<Props> = () => {
-    const [isOldCourse, setIsOldCourse] = useState<boolean>(true);
+const CourseInformationForm: React.FC<CourseInformationProps> = ({isOldCourse, children}) => {
     const [code, setCode] = useState<string>("");
     const [group, setGroup] = useState<number>(0);
     const [year, setYear] = useState<number>(0);
     const [session, setSession] = useState<number>(Session.Fall);
-
+    const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
     useEffect(()=>{
       setCode(getValue(CODE_STORE_KEY, '""'));
@@ -41,9 +51,13 @@ const CourseInformationForm: React.FC<Props> = () => {
       setSession(getValue(SESSION_STORE_KEY, Session.Fall));
     },[]);
 
+    useEffect(()=>{
+        setIsFormValid(code !== "" && group > 0 && year > 0)
+    },[code, group, year]);
+
     const {notifyCourseFormSubmit} = useContext(EventControllerContext);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = () => {
         setValue(CODE_STORE_KEY, code);
         setValue(GROUP_STORE_KEY, group);
         setValue(YEAR_STORE_KEY, year);
@@ -53,47 +67,45 @@ const CourseInformationForm: React.FC<Props> = () => {
     };
 
   return (
-      <div>
-        <Form onFinish={handleSubmit}>
-          <Form.Item label="Sigle">
-            <Input
-              value={code}
-              onChange={e => setCode(e.target.value)}
-              type="text"
-            />
-          </Form.Item>
-          <Form.Item label="Groupe">
-            <Input
-              value={group}
-              onChange={e => setGroup(parseInt(e.target.value))}
-              type="number"
-            />
-          </Form.Item>
-          <Form.Item label="Année">
-            <Input
-              value={year}
-              onChange={e => setYear(parseInt(e.target.value))}
-              type="number"
-            />
-          </Form.Item>
-          <Form.Item label="Session">
-            <Select
-              value={session}
-              onChange={setSession}
-              style={{ width: 120 }}
-            >
-              <Select.Option value={Session.Winter}>Hiver</Select.Option>
-              <Select.Option value={Session.Summer}>Été</Select.Option>
-              <Select.Option value={Session.Fall}>Automne</Select.Option>
-            </Select>
-          </Form.Item>
-            <RadioButton labelTrue={"Cours de l'archive moodle"} labelFalse={"Nouveau cours plannifié"} value={isOldCourse} onChange={setIsOldCourse} />
-          <Form.Item>
-            <button type="submit">Submit</button>
-          </Form.Item>
-        </Form>
-
-      </div>
+      <CourseInformationContext.Provider value={{handleSubmit, isFormValid}}>
+          <div className={UI.formUI}>
+            <Form onFinish={handleSubmit}>
+              <Form.Item label="Sigle">
+                <Input
+                  value={code}
+                  onChange={e => setCode(e.target.value)}
+                  type="text"
+                />
+              </Form.Item>
+              <Form.Item label="Groupe">
+                <Input
+                  value={group}
+                  onChange={e => setGroup(parseInt(e.target.value))}
+                  type="number"
+                />
+              </Form.Item>
+              <Form.Item label="Année">
+                <Input
+                  value={year}
+                  onChange={e => setYear(parseInt(e.target.value))}
+                  type="number"
+                />
+              </Form.Item>
+              <Form.Item label="Session">
+                <Select
+                  value={session}
+                  onChange={setSession}
+                  style={{ width: 120 }}
+                >
+                  <Select.Option value={Session.Winter}>Hiver</Select.Option>
+                  <Select.Option value={Session.Summer}>Été</Select.Option>
+                  <Select.Option value={Session.Fall}>Automne</Select.Option>
+                </Select>
+              </Form.Item>
+            </Form>
+              {children}
+          </div>
+      </CourseInformationContext.Provider>
   );
 };
 
