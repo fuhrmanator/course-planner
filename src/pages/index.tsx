@@ -37,13 +37,13 @@ export default function Home() {
                   <FilePickerMBZ />
                 </div>
                 <CourseInformationForm>
-                  <SubmitCourseButton />
+                  <div className={UI.flexWrapperButton}>
+                    <SubmitCourseButton />
+                    <ClearCalButton />
+                    <DownloadMBZButton />
+                  </div>
                 </CourseInformationForm>
 
-                <div className={UI.flexWrapperButton}>
-                  <ClearCalButton />
-                  <DownloadMBZButton />
-                </div>
               </div>
 
               <div className={[UI.split, UI.right].join(' ')}>
