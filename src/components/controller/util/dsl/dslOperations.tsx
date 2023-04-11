@@ -20,7 +20,7 @@ import {
     TYPE_MAP_DSL_TO_EVENT,
     TYPE_MAP_EVENT_TO_DSL
 } from "@/components/model/ressource/dslRessource";
-import {DSLActivity, DSLCourse, DSLObject, DSLTimeType} from "@/components/model/interfaces/dsl";
+import {DSLActivity, DSLCourse, DSLObject, DSLTimeType, DSLTimeUnit} from "@/components/model/interfaces/dsl";
 import {all} from "deepmerge";
 
 /**
@@ -164,7 +164,7 @@ const parseDSLTimeToDate= (dsl: DSLCourse, relativeTo: Date):Date => {
         if (typeof dsl.time.type !== "undefined") {
             // having a type guarantees having a number and modifier
             if (dsl.time.type in DSL_TIME_UNIT_TO_MS) {
-                const offset = DSL_TIME_UNIT_TO_MS[dsl.time.type] * dsl.time.number!
+                const offset = DSL_TIME_UNIT_TO_MS[dsl.time.type as DSLTimeUnit] * dsl.time.number!
                 switch (dsl.time.modifier!) {
                     case ADD_SYMBOL:
                         newDate = new Date(newDate.getTime() + offset);

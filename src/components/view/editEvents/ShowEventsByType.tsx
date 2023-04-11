@@ -2,10 +2,10 @@ import React, {ChangeEvent, useContext, useEffect, useState} from "react";
 import moment from "moment";
 import {EventModelContext} from "@/components/model/EventModel";
 import {
-    CourseEvent,
-    EventType,
-    CourseType,
-    EventDate, ActivityType,
+  CourseEvent,
+  EventType,
+  CourseType,
+  EventDate, ActivityType, ActivityEvent,
 } from "@/components/model/interfaces/courseEvent";
 import styles from "@/components/view/style/ShowEventsByType.module.css";
 import {activityTypeToLabel, courseTypeToLabel} from "@/components/model/ressource/eventRessource";
@@ -28,7 +28,7 @@ const ShowEventsByType: React.FC = () => {
   } = useContext(EventControllerContext);
 
 
-  const [selectedActivity, setSelectedActivity] = useState<CourseEvent | undefined>();
+  const [selectedActivity, setSelectedActivity] = useState<ActivityEvent | undefined>();
   const [selectedCourse, setSelectedCourse] = useState<CourseEvent | undefined>();
   const [selectedTime, setSelectedTime] = useState<number | undefined>();
   const [selectedStartOrEnd, setSelectedStartOrEnd] = useState<EventDate | undefined>();
@@ -73,7 +73,7 @@ const ShowEventsByType: React.FC = () => {
     if (typeof selectedEvent === "undefined") {
       setSelectedActivity(selectedEvent);
     } else if (selectedEvent.type in activityTypeToLabel) {
-      setSelectedActivity(getUnsavedStateParent(selectedEvent, activityEvents));
+      setSelectedActivity(getUnsavedStateParent(selectedEvent, activityEvents) as ActivityEvent);
     }
   }, [selectedEvent])
 

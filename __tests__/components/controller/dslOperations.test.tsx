@@ -1,5 +1,5 @@
 import {describe, expect, test} from '@jest/globals';
-import {DSLActivity, DSLCourse, DSLTime, DSLTimeType} from "@/components/model/interfaces/dsl";
+import {DSLActivity, DSLCourse, DSLTime, DSLTimeType, DSLTimeUnit} from "@/components/model/interfaces/dsl";
 import {
     dateOffsetAsDSL,
     makeDSLRelativeToClosestDate,
@@ -100,7 +100,7 @@ describe("DSL date offset", () => {
         const multiplicity = 10;
         // positive
         for (const dslTimeUnit in DSL_TIME_UNIT_TO_MS) {
-            let dslTimeOffset = dateOffsetAsDSL(new Date(0), new Date(DSL_TIME_UNIT_TO_MS[dslTimeUnit] * multiplicity));
+            let dslTimeOffset = dateOffsetAsDSL(new Date(0), new Date(DSL_TIME_UNIT_TO_MS[dslTimeUnit as DSLTimeUnit] * multiplicity));
             expect(dslTimeOffset).toBe(`+${multiplicity}${dslTimeUnit}`)
         }
     });
@@ -108,7 +108,7 @@ describe("DSL date offset", () => {
         const multiplicity = -10
         // negative
         for (const dslTimeUnit in DSL_TIME_UNIT_TO_MS) {
-            let dslTimeOffset = dateOffsetAsDSL(new Date(0), new Date(DSL_TIME_UNIT_TO_MS[dslTimeUnit] * multiplicity));
+            let dslTimeOffset = dateOffsetAsDSL(new Date(0), new Date(DSL_TIME_UNIT_TO_MS[dslTimeUnit as DSLTimeUnit] * multiplicity));
             expect(dslTimeOffset).toBe(`${multiplicity}${dslTimeUnit}`)
         }
 
