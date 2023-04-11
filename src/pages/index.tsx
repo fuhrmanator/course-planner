@@ -16,6 +16,7 @@ import SuggestionConfig from "@/components/view/suggestion/SuggestionConfig";
 import DSLWindow from "@/components/view/DSLWindow";
 import ShowEventsByType from '@/components/view/editEvents/ShowEventsByType'
 import UI from '@/styles/CoursePlanner.module.css'
+import SubmitCourseButton from "@/components/view/buttons/SubmitCourseButton";
 
 export default function Home() {
   return (
@@ -35,7 +36,9 @@ export default function Home() {
                 <div className={UI.flexWrapperFile}>
                   <FilePickerMBZ />
                 </div>
-                <CourseInformationForm />
+                <CourseInformationForm>
+                  <SubmitCourseButton />
+                </CourseInformationForm>
 
                 <div className={UI.flexWrapperButton}>
                   <ClearCalButton />
