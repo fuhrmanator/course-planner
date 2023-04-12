@@ -28,39 +28,36 @@ const ShowEventsByType: React.FC = () => {
   const [selectedTime, setSelectedTime] = useState<number | undefined>();
   const [selectedStartOrEnd, setSelectedStartOrEnd] = useState<EventDate | undefined>();
   const [selectedAdjustment, setSelectedAdjustment] = useState<"+" | "-" | undefined>();
-  const [timeInput, setTimeInput] = useState('');
+  const [timeInput, setTimeInput] = useState('0');
   const [timeUnit, setTimeUnit] = useState<string>("");
+
 
   
 
 
   const validateInput = (
     selectedActivity: CourseEvent | undefined,
-    selectedTime: number | undefined,
-    timeInput: string | undefined,
     selectedCourse: CourseEvent | undefined,
-    selectedStartOrEnd: EventDate | undefined
+    selectedStartOrEnd: EventDate | undefined,
+    timeInput: string | undefined
   ): boolean => {
     const isValid =
       typeof selectedActivity !== "undefined" &&
-      typeof selectedTime !== "undefined" &&
-      typeof timeInput !== "undefined" &&
-      !isNaN(parseInt(timeInput)) &&
       typeof selectedCourse !== "undefined" &&
-      typeof selectedStartOrEnd !== "undefined";
-  
+      typeof selectedStartOrEnd !== "undefined" &&
+      typeof timeInput !== "undefined" &&
+      !isNaN(parseInt(timeInput));
     if (!isValid) {
-      console.log("Missing variables:", {
+      console.log("Invalid input:", {
         selectedActivity,
-        selectedTime,
-        timeInput,
-        selectedStartOrEnd,
         selectedCourse,
+        selectedStartOrEnd,
+        timeInput,
       });
     }
-  
     return isValid;
   };
+  
   
   
 
@@ -111,13 +108,21 @@ const ShowEventsByType: React.FC = () => {
   
 
 
-  const handleSave = (selectedStartOrEnd: EventDate) => {
-    console.log("START OR END " + selectedStartOrEnd);
-  
+  const handleSave = (selectedStartOrEnd?: EventDate) => {
+    const startOrEnd = selectedStartOrEnd ?? EventDate.Start;
+
+
+
+
+
     if (
-      validateInput(selectedActivity, selectedTime, timeInput, selectedCourse, selectedStartOrEnd) &&
+      validateInput(
+        selectedActivity,
+        selectedCourse,
+        startOrEnd,
+        timeInput,
+      ) &&
       selectedActivity &&
-      selectedStartOrEnd &&
       selectedCourse &&
       selectedTime
     ) {
@@ -125,23 +130,25 @@ const ShowEventsByType: React.FC = () => {
         selectedActivity.type === EventType.Evaluation
           ? ["start", "end"]
           : ["start", "cutoff", "end"];
-  
+
       keys.forEach((key) => {
         console.log(`Key: ${selectedActivity.uid}-${key}`);
         if (selectedActivity && selectedCourse) {
           setEventRelativeDate(
             selectedActivity,
             selectedCourse,
-            selectedStartOrEnd,
+            startOrEnd,
             parseInt(timeInput),
             selectedTime
           );
-          console.log("selectedStartOrEnd du ShowEvents: " + selectedStartOrEnd);
         }
       });
       notifySaveChanges(selectedActivity);
     }
   };
+
+  
+
   
 
   
@@ -224,7 +231,6 @@ const ShowEventsByType: React.FC = () => {
       onTimeInputChange={handleLocalTimeInputChange}
       onSelectedCourseChange={handleSelectedCourseChange}
       onSelectedTimeChange={handleSelectedTimeChange}
-      handleSave={() => handleSave(EventDate.Start)}
       selectedStartOrEnd={EventDate.Start}
   
     />
@@ -243,11 +249,15 @@ const ShowEventsByType: React.FC = () => {
       onTimeInputChange={handleLocalTimeInputChange}
       onSelectedCourseChange={handleSelectedCourseChange}
       onSelectedTimeChange={handleSelectedTimeChange}
-      handleSave={() => handleSave(EventDate.End)}
       selectedStartOrEnd={EventDate.End}
      
     />
     
+    <button
+        onClick={() => handleSave(selectedStartOrEnd)}
+      >
+        Save
+      </button>
 
     <button onClick={handleCancel}>Cancel</button>
   </div>

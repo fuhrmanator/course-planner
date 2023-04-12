@@ -184,7 +184,9 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
       multiple: number,
       value: number
     ) => {
-      const timeInMs = value * multiple;
+      
+        const timeInMs = value ? value * multiple : 0;
+
 
       if (!originalActivityEvents.has(event.uid)) {
         const originalEvent = { ...event };

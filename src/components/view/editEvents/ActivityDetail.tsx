@@ -11,7 +11,6 @@ type ActivityDetailProps = {
   selectedTime: number | undefined;
   timeInput: string;
   formattedCourseEvents: CourseEvent[];
-  handleSave: (selectedStartOrEnd: EventDate | undefined) => void;
   handleEventChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleStartOrEndChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleTimeInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -28,7 +27,6 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
   selectedTime,
   timeInput,
   formattedCourseEvents,
-  handleSave,
   handleEventChange,
   handleStartOrEndChange,
   handleTimeInputChange,
@@ -74,7 +72,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
       </select>
 
       <input
-        type="text"
+        type="number"
         value={localTimeInput}
         onChange={handleInputChange}
       />
@@ -95,12 +93,6 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
         ))}
       </select>
 
-      <button
-        onClick={() => handleSave(selectedStartOrEnd)}
-        disabled={!localTimeInput && !localSelectedCourse}
-      >
-        Save
-      </button>
     </div>
   );
 };
