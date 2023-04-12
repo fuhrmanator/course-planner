@@ -16,10 +16,11 @@ import {
     CourseEvent,
     CourseType,
     EventType,
-    EventDate 
+    CoursEventDateGetter as CourseEventDateGetter
 } from "@/components/model/interfaces/courseEvent";
 import {parseDSL} from "@/components/controller/util/dsl/dslOperations";
-import {DSLTimeUnit} from "@/components/model/interfaces/dsl";
+import {DSLDateRef, DSLTimeUnit} from "@/components/model/interfaces/dsl";
+import { DSL_TIME_UNIT_TO_MS } from '../model/ressource/dslRessource';
 
 
 
@@ -34,7 +35,14 @@ type EventControllerContextProps = {
     notifySuggestion: ()=>void;
     notifySaveChanges: (event:CourseEvent|undefined)=>void;
     notifyCancelChanges: (event:CourseEvent|undefined)=>void;
-    setEventRelativeDate: (event: ActivityEvent, relativeTo: CourseEvent, startOrend: EventDate, multiple: number, value: number) => void;
+    setEventRelativeDate: (activity: ActivityEvent,
+        relativeTo: CourseEvent,
+        activityDateGetter: CourseEventDateGetter,
+        courseDateGetter : CourseEventDateGetter,
+        courseDateRef : DSLDateRef,
+        offsetValue: number,
+        offsetUnit: DSLTimeUnit,
+        dslIndex: number) => void;
     notifySubmitDSL: (dsl:string) => void;
 }
 
@@ -145,25 +153,18 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
     }
 
     const setEventRelativeDate = (
-      event: ActivityEvent,
+      activity: ActivityEvent,
       relativeTo: CourseEvent,
-      startOrEnd: EventDate,
-      multiple: number,
-      value: number
+      activityDateGetter: CourseEventDateGetter,
+      courseDateGetter : CourseEventDateGetter,
+      courseDateRef : DSLDateRef,
+      offsetValue: number,
+      offsetUnit: DSLTimeUnit,
+      dslIndex: number
     ) => {
-      const timeInMs = value * multiple;
-      const eventState = getOrAddUnsavedState(event);
-
-      if (startOrEnd === EventDate.Start) {
-        eventState.start = new Date(relativeTo.start.getTime() + timeInMs);
-      } else if (startOrEnd === EventDate.End) {
-        eventState.end = new Date(relativeTo.end.getTime() + timeInMs);
-      } else if (relativeTo.cutoff && startOrEnd === EventDate.CutOff) {
-        eventState.cutoff = new Date(relativeTo.cutoff.getTime() + timeInMs);
-      } 
-        
-        
-      setActivityEvents([...activityEvents]);
+        const offsetMS = offsetValue * DSL_TIME_UNIT_TO_MS[offsetUnit];
+        const eventState = getOrAddUnsavedState(activity);
+        setActivityEvents([...activityEvents]);
     };
     
     

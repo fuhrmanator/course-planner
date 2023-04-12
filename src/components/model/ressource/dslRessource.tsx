@@ -35,7 +35,5 @@ export const MS_DSL_UNIT_SORTED_BY_DURATION: DSLTimeType[] = Object.entries(DSL_
 export const TIME_SEPARATOR = ":";
 export const ADD_SYMBOL = "+";
 export const SUB_SYMBOL = "-";
-export const START_SYMBOL = "Start";
-export const END_SYMBOL = "End";
 export const COMMENT_SYMBOL = "#";
 export const AT_SYMBOL = "@";

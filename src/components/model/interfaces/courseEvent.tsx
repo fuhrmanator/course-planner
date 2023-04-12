@@ -1,30 +1,5 @@
-
-export interface CourseEvent {
-    start: Date;
-    end: Date;
-    due?:Date; // for homework only
-    cutoff?:Date;
-    title: string;
-    type: EventType;
-    uid: string;
-
-    dsl?:string;
-    unsavedState?: CourseEvent|null; // null means it's an unsavedState of another CourseEvent
-    [key:string]: any;
-}
-
-
-export enum CourseDate {
-    start = "start",
-    due = "due",
-    cutoff = "cutoff"
-}
-
-
-export interface EventTypeColour {
-    type: EventType,
-    colour: string
-}
+import { activityTypeToLabel } from "../ressource/eventRessource";
+import { DSLDateRef } from "./dsl";
 
 export enum EventType {
     Seminar,
@@ -34,11 +9,29 @@ export enum EventType {
     Practicum
 }
 
-export enum EventDate {
-    Start = "start",
-    End = "end",
-    CutOff = "cutOff",
-    Due = "due"
+export interface CourseEvent {
+    start: Date;
+    end: Date;
+    due?:Date; // for homework only
+    cutoff?:Date;
+    title: string;
+    type: EventType;
+    uid: string;
+    dsl?:string;
+    unsavedState?: CourseEvent|null; // null means it's an unsavedState of another CourseEvent
+}
+
+export type CoursEventDateGetter = (event:CourseEvent)=>Date|undefined;
+
+export interface ActivityDateProp {
+    dslIndex : number
+    label : string
+    getter : CoursEventDateGetter
+}
+
+export interface EventTypeColour {
+    type: EventType,
+    colour: string
 }
 
 export interface ActivityEvent extends CourseEvent {

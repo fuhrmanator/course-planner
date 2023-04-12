@@ -4,8 +4,7 @@ import {EventModelContext} from "@/components/model/EventModel";
 import {
     CourseEvent,
     EventType,
-    CourseType,
-    EventDate, ActivityType, ActivityEvent,
+    CourseType, ActivityType, ActivityEvent,
 } from "@/components/model/interfaces/courseEvent";
 import styles from "@/components/view/style/ShowEventsByType.module.css";
 import {activityTypeToLabel, courseTypeToLabel} from "@/components/model/ressource/eventRessource";
@@ -118,32 +117,7 @@ const ShowEventsByType: React.FC = () => {
     };
 
     const handleChange = (selectedStartOrEnd: EventDate) => {
-        console.log("START OR END " + selectedStartOrEnd);
-
-        if (
-            validateInput(selectedActivity, selectedTime, selectedCourse, selectedStartOrEnd)
-        ) {
-
-            const keys =
-                selectedActivity!.type === EventType.Evaluation
-                    ? ["start", "end"]
-                    : ["start", "due", "end"];
-
-            keys.forEach((key) => {
-                console.log(`Key: ${selectedActivity!.uid}-${key}`);
-                if (selectedActivity && selectedCourse) {
-                    setEventRelativeDate(
-                        selectedActivity as ActivityEvent,
-                        selectedCourse,
-                        selectedStartOrEnd,
-                        timeInput,
-                        selectedTime
-                    );
-                    console.log("selectedStartOrEnd du ShowEvents: " + selectedStartOrEnd);
-                }
-            });
-            notifyEventSelected(getUnsavedStateOrParent(selectedActivity!))
-        }
+        notifyEventSelected(getUnsavedStateOrParent(selectedActivity!))
     };
 
     const handleCancel = () => {

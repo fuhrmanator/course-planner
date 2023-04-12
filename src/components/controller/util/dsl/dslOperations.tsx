@@ -12,15 +12,13 @@ import {
     AT_SYMBOL,
     COMMENT_SYMBOL,
     DSL_TIME_UNIT_TO_MS,
-    END_SYMBOL,
     MS_DSL_UNIT_SORTED_BY_DURATION,
-    START_SYMBOL,
     SUB_SYMBOL,
     TIME_SEPARATOR,
     TYPE_MAP_DSL_TO_EVENT,
     TYPE_MAP_EVENT_TO_DSL
 } from "@/components/model/ressource/dslRessource";
-import {DSLActivity, DSLCourse, DSLObject, DSLTimeType, DSLTimeUnit} from "@/components/model/interfaces/dsl";
+import {DSLActivity, DSLCourse, DSLDateRef, DSLObject, DSLTimeType, DSLTimeUnit} from "@/components/model/interfaces/dsl";
 import {all} from "deepmerge";
 
 /**
@@ -76,7 +74,7 @@ export const makeDSLRelativeToClosestDate = (ref:Date, sortedEvents:CourseEvent[
     }
     const closestEventIndex = Math.floor(closestIndex / 2) ;
     const closestDate = allPossibleClosestDates[closestIndex];
-    const closestDSLModifier = closestIndex % 2 ==0 ? START_SYMBOL : END_SYMBOL;
+    const closestDSLModifier = closestIndex % 2 ==0 ? DSLDateRef.Start : DSLDateRef.End;
     const closestOffset = dateOffsetAsDSL(closestDate, ref);
     return `${TYPE_MAP_EVENT_TO_DSL[sortedEvents[closestEventIndex].type]}${closestEventIndex + 1}${closestDSLModifier}${closestOffset}`
 }
@@ -137,9 +135,9 @@ export const recreateDSL = (node: any): any => {
  */
 const getDateReferenceByDSL = (dsl:DSLCourse, event:CourseEvent):Date => {
     let date;
-    if (typeof dsl.modifier === "undefined" || dsl.modifier === START_SYMBOL) {
+    if (typeof dsl.modifier === "undefined" || dsl.modifier === DSLDateRef.Start) {
         date = new Date(event.start)
-    } else if(dsl.modifier === END_SYMBOL) {
+    } else if(dsl.modifier === DSLDateRef.End) {
         date = new Date(event.end)
     } else {
         throw Error("Bad course reference for "+ JSON.stringify(dsl))
