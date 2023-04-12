@@ -24,8 +24,9 @@ type CourseInformationContextProps = {
 export const CourseInformationContext = createContext<CourseInformationContextProps>({} as CourseInformationContextProps);
 
 type CourseInformationProps = {
-    isOldCourse:boolean
     children: React.ReactNode;
+    isOldCourse:boolean
+
 }
 /**
 
@@ -37,7 +38,7 @@ type CourseInformationProps = {
  <CourseInformationForm />
  @returns {JSX.Element} - Rendered component.
  */
-const CourseInformationForm: React.FC<CourseInformationProps> = ({isOldCourse, children}) => {
+const CourseInformationForm: React.FC<CourseInformationProps> = ({children, isOldCourse}) => {
     const [code, setCode] = useState<string>("");
     const [group, setGroup] = useState<number>(0);
     const [year, setYear] = useState<number>(0);
@@ -53,7 +54,7 @@ const CourseInformationForm: React.FC<CourseInformationProps> = ({isOldCourse, c
 
     useEffect(()=>{
         setIsFormValid(code !== "" && group > 0 && year > 0)
-    },[code, group, year]);
+    },[code, group, year, session]);
 
     const {notifyCourseFormSubmit} = useContext(EventControllerContext);
 

@@ -10,8 +10,15 @@ export interface CourseEvent {
 
     dsl?:string;
     unsavedState?: CourseEvent|null; // null means it's an unsavedState of another CourseEvent
+    [key:string]: any;
 }
 
+
+export enum CourseDate {
+    start = "start",
+    due = "due",
+    cutoff = "cutoff"
+}
 
 
 export interface EventTypeColour {
@@ -30,7 +37,8 @@ export enum EventType {
 export enum EventDate {
     Start = "start",
     End = "end",
-    CutOff = "cutOff"
+    CutOff = "cutOff",
+    Due = "due"
 }
 
 export interface ActivityEvent extends CourseEvent {

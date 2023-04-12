@@ -36,7 +36,6 @@ type EventControllerContextProps = {
     notifyCancelChanges: (event:CourseEvent|undefined)=>void;
     setEventRelativeDate: (event: ActivityEvent, relativeTo: CourseEvent, startOrend: EventDate, multiple: number, value: number) => void;
     notifySubmitDSL: (dsl:string) => void;
-    cancelRelativeDateChanges: (event?: CourseEvent | undefined) => void;
 }
 
 export const EventControllerContext = createContext<EventControllerContextProps>({} as EventControllerContextProps);
@@ -145,37 +144,6 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setSelectedToEarliest(getUnsavedStates(activityEvents));
     }
 
-    const cancelRelativeDateChanges = (event: CourseEvent | undefined = undefined) => {
-        if (typeof event === "undefined") {
-          // Restore the original state of all activity events
-          originalActivityEvents.forEach((originalEvent, eventUid) => {
-            const activityEvent = activityEvents.find((e) => e.uid === eventUid);
-            if (activityEvent) {
-              activityEvent.start = originalEvent.start;
-              activityEvent.end = originalEvent.end;
-              removeUnsavedState(activityEvent);
-            }
-          });
-          setOriginalActivityEvents(new Map());
-        } else {
-          // Restore the original state of a specific event
-          const originalEvent = originalActivityEvents.get(event.uid);
-          if (originalEvent) {
-            event.start = originalEvent.start;
-            event.end = originalEvent.end;
-            removeUnsavedState(event);
-            originalActivityEvents.delete(event.uid);
-            setOriginalActivityEvents(new Map(originalActivityEvents));
-          }
-        }
-        setActivityEvents([...activityEvents]);
-      };
-      
-      
-
-    const [originalActivityEvents, setOriginalActivityEvents] = useState<Map<string, ActivityEvent>>(new Map());
-
-
     const setEventRelativeDate = (
       event: ActivityEvent,
       relativeTo: CourseEvent,
@@ -184,20 +152,8 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
       value: number
     ) => {
       const timeInMs = value * multiple;
-
-      if (!originalActivityEvents.has(event.uid)) {
-        const originalEvent = { ...event };
-        setOriginalActivityEvents(new Map(originalActivityEvents.set(event.uid, originalEvent)));
-      }
-    
       const eventState = getOrAddUnsavedState(event);
-    
-      console.log("startOrEnd du controller", startOrEnd);
 
-      console.log("HAS CUTOFF : " + eventState.cutoff)
-
-
-    
       if (startOrEnd === EventDate.Start) {
         eventState.start = new Date(relativeTo.start.getTime() + timeInMs);
       } else if (startOrEnd === EventDate.End) {
@@ -228,7 +184,6 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
             notifySaveChanges,
             notifyCancelChanges,
             notifySubmitDSL,
-            cancelRelativeDateChanges,
             setEventRelativeDate}}>
             {children}
         </EventControllerContext.Provider>

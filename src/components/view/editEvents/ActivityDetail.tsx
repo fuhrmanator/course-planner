@@ -1,7 +1,7 @@
 import { CourseEvent, EventDate, EventType } from "@/components/model/interfaces/courseEvent";
 import { DSLTimeUnit } from "@/components/model/interfaces/dsl";
 import { DSL_TIME_UNIT_TO_LABEL, DSL_TIME_UNIT_TO_MS } from "@/components/model/ressource/dslRessource";
-import React, { useState, ChangeEvent } from "react";
+import React, {useState, ChangeEvent, useEffect} from "react";
 import styles from "@/components/view/style/ShowEventsByType.module.css";
 import UI from "@/styles/CoursePlanner.module.css";
 
@@ -10,16 +10,16 @@ type ActivityDetailProps = {
   selectedCourse: CourseEvent | undefined;
   selectedStartOrEnd: EventDate | undefined;
   selectedTime: number | undefined;
-  timeInput: string;
+  timeInput: number;
   formattedCourseEvents: CourseEvent[];
   handleSave: (selectedStartOrEnd: EventDate | undefined) => void;
   handleEventChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleStartOrEndChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleTimeInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleTimeChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  onTimeInputChange: (value: string) => void;
+  onTimeInputChange: (value: number) => void;
   onSelectedCourseChange: (course: CourseEvent | undefined) => void;
-  onSelectedTimeChange: (time: number | undefined) => void;
+  onSelectedTimeChange: (time: number) => void;
 };
 
 const ActivityDetail: React.FC<ActivityDetailProps> = ({
@@ -40,12 +40,23 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
 }) => {
   const [localSelectedCourse, setLocalSelectedCourse] = useState<CourseEvent | undefined>(selectedCourse);
   const [localSelectedTime, setLocalSelectedTime] = useState<number | undefined>(selectedTime);
-  const [localTimeInput, setLocalTimeInput] = useState<string>(timeInput);
+  const [localTimeInput, setLocalTimeInput] = useState<number>(timeInput);
   const [isOffsetActivated, setIsOffsetActivated] = useState<boolean>(false);
+
+  const validateInput = (): boolean => {
+    return (isOffsetActivated && typeof localSelectedCourse !== "undefined" && typeof localSelectedTime !== "undefined") || (!isOffsetActivated && typeof localSelectedCourse !== "undefined");
+  }
+
+  useEffect(()=> {
+    if (validateInput()) {
+      handleSave(selectedStartOrEnd);
+    }
+  }, [localSelectedCourse, localSelectedTime, localTimeInput])
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setLocalTimeInput(value);
-    onTimeInputChange(value);
+    setLocalTimeInput(parseInt(value));
+    onTimeInputChange(localTimeInput);
   };
 
   const getKeyByValue = (object: any, value: any) => {
@@ -79,7 +90,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
         <input type="checkbox" checked={isOffsetActivated} onChange={handleCheckboxChange}/>
         <h3 className={styles.font}>Décalage: </h3>
         <input disabled={!isOffsetActivated}
-            type="text"
+            type="number"
             value={localTimeInput}
             onChange={handleInputChange}
         />
@@ -100,16 +111,6 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
             </option>
           ))}
         </select>
-
-      <button
-        onClick={() => handleSave(selectedStartOrEnd)}
-        disabled={!localTimeInput && !localSelectedCourse}
-        className={styles.button}
-      >
-          <div className={styles.font}>
-              Sauvegarder
-          </div>
-      </button>
     </div>
   );
 };
