@@ -45,6 +45,8 @@ type EventControllerContextProps = {
         courseDateRef : DSLDateRef,
         offsetValue: number,
         offsetUnit: DSLTimeUnit|undefined,
+        atMinutes: number|undefined,
+        atHours: number|undefined,
         dslIndex: number) => void;
     notifySubmitDSL: (dsl:string) => void;
 }
@@ -163,6 +165,8 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
       courseDateRef : DSLDateRef,
       offsetValue: number,
       offsetUnit: DSLTimeUnit|undefined,
+      atMinutes: number|undefined,
+      atHours: number|undefined,
       dslIndex: number
     ) => {
         const offsetMS = typeof offsetUnit === "undefined" ? 0 : offsetValue * DSL_TIME_UNIT_TO_MS[offsetUnit];
@@ -170,6 +174,12 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         const activityDate = getDateOrThrow(eventState, activityDateGetter);
         const courseDate = getDateOrThrow(relativeTo, courseDateGetter);
         activityDate.setTime(courseDate.getTime() + offsetMS);
+        if (typeof atMinutes !== "undefined") {
+            activityDate.setMinutes(atMinutes)
+        }
+        if (typeof atHours !== "undefined") {
+            activityDate.setHours(atHours)
+        }
         validateEvent(eventState);
         setActivityEvents([...activityEvents]);
         setSelectedEvent(eventState);

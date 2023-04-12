@@ -35,7 +35,7 @@ export const ACTIVITY_TYPE_TO_DATE_PROP: {[key in ActivityType]:ActivityDateProp
                             label:"Remise"},
                             {getter:(e:CourseEvent) => e.cutoff,
                             dslIndex:2,
-                            label:"Fin"}]
+                            label:"Remise limitte"}]
 }
 
 export const COURSE_DATE_TO_GETTER: {[key in DSLDateRef]:CoursEventDateGetter} = {

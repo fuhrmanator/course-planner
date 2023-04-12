@@ -26,7 +26,9 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
     const [isOffsetActivated, setIsOffsetActivated] = useState<boolean>(false);
     const [offsetUnit, setOffsetUnit] = useState<string>("");
     const [offsetValue, setOffsetValue] = useState<number|undefined>(0);
-
+    const [isAtActivated, setIsAtActivated] = useState<boolean>(false);
+    const [atHours, setAtHours] = useState<number>(0);
+    const [atMinutes, setAtMinutes] = useState<number>(0);
 
     const validateInput = (): boolean => {
         return (isOffsetActivated && selectedCourseName !== "" && offsetUnit !== "" && courseDateRef !== "" && typeof offsetValue !== "undefined") ||
@@ -49,8 +51,10 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                     courseDateInformation.getter,
                     COURSE_DATE_TO_GETTER[courseDateRef as DSLDateRef],
                     courseDateRef as DSLDateRef,
-                    offsetValue!,
+                    isOffsetActivated ? offsetValue! : 0,
                     offsetUnit === "" ? undefined : offsetUnit as DSLTimeUnit,
+                    isAtActivated ? atMinutes : undefined,
+                    isAtActivated ? atHours : undefined,
                     courseDateInformation.dslIndex
                 );
                 setErrorMsg("");
@@ -60,7 +64,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                 }
             }
         }
-    }, [selectedCourseName, courseDateRef, offsetUnit, offsetValue, isOffsetActivated, offsetValue, offsetUnit])
+    }, [selectedCourseName, courseDateRef, offsetUnit, offsetValue, isOffsetActivated, offsetValue, offsetUnit, atMinutes, atHours])
 
     const handleOffsetChange = (e: ChangeEvent<HTMLInputElement>) => {
         const val = parseInt(e.target.value);
@@ -75,12 +79,22 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
         setCourseDateRef(e.target.value)
     };
 
-    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleOffsetCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setIsOffsetActivated(e.target.checked);
+    }
+
+    const handleAtCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsAtActivated(e.target.checked);
     }
 
     const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedCourseName(e.target.value);
+    }
+
+    const handleAtChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const parts = (e.target.value).split(":");
+        setAtHours(parseInt(parts[0]))
+        setAtMinutes(parseInt(parts[1]))
     }
     return (
         <div className={styles.detail}>
@@ -106,8 +120,8 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                     </option>
                 ))}
             </select>
-            <input disabled={isAllDisabled} type="checkbox" checked={isOffsetActivated} onChange={handleCheckboxChange}/>
             <h3 className={styles.font}>Décalage: </h3>
+            <input disabled={isAllDisabled} type="checkbox" checked={isOffsetActivated} onChange={handleOffsetCheckChange}/>
             <input disabled={!isOffsetActivated || isAllDisabled}
                    type="number"
                    defaultValue={offsetValue}
@@ -123,6 +137,11 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                     </option>
                 ))}
             </select>
+            <input disabled={isAllDisabled} type="checkbox" checked={isAtActivated} onChange={handleAtCheckboxChange}/>
+            <input disabled={!isAtActivated || isAllDisabled}
+                   type="time"
+                   defaultValue={""}
+                   onChange={handleAtChange}/>
             <p>{errorMsg}</p>
         </div>
     );
