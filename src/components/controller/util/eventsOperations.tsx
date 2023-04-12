@@ -1,7 +1,8 @@
 import {
     ActivityEvent,
     ActivityType,
-    CourseEvent, CoursEventDateGetter,
+    CourseEvent,
+    CoursEventDateGetter,
     EventType,
     SuggestionTypeMapConfig
 } from "@/components/model/interfaces/courseEvent";

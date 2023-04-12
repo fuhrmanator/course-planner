@@ -6,12 +6,14 @@ import {applyChangesToArchive, extractData, makeEvents, parseActivities, zipData
 import {
     addSuggestion,
     cancelAllUnsavedState,
-    findEarliestEvent, getDateOrThrow,
+    findEarliestEvent,
+    getDateOrThrow,
     getOrAddUnsavedState,
     getUnsavedStates,
     removeUnsavedState,
     saveAll,
-    saveState, validateEvent
+    saveState,
+    validateEvent
 } from './util/eventsOperations';
 import MBZArchive from '../model/interfaces/archive/MBZArchive';
 import {
@@ -46,8 +48,7 @@ type EventControllerContextProps = {
         offsetValue: number,
         offsetUnit: DSLTimeUnit|undefined,
         atMinutes: number|undefined,
-        atHours: number|undefined,
-        dslIndex: number) => void;
+        atHours: number|undefined) => void;
     notifySubmitDSL: (dsl:string) => void;
 }
 
@@ -166,8 +167,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
       offsetValue: number,
       offsetUnit: DSLTimeUnit|undefined,
       atMinutes: number|undefined,
-      atHours: number|undefined,
-      dslIndex: number
+      atHours: number|undefined
     ) => {
         const offsetMS = typeof offsetUnit === "undefined" ? 0 : offsetValue * DSL_TIME_UNIT_TO_MS[offsetUnit];
         const eventState = getOrAddUnsavedState(activity);
@@ -183,6 +183,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         validateEvent(eventState);
         setActivityEvents([...activityEvents]);
         setSelectedEvent(eventState);
+
     };
     
     

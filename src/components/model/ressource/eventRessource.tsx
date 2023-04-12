@@ -22,19 +22,14 @@ export const defaultEventColours: TypeColourDict = {
 export const ACTIVITY_TYPE_TO_DATE_PROP: {[key in ActivityType]:ActivityDateProp[]} =  { 
     // values order has to match DSL order.
     [EventType.Evaluation]: [{getter:(e:CourseEvent) => e.start,
-                            dslIndex:0,
                             label:"Début"}, 
                             {getter:(e:CourseEvent) => e.end,
-                            dslIndex:1,
                             label:"Fin"}],
     [EventType.Homework]: [{getter:(e:CourseEvent) => e.start,
-                            dslIndex:0,
                             label:"Début"}, 
                             {getter:(e:CourseEvent) => e.due,
-                            dslIndex:1,
                             label:"Remise"},
                             {getter:(e:CourseEvent) => e.cutoff,
-                            dslIndex:2,
                             label:"Remise limitte"}]
 }
 

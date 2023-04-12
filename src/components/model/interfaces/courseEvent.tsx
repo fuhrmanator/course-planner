@@ -21,7 +21,6 @@ export interface CourseEvent {
 export type CoursEventDateGetter = (event:CourseEvent)=>Date|undefined;
 
 export interface ActivityDateProp {
-    dslIndex : number
     label : string
     getter : CoursEventDateGetter
 }

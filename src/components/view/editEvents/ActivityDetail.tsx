@@ -54,8 +54,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                     isOffsetActivated ? offsetValue! : 0,
                     offsetUnit === "" ? undefined : offsetUnit as DSLTimeUnit,
                     isAtActivated ? atMinutes : undefined,
-                    isAtActivated ? atHours : undefined,
-                    courseDateInformation.dslIndex
+                    isAtActivated ? atHours : undefined
                 );
                 setErrorMsg("");
             } catch (e:any) {

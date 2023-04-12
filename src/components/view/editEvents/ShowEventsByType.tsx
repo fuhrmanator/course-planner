@@ -1,13 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import moment from "moment";
 import {EventModelContext} from "@/components/model/EventModel";
-import {
-    ActivityDateProp,
-    ActivityEvent,
-    ActivityType,
-    CourseEvent,
-    CourseType,
-} from "@/components/model/interfaces/courseEvent";
+import {ActivityDateProp, ActivityType, CourseEvent, CourseType,} from "@/components/model/interfaces/courseEvent";
 import styles from "@/components/view/style/ShowEventsByType.module.css";
 import {
     ACTIVITY_TYPE_TO_DATE_PROP,
@@ -96,8 +90,8 @@ const ShowEventsByType: React.FC = () => {
                     </div>
                 ))}
             </div>
-            {selectedActivity && selectedActivityDates.map((selectedActivityDate)=> (
-                <ActivityDetail key={selectedActivity!.uid+selectedActivityDate.dslIndex}
+            {selectedActivity && selectedActivityDates.map((selectedActivityDate, index)=> (
+                <ActivityDetail key={`${selectedActivity!.uid}-${index}`}
                                 selectedActivity={selectedActivity!}
                                 courseNameToEvent={formattedCourseEvents}
                                 courseDateInformation={selectedActivityDate} />
