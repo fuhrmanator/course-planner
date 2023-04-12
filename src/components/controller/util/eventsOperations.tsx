@@ -1,7 +1,7 @@
 import {
     ActivityEvent,
     ActivityType,
-    CourseEvent,
+    CourseEvent, CoursEventDateGetter,
     EventType,
     SuggestionTypeMapConfig
 } from "@/components/model/interfaces/courseEvent";
@@ -90,6 +90,15 @@ export const getOrAddUnsavedState = (event: CourseEvent):CourseEvent => {
         gotUnsavedState = event.unsavedState as CourseEvent;
     } else {
         gotUnsavedState = {...event}
+        gotUnsavedState.start = new Date(gotUnsavedState.start)
+        gotUnsavedState.end = new Date(gotUnsavedState.end)
+        if (hasDueDate(gotUnsavedState)) {
+            gotUnsavedState.due = new Date(gotUnsavedState.due!)
+        }
+        if (hasCutoffDate(gotUnsavedState)) {
+            gotUnsavedState.cutoff = new Date(gotUnsavedState.cutoff!)
+        }
+
         gotUnsavedState.unsavedState = null;
         event.unsavedState = gotUnsavedState;
     }
@@ -283,5 +292,19 @@ export const sortEventsWithTypeByOldestStart = (events:CourseEvent[], type:Event
  */
 export const getKeysAsType = <T extends number>(dict: {[keys in T]: any}):T[] => {
     return Object.keys(dict).map(e => parseInt(e)) as T[];
+}
+
+export const getDateOrThrow = (event:CourseEvent, getter: CoursEventDateGetter): Date => {
+    const dateActivity = getter(event);
+    if (typeof dateActivity === "undefined") {
+        throw new Error("Bad activity date getter")
+    }
+    return dateActivity;
+}
+
+export const validateEvent = (event:CourseEvent):void => {
+    if (event.start > event.end) {
+        throw new Error("Le début est plus réçent que la fin")
+    }
 }
 

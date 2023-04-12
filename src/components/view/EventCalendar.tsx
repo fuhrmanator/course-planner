@@ -1,8 +1,8 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import {Calendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { EventModelContext } from '@/components/model/EventModel';
+import {EventModelContext} from '@/components/model/EventModel';
 import {findEarliestEvent, isUnsavedState} from '@/components/controller/util/eventsOperations';
 import {CourseEvent} from "@/components/model/interfaces/courseEvent";
 import {EventControllerContext} from "@/components/controller/eventController";

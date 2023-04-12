@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {CourseEvent, EventType} from "@/components/model/interfaces/courseEvent";
+import React from "react";
+import {EventType} from "@/components/model/interfaces/courseEvent";
 
 interface Props {
     type: EventType,

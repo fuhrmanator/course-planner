@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import textearea from "@/components/view/style/TextEntry.module.css"
+import React from 'react';
 import UI from "@/styles/CoursePlanner.module.css";
+
 interface TextEntryProps {
     text: string
     onChange:(text: string) => void;

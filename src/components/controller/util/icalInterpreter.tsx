@@ -1,4 +1,5 @@
 import {CourseEvent, EventType} from '@/components/model/interfaces/courseEvent'
+
 const ical = require('ical.js');
 /**
  Converts an iCal event to a CourseEvent object

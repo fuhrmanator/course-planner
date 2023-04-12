@@ -1,5 +1,4 @@
-
-import { ArchiveDict } from "./archiveTypes";
+import {ArchiveDict} from "./archiveTypes";
 import ArchiveFile from "./archiveFile";
 
 export default class MBZArchive {

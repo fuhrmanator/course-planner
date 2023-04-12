@@ -1,22 +1,9 @@
-import {
-    ActivityEvent,
-    CourseEvent,
-    SuggestionTypeMapConfig,
-    TypeColourDict
-} from './interfaces/courseEvent'
-import React, {useState, createContext, useEffect, useRef} from 'react'
+import {ActivityEvent, CourseEvent, SuggestionTypeMapConfig, TypeColourDict} from './interfaces/courseEvent'
+import React, {createContext, useEffect, useRef, useState} from 'react'
 import {callbackIfValuePresent, setValue} from './localStore';
 
-import {
-    defaultEventColours,
-    defaultSuggestionTypeMapping,
-
-} from "@/components/model/ressource/eventRessource";
-import {
-    getUnsavedStates,
-    parseStoredEvent,
-    parseStoredEvents
-} from "@/components/controller/util/eventsOperations";
+import {defaultEventColours, defaultSuggestionTypeMapping,} from "@/components/model/ressource/eventRessource";
+import {getUnsavedStates, parseStoredEvent, parseStoredEvents} from "@/components/controller/util/eventsOperations";
 import MBZArchive from "@/components/model/interfaces/archive/MBZArchive";
 
 type EventModelContextProps = {

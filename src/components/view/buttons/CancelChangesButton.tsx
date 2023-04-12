@@ -3,6 +3,7 @@ import {EventControllerContext} from "@/components/controller/eventController";
 import UI from "@/styles/CoursePlanner.module.css";
 import {getUnsavedStates} from "@/components/controller/util/eventsOperations";
 import {EventModelContext} from "@/components/model/EventModel";
+
 interface CancelChangesButtonProps {}
 /**
 

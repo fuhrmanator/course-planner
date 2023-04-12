@@ -1,8 +1,7 @@
-import React, {useState, useContext, useEffect, createContext} from "react";
-import { Form, Input, Select } from "antd";
+import React, {createContext, useContext, useEffect, useState} from "react";
+import {Form, Input, Select} from "antd";
 import {EventControllerContext} from "@/components/controller/eventController";
 import {getValue, setValue} from 'src/components/model/localStore'
-import RadioButton from "@/components/view/RadioButton";
 import UI from "@/styles/CoursePlanner.module.css";
 
 enum Session {

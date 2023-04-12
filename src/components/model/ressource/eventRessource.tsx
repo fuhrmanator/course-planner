@@ -1,8 +1,14 @@
 import {
+    ActivityDateProp,
+    ActivityType,
+    CourseEvent,
+    CourseType,
+    CoursEventDateGetter,
     EventType,
-    ActivityType, CourseType, TypeColourDict, SuggestionTypeMapConfig, CourseEvent, CoursEventDateGetter, ActivityDateProp, CourseDateProp
+    SuggestionTypeMapConfig,
+    TypeColourDict
 } from "@/components/model/interfaces/courseEvent";
-import { DSLDateRef } from "../interfaces/dsl";
+import {DSLDateRef} from "../interfaces/dsl";
 
 export const defaultEventColours: TypeColourDict = {
     [EventType.Seminar]:"#3a20fe",

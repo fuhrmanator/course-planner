@@ -18,8 +18,14 @@ import {
     TYPE_MAP_DSL_TO_EVENT,
     TYPE_MAP_EVENT_TO_DSL
 } from "@/components/model/ressource/dslRessource";
-import {DSLActivity, DSLCourse, DSLDateRef, DSLObject, DSLTimeType, DSLTimeUnit} from "@/components/model/interfaces/dsl";
-import {all} from "deepmerge";
+import {
+    DSLActivity,
+    DSLCourse,
+    DSLDateRef,
+    DSLObject,
+    DSLTimeType,
+    DSLTimeUnit
+} from "@/components/model/interfaces/dsl";
 
 /**
  * Creates the relative offset part of the DSL based on the time difference between two dates

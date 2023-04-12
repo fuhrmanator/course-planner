@@ -1,6 +1,3 @@
-import { activityTypeToLabel } from "../ressource/eventRessource";
-import { DSLDateRef } from "./dsl";
-
 export enum EventType {
     Seminar,
     Laboratory,
