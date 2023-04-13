@@ -33,11 +33,9 @@ const EventCalendar: React.FC = () => {
     const addColourToEventsCallback = useCallback(
         (event:CourseEvent, start:Date, end:Date, isSelected:boolean) => {
             return {
-                event,
-                start,
-                end,
-                isSelected,
-                style: { backgroundColor: isUnsavedState(event) ? lightenHexColor(eventTypeColour[event.type], 0.5) : eventTypeColour[event.type]}}},
+                style: { backgroundColor: isUnsavedState(event) ? lightenHexColor(eventTypeColour[event.type], 0.5) : eventTypeColour[event.type],
+                            outline: isSelected ? "5px auto #3b99fc" : "none"}
+            }},
         [eventTypeColour]
     )
 
@@ -53,6 +51,7 @@ const EventCalendar: React.FC = () => {
                 date={selectedDate}
                 onNavigate={onNavigate}
                 onSelectEvent={onSelectEvent}
+                selected={selectedEvent}
                 eventPropGetter={addColourToEventsCallback}
             />
             <CalLegend />
