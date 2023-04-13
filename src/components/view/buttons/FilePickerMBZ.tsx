@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useState, useContext} from "react";
 import {EventControllerContext} from "@/components/controller/eventController";
 import UI from '@/styles/CoursePlanner.module.css';
 import Overlay from "@/components/view/Overlay";
@@ -25,8 +25,8 @@ const FilePickerMBZ: React.FC<Props> = () => {
   };
 
   return (
-      <div className={UI.uiLabel}>
-        <label className={UI.button}>
+      <div className={UI.button}>
+        <label className={UI.uiLabel}>
           <input className={UI.input} type="file" value={selectedFile} onInput={handleFilePicked} />
           Sélectionner un fichier
         </label>

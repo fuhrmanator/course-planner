@@ -22,7 +22,7 @@ const SaveAllChangesButton: React.FC<SaveAllChangesButtonProps> = () => {
     return (
         <button disabled={isDisabled} onClick={handleClick} className={UI.button}>
             <div className={UI.uiLabel}>
-                Sauvegarder les suggestions
+                Sauvegarder
             </div>
         </button>
     );
