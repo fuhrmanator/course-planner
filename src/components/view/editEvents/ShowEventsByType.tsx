@@ -50,7 +50,7 @@ const ShowEventsByType: React.FC = () => {
             }
 
             // Highlight the selected event
-            const selectedElement = document.querySelector(`[data-event-id="${activityEvents!.uid}"]`);
+            const selectedElement = document.querySelector(`[data-event-id="${selectedEvent.uid}"]`);
             if (selectedElement) {
               selectedElement.classList.add(styles.selected);
             }
@@ -92,7 +92,7 @@ const ShowEventsByType: React.FC = () => {
                     <div
                         key={activity.uid}
                         onClick={() => handleActivityClick(activity)}
-                        className={styles.activity}
+                        className={typeof selectedActivity !== "undefined" && selectedActivity.uid === activity.uid ? `${styles.activity} ${styles.selected}` : styles.activity}
                     >
                         <div className={styles.title}>{activity.title}</div>
                         <div className={styles.date}>
@@ -101,6 +101,7 @@ const ShowEventsByType: React.FC = () => {
                     </div>
                 ))}
             </div>
+            <h2 className={styles.title}> Activité sélectionnée: {typeof selectedActivity === "undefined" ? "": selectedActivity.title} </h2>
             {selectedActivity && selectedActivityDates.map((selectedActivityDate, index)=> (
                 <ActivityDetail key={`${selectedActivity!.uid}-${index}`}
                                 selectedActivity={selectedActivity!}

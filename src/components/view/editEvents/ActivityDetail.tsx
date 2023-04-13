@@ -141,7 +141,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                    type="time"
                    defaultValue={""}
                    onChange={handleAtChange}/>
-            <p>{errorMsg}</p>
+            <p className={styles.error}>{errorMsg}</p>
         </div>
     );
 };
