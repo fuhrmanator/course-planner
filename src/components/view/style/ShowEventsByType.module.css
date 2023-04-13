@@ -72,6 +72,11 @@
     letter-spacing: 0.3px;
     margin-bottom: 10px;
 }
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
 
 .selectBox {
     /* Reset */
