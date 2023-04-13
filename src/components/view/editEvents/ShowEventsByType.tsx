@@ -30,7 +30,7 @@ const ShowEventsByType: React.FC = () => {
 
     const [selectedActivity, setSelectedActivity] = useState<CourseEvent | undefined>();
     const [selectedActivityDates, setSelectedActivityDates] = useState<ActivityDateProp[]>([]);
-    const [formattedCourseEvents, setFormattedCourseEvents] = useState<{[key: string]:CourseEvent}>({});
+    const [formattedCourseEvents, setFormattedCourseEvents] = useState<{ [key: string]: CourseEvent }>({});
     const [isSaveAndCancelDisabled, setIsSaveAndCancelDisabled] = useState<boolean>(true);
 
     useEffect(() => {
@@ -46,23 +46,23 @@ const ShowEventsByType: React.FC = () => {
             // Remove highlight from previously selected event
             const prevSelectedElement = document.querySelector(`.${styles.selected}`);
             if (prevSelectedElement) {
-              prevSelectedElement.classList.remove(styles.selected);
+                prevSelectedElement.classList.remove(styles.selected);
             }
 
             // Highlight the selected event
             const selectedElement = document.querySelector(`[data-event-id="${selectedEvent.uid}"]`);
             if (selectedElement) {
-              selectedElement.classList.add(styles.selected);
+                selectedElement.classList.add(styles.selected);
             }
         }
     }, [selectedEvent, activityEvents])
 
     useEffect(() => {
-        const formatted: {[key: string]:CourseEvent}= {};
+        const formatted: { [key: string]: CourseEvent } = {};
         for (const courseType of getKeysAsType<CourseType>(courseTypeToLabel)) {
             const courseEventOfType = sortEventsWithTypeByOldestStart(newCourseEvents, courseType);
-            for (let i=0; i<courseEventOfType.length; i++) {
-                formatted[`${courseTypeToLabel[courseType]} ${i+1}`] = courseEventOfType[i];
+            for (let i = 0; i < courseEventOfType.length; i++) {
+                formatted[`${courseTypeToLabel[courseType]} ${i + 1}`] = courseEventOfType[i];
             }
         }
         setFormattedCourseEvents(formatted);
@@ -101,33 +101,30 @@ const ShowEventsByType: React.FC = () => {
                     </div>
                 ))}
             </div>
-            <h2 className={styles.title}> Activité sélectionnée: {typeof selectedActivity === "undefined" ? "": selectedActivity.title} </h2>
-            {selectedActivity && selectedActivityDates.map((selectedActivityDate, index)=> (
+            <h2 className={styles.title}> Activité
+                sélectionnée: {typeof selectedActivity === "undefined" ? "" : selectedActivity.title} </h2>
+            {selectedActivity && selectedActivityDates.map((selectedActivityDate, index) => (
                 <ActivityDetail key={`${selectedActivity!.uid}-${index}`}
                                 selectedActivity={selectedActivity!}
                                 courseNameToEvent={formattedCourseEvents}
-                                courseDateInformation={selectedActivityDate} />
+                                courseDateInformation={selectedActivityDate}/>
             ))}
             <button
                 onClick={handleSave}
                 disabled={isSaveAndCancelDisabled}
-                className={styles.button}
-            >
+                className={styles.button}>
                 <div className={styles.font}>
                     Sauvegarder
                 </div>
             </button>
-
             <button
                 onClick={handleCancel}
                 disabled={isSaveAndCancelDisabled}
-                className={styles.button}
-            >
+                className={styles.button}>
                 <div className={styles.font}>
                     Cancel
                 </div>
             </button>
-
         </div>
     );
 };
