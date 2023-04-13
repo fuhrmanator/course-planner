@@ -1,8 +1,7 @@
-import React, {useState, useContext, useEffect, createContext} from "react";
-import { Form, Input, Select } from "antd";
+import React, {createContext, useContext, useEffect, useState} from "react";
+import {Form, Input, Select} from "antd";
 import {EventControllerContext} from "@/components/controller/eventController";
 import {getValue, setValue} from 'src/components/model/localStore'
-import RadioButton from "@/components/view/RadioButton";
 import UI from "@/styles/CoursePlanner.module.css";
 
 enum Session {
@@ -24,8 +23,9 @@ type CourseInformationContextProps = {
 export const CourseInformationContext = createContext<CourseInformationContextProps>({} as CourseInformationContextProps);
 
 type CourseInformationProps = {
-    isOldCourse:boolean
     children: React.ReactNode;
+    isOldCourse:boolean
+
 }
 /**
 
@@ -37,7 +37,7 @@ type CourseInformationProps = {
  <CourseInformationForm />
  @returns {JSX.Element} - Rendered component.
  */
-const CourseInformationForm: React.FC<CourseInformationProps> = ({isOldCourse, children}) => {
+const CourseInformationForm: React.FC<CourseInformationProps> = ({children, isOldCourse}) => {
     const [code, setCode] = useState<string>("");
     const [group, setGroup] = useState<number>(0);
     const [year, setYear] = useState<number>(0);
@@ -53,7 +53,7 @@ const CourseInformationForm: React.FC<CourseInformationProps> = ({isOldCourse, c
 
     useEffect(()=>{
         setIsFormValid(code !== "" && group > 0 && year > 0)
-    },[code, group, year]);
+    },[code, group, year, session]);
 
     const {notifyCourseFormSubmit} = useContext(EventControllerContext);
 

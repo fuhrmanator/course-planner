@@ -4,21 +4,21 @@
 
 import React from "react";
 import {
-    CourseCalendar,
-    AllFilter,
-    EvaluationFilter,
-    HomeworkFilter,
-    SelectButton,
-    ImportButton,
     AcronymComboBox,
-    GroupComboBox,
-    YearComboBox,
-    SendButton,
-    CourseResetButton,
-    ExportButton,
-    ActivitySaveButton,
     ActivityResetButton,
-    SuggestionButton
+    ActivitySaveButton,
+    AllFilter,
+    CourseCalendar,
+    CourseResetButton,
+    EvaluationFilter,
+    ExportButton,
+    GroupComboBox,
+    HomeworkFilter,
+    ImportButton,
+    SelectButton,
+    SendButton,
+    SuggestionButton,
+    YearComboBox
 } from "components";
 import styles from "./CoursePlanner.module.css";
 

@@ -1,9 +1,7 @@
 import React, {MouseEventHandler, useState} from "react";
-import SuggestionConfig from "@/components/view/suggestion/SuggestionConfig";
-import styles from "@/components/view/style/ShowOverlay.module.css"
-import classNames from "classnames";
 import UI from '@/styles/CoursePlanner.module.css'
 import Overlay from "@/components/view/Overlay";
+
 type ShowOverlayProps = {
     children: React.ReactNode;
     label: string;

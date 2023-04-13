@@ -1,7 +1,6 @@
-import React, {useState, useContext} from "react";
+import React, {useContext, useState} from "react";
 import {EventControllerContext} from "@/components/controller/eventController";
 import UI from '@/styles/CoursePlanner.module.css';
-import ShowOverlay from "@/components/view/buttons/ShowOverlay";
 import Overlay from "@/components/view/Overlay";
 import CourseInformationForm from "@/components/view/CourseInformationForm";
 import SubmitCourseButton from "@/components/view/buttons/SubmitCourseButton";

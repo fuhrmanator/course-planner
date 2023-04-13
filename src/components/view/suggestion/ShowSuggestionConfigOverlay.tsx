@@ -2,6 +2,7 @@ import React, {MouseEventHandler, useState} from "react";
 import SuggestionConfig from "@/components/view/suggestion/SuggestionConfig";
 import styles from "@/components/view/style/ShowOverlay.module.css"
 import classNames from "classnames";
+
 const ShowSuggestionConfigOverlay: React.FC = () => {
     const [showOverlay, setShowOverlay] = useState(false);
     const visibilityClass = classNames({

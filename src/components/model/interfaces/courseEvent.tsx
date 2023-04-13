@@ -1,3 +1,10 @@
+export enum EventType {
+    Seminar,
+    Laboratory,
+    Evaluation,
+    Homework,
+    Practicum
+}
 
 export interface CourseEvent {
     start: Date;
@@ -7,30 +14,20 @@ export interface CourseEvent {
     title: string;
     type: EventType;
     uid: string;
-
     dsl?:string;
     unsavedState?: CourseEvent|null; // null means it's an unsavedState of another CourseEvent
 }
 
+export type CoursEventDateGetter = (event:CourseEvent)=>Date|undefined;
 
+export interface ActivityDateProp {
+    label : string
+    getter : CoursEventDateGetter
+}
 
 export interface EventTypeColour {
     type: EventType,
     colour: string
-}
-
-export enum EventType {
-    Seminar,
-    Laboratory,
-    Evaluation,
-    Homework,
-    Practicum
-}
-
-export enum EventDate {
-    Start = "start",
-    End = "end",
-    CutOff = "cutOff"
 }
 
 export interface ActivityEvent extends CourseEvent {

@@ -7,7 +7,6 @@ import ClearCalButton from '@/components/view/buttons/ClearCalButton'
 import {EventModel} from '@/components/model/EventModel'
 import FilePickerMBZ from '@/components/view/buttons/FilePickerMBZ'
 import DownloadMBZButton from '@/components/view/buttons/DownloadMBZButton'
-import ShowSuggestionConfigOverlay from "@/components/view/suggestion/ShowSuggestionConfigOverlay";
 import SuggestionButton from "@/components/view/buttons/SuggestionButton";
 import SaveAllChangesButton from "@/components/view/buttons/SaveAllChangesButton";
 import CancelChangesButton from "@/components/view/buttons/CancelChangesButton";

@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from "react";
 import {EventControllerContext} from "@/components/controller/eventController";
 import UI from '@/styles/CoursePlanner.module.css';
 import {EventModelContext} from "@/components/model/EventModel";
-import {getUnsavedStates} from "@/components/controller/util/eventsOperations";
 
 interface SuggestionButtonProps {}
 

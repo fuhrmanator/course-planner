@@ -29,6 +29,11 @@ export enum DSLTimeUnit {
     Minute="m"
 }
 
+export enum DSLDateRef {
+    Start = "Start",
+    End = "End"
+}
+
 export interface DSLTimeType {
     symbol: string,
     value: number

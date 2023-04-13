@@ -1,13 +1,19 @@
-import React, {useState, useContext, createContext} from 'react';
+import React, {createContext, useContext} from 'react';
 import fetchCourseICAL from './util/fetchOperations'
 import {parseICALEvents} from './util/icalInterpreter';
-import { EventModelContext } from '@/components/model/EventModel';
-import { applyChangesToArchive, extractData, makeEvents, parseActivities, zipData } from './util/mbzInterpreter';
+import {EventModelContext} from '@/components/model/EventModel';
+import {applyChangesToArchive, extractData, makeEvents, parseActivities, zipData} from './util/mbzInterpreter';
 import {
-    addSuggestion, cancelAllUnsavedState,
-    findEarliestEvent, getOrAddUnsavedState,
-    getUnsavedStates, removeUnsavedState,
-    saveAll, saveState
+    addSuggestion,
+    cancelAllUnsavedState,
+    findEarliestEvent,
+    getDateOrThrow,
+    getOrAddUnsavedState,
+    getUnsavedStates,
+    removeUnsavedState,
+    saveAll,
+    saveState,
+    validateEvent
 } from './util/eventsOperations';
 import MBZArchive from '../model/interfaces/archive/MBZArchive';
 import {
@@ -15,12 +21,12 @@ import {
     ActivityType,
     CourseEvent,
     CourseType,
-    EventType,
-    EventDate 
+    CoursEventDateGetter as CourseEventDateGetter,
+    EventType
 } from "@/components/model/interfaces/courseEvent";
 import {parseDSL} from "@/components/controller/util/dsl/dslOperations";
-import {DSLTimeUnit} from "@/components/model/interfaces/dsl";
-
+import {DSLDateRef, DSLTimeUnit} from "@/components/model/interfaces/dsl";
+import {DSL_TIME_UNIT_TO_MS} from '../model/ressource/dslRessource';
 
 
 type EventControllerContextProps = {
@@ -34,7 +40,15 @@ type EventControllerContextProps = {
     notifySuggestion: ()=>void;
     notifySaveChanges: (event:CourseEvent|undefined)=>void;
     notifyCancelChanges: (event:CourseEvent|undefined)=>void;
-    setEventRelativeDate: (event: ActivityEvent, relativeTo: CourseEvent, startOrend: EventDate, multiple: number, value: number) => void;
+    setEventRelativeDate: (activity: ActivityEvent,
+        relativeTo: CourseEvent,
+        activityDateGetter: CourseEventDateGetter,
+        courseDateGetter : CourseEventDateGetter,
+        courseDateRef : DSLDateRef,
+        offsetValue: number,
+        offsetUnit: DSLTimeUnit|undefined,
+        atMinutes: number|undefined,
+        atHours: number|undefined) => void;
     notifySubmitDSL: (dsl:string) => void;
 }
 
@@ -145,26 +159,31 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
     }
 
     const setEventRelativeDate = (
-      event: ActivityEvent,
+      activity: ActivityEvent,
       relativeTo: CourseEvent,
-      startOrEnd: EventDate,
-      multiple: number,
-      value: number
+      activityDateGetter: CourseEventDateGetter,
+      courseDateGetter : CourseEventDateGetter,
+      courseDateRef : DSLDateRef,
+      offsetValue: number,
+      offsetUnit: DSLTimeUnit|undefined,
+      atMinutes: number|undefined,
+      atHours: number|undefined
     ) => {
-      const timeInMs = value * multiple;
-    
-      const eventState = getOrAddUnsavedState(event);
-    
-      console.log("startOrEnd du controller", startOrEnd);
-    
-      if (startOrEnd === EventDate.Start) {
-        eventState.start = new Date(relativeTo.start.getTime() + timeInMs);
-      } else if (startOrEnd === EventDate.End) {
-        eventState.end = new Date(relativeTo.end.getTime() + timeInMs);
-      } 
-        
-        
-      setActivityEvents([...activityEvents]);
+        const offsetMS = typeof offsetUnit === "undefined" ? 0 : offsetValue * DSL_TIME_UNIT_TO_MS[offsetUnit];
+        const eventState = getOrAddUnsavedState(activity);
+        const activityDate = getDateOrThrow(eventState, activityDateGetter);
+        const courseDate = getDateOrThrow(relativeTo, courseDateGetter);
+        activityDate.setTime(courseDate.getTime() + offsetMS);
+        if (typeof atMinutes !== "undefined") {
+            activityDate.setMinutes(atMinutes)
+        }
+        if (typeof atHours !== "undefined") {
+            activityDate.setHours(atHours)
+        }
+        validateEvent(eventState);
+        setActivityEvents([...activityEvents]);
+        setSelectedEvent(eventState);
+
     };
     
     

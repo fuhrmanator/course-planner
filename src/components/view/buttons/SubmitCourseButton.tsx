@@ -1,5 +1,4 @@
 import React, {useContext} from "react";
-import {EventControllerContext} from "@/components/controller/eventController";
 import UI from '@/styles/CoursePlanner.module.css';
 import {CourseInformationContext} from "@/components/view/CourseInformationForm";
 
