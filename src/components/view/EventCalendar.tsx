@@ -8,6 +8,7 @@ import {CourseEvent} from "@/components/model/interfaces/courseEvent";
 import {EventControllerContext} from "@/components/controller/eventController";
 import CalLegend from "@/components/view/colour/CalLegend";
 import {lightenHexColor} from "@/components/controller/util/colourOperations";
+import UI from '@/styles/CoursePlanner.module.css'
 
 
 const EventCalendar: React.FC = () => {
@@ -43,13 +44,12 @@ const EventCalendar: React.FC = () => {
     const localizer = momentLocalizer(moment);
 
     return (
-        <div>
+        <div className={UI.calendarWrapper}>
             <Calendar
                 localizer={localizer}
                 events={events}
                 startAccessor="start"
                 endAccessor="end"
-                style={{ height: 800 }}
                 date={selectedDate}
                 onNavigate={onNavigate}
                 onSelectEvent={onSelectEvent}

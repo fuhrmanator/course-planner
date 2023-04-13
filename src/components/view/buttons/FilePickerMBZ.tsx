@@ -25,6 +25,7 @@ const FilePickerMBZ: React.FC<Props> = () => {
   };
 
   return (
+    <div className={UI.flexWrapperFile}>
       <div className={UI.button}>
         <label className={UI.uiLabel}>
           <input className={UI.input} type="file" value={selectedFile} onInput={handleFilePicked} />
@@ -39,6 +40,7 @@ const FilePickerMBZ: React.FC<Props> = () => {
               </CourseInformationForm>
           </Overlay>
       </div>
+    </div>
 
   );
 };

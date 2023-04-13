@@ -7,8 +7,8 @@
 }
 
 .flexWrapperFile {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
   display: flex;
   align-items: center;
 }
@@ -25,12 +25,25 @@
   letter-spacing: 0.5px;
   text-align: center;
 }
+.font{
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  align-items: center;
+  letter-spacing: 0.5px;
+  font-family: 'Helvetica Neue';
+  margin-top: 5px;
+}
+
 .formUI {
   font-size: 20px;
   font-weight: 500;
   line-height: 18px;
   letter-spacing: 0.5px;
   font-family: var(--font-sans);
+  width: 100%; /* Ajuster la largeur du formulaire */
+  max-width: 500px; /* Limiter la largeur maximale du formulaire */
+  margin: flex ; /* Centrer le formulaire */
 }
 .uiLabel {
   height: 40px;
@@ -45,7 +58,8 @@
 }
 
 .flexWrapperButton {
-  margin-bottom: 24px;
+  padding-top: 2%;
+  margin-bottom: 2px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,6 +74,31 @@
   border-radius: 25px;
   color: white;
 }
+.buttonCancel {
+  padding: 10px 20px;
+  display: flexbox;
+  align-items: center;
+  justify-content: center;
+  background-color: #815bfe;
+  border: 2px solid;
+  border-radius: 25px;
+  color: white;
+}
+.buttonSauvegarder {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #815bfe;
+  border: 2px solid;
+  border-radius: 25px;
+  color: white;
+}
+.buttonContainer{
+  display: flex;
+justify-content: flex-end;
+  margin-top: 1rem;
+}
 
 .button:hover {
   cursor: pointer;
@@ -67,23 +106,11 @@
 .input {
   display: none;
 }
-/* Split the screen in half */
-.split {
-  height: 100%;
-  width: 50%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  overflow-x: hidden;
-  padding: 50px 20px 100px;
+
+.calendarWrapper {
+  height: 70%; 
+  width: 100%;
+  position: relative;
 }
 
-/* Control the left side */
-.left {
-  left: 0;
-}
 
-/* Control the right side */
-.right {
-  right: 0;
-}

@@ -16,6 +16,7 @@ import {
     hasUnsavedState,
     sortEventsWithTypeByOldestStart
 } from "@/components/controller/util/eventsOperations";
+import UI from "@/styles/CoursePlanner.module.css";
 import ActivityDetail from './ActivityDetail';
 
 const ShowEventsByType: React.FC = () => {
@@ -109,22 +110,26 @@ const ShowEventsByType: React.FC = () => {
                                 courseNameToEvent={formattedCourseEvents}
                                 courseDateInformation={selectedActivityDate}/>
             ))}
-            <button
-                onClick={handleSave}
-                disabled={isSaveAndCancelDisabled}
-                className={styles.button}>
-                <div className={styles.font}>
-                    Sauvegarder
-                </div>
-            </button>
-            <button
-                onClick={handleCancel}
-                disabled={isSaveAndCancelDisabled}
-                className={styles.button}>
-                <div className={styles.font}>
-                    Cancel
-                </div>
-            </button>
+            <div className={UI.buttonContainer}>
+
+                <button
+                    onClick={handleSave}
+                    disabled={isSaveAndCancelDisabled}
+                    className={UI.buttonSauvegarder}>
+                    <div className={UI.font}>
+                        Sauvegarder
+                    </div>
+                </button>
+                
+                <button
+                    onClick={handleCancel}
+                    disabled={isSaveAndCancelDisabled}
+                    className={UI.buttonCancel}>
+                    <div className={UI.font}>
+                        Cancel
+                    </div>
+                </button>
+            </div>
         </div>
     );
 };

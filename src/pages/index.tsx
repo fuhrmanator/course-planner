@@ -30,45 +30,37 @@ export default function Home() {
       <main className={styles.main}>
         <div>
           <EventModel>
-            <EventController>
-
-
-              <div className={[UI.split, UI.right].join(' ')}>
-                <ShowEventsByType/>
-
-                <div className={styles.grid}>
-                  <ShowOverlay label={"Configurer la suggestion"}>
-                    <SuggestionConfig />
-                  </ShowOverlay>
-                  <SuggestionButton />
-                  <SaveAllChangesButton />
-                  <CancelChangesButton />
+            <EventController >
+              <div className={styles.mainFlex}>
+                <div className={styles.leftSide}>
+                      <EventCalendar />
+                      <FilePickerMBZ />
+                      <CourseInformationForm isOldCourse={false}>
+                        <div className={UI.flexWrapperButton}>
+                          <SubmitCourseButton />
+                          <ClearCalButton />
+                          <DownloadMBZButton />
+                        </div>
+                      </CourseInformationForm>
                 </div>
-
-                <div className={UI.flexWrapperFile}>
-                <h3 className={UI.uiLabel}>Options Avancées: </h3>
-                <ShowOverlay label={"DSL"}>
-                  <DSLWindow />
-                </ShowOverlay>
-                </div>
-
-                <div className={[UI.split, UI.left].join(' ')}>
-                  <EventCalendar />
-                  <div className={UI.flexWrapperFile}>
-                    <FilePickerMBZ />
-                  </div>
-                  <CourseInformationForm isOldCourse={false}>
+                <div className={styles.rightSide}>
+                    <ShowEventsByType/>
                     <div className={UI.flexWrapperButton}>
-                      <SubmitCourseButton />
-                      <ClearCalButton />
-                      <DownloadMBZButton />
+                    <ShowOverlay label={"Configurer la suggestion"}>
+                    <SuggestionConfig />
+                    </ShowOverlay>
+                    <SuggestionButton />
+                    <SaveAllChangesButton />
+                    <CancelChangesButton />
                     </div>
-                  </CourseInformationForm>
-
+                    <div className={UI.flexWrapperFile}>
+                        <h3 className={UI.uiLabel}>Options Avancées: </h3>
+                        <ShowOverlay label={"DSL"}>
+                        <DSLWindow />
+                        </ShowOverlay>
+                    </div>
                 </div>
-
-              </div>
-
+              </div>  
             </EventController>
           </EventModel>
         </div>

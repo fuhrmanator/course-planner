@@ -17,12 +17,13 @@ const SubmitCourseButton: React.FC<SubmitCourseButtonProps> = ({submitCallback})
     }
 
     return (
-
+    <div className={UI.flexWrapperButton}>
         <button disabled={!isFormValid} onClick={handleClick} className={UI.button}>
             <div className={UI.uiLabel}>
             Submit
             </div>
         </button>
+    </div>  
     );
 };
 
