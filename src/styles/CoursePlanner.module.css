@@ -107,10 +107,51 @@ justify-content: flex-end;
   display: none;
 }
 
-.calendarWrapper {
-  height: 70%; 
+
+.calendarDiv {
+  padding: 10px 10px;
+
+  background: white;
+  border: 2px solid rgba(var(--card-border-rgb), 1);
+  box-shadow: 5px 8px #e7e7e7;
+  height: 80%; 
   width: 100%;
   position: relative;
 }
+.h2{
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 15px;
+  letter-spacing: 0.3px;
+  margin-bottom: 10px;
+  color: black;
+}
+.flexWrapperButtonBottom{
+  padding-top: 2%;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: safe;
+}
+.hidden {
+  padding: 5px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4f4e53;
+  border: 2px solid;
+  border-radius: 25px;
+  color: white;
+}
 
-
+.overlay {
+  padding: 5px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #815bfe;
+  border: 2px solid;
+  border-radius: 25px;
+  color: white;
+  
+}

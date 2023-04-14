@@ -42,7 +42,7 @@ const EventCalendar: React.FC = () => {
     const localizer = momentLocalizer(moment);
 
     return (
-        <div className={UI.calendarWrapper}>
+        <div className={UI.calendarDiv}>
             <Calendar
                 localizer={localizer}
                 events={events}

@@ -32,12 +32,21 @@ const FilePickerMBZ: React.FC<Props> = () => {
           Sélectionner un fichier
         </label>
           <Overlay isVisible={isOverlayVisible} visibilityCallback={setIsOverlayVisible}>
-              <p>
+              <h2 className={UI.h2}>
                   Entrez les informations correspondant au cours de l'archive importé
-              </p>
+              </h2>
               <CourseInformationForm isOldCourse={true}>
+              <div className={UI.flexWrapperButton}>
                   <SubmitCourseButton submitCallback={handleCourseInformationSubmit}/>
+                  <button onClick={() => setIsOverlayVisible(false)}  className={UI.button}>
+                        <div className={UI.uiLabel}>
+                            Fermer
+                        </div>
+                  </button>
+              </div>
+                  
               </CourseInformationForm>
+
           </Overlay>
       </div>
     </div>

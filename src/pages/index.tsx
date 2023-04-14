@@ -7,8 +7,6 @@ import ClearCalButton from '@/components/view/buttons/ClearCalButton'
 import {EventModel} from '@/components/model/EventModel'
 import FilePickerMBZ from '@/components/view/buttons/FilePickerMBZ'
 import DownloadMBZButton from '@/components/view/buttons/DownloadMBZButton'
-import ShowSuggestionConfigOverlay from "@/components/view/suggestion/ShowSuggestionConfigOverlay";
-import SuggestionButton from "@/components/view/buttons/SuggestionButton";
 import SaveAllChangesButton from "@/components/view/buttons/SaveAllChangesButton";
 import CancelChangesButton from "@/components/view/buttons/CancelChangesButton";
 import ShowOverlay from "@/components/view/buttons/ShowOverlay";
@@ -45,16 +43,15 @@ export default function Home() {
                 </div>
                 <div className={styles.rightSide}>
                     <ShowEventsByType/>
-                    <div className={UI.flexWrapperButton}>
-                    <ShowOverlay label={"Configurer la suggestion"}>
-                    <SuggestionConfig />
-                    </ShowOverlay>
-                    <SuggestionButton />
-                    <SaveAllChangesButton />
-                    <CancelChangesButton />
+                    <div className={UI.flexWrapperButtonBottom}>
+                      <ShowOverlay label={"Suggestion"}>
+                        <SuggestionConfig />
+                      </ShowOverlay>
+                      <SaveAllChangesButton />
+                      <CancelChangesButton />
                     </div>
                     <div className={UI.flexWrapperFile}>
-                        <h3 className={UI.uiLabel}>Options Avancées: </h3>
+                        <h2 className={UI.h2}>Options Avancées: </h2>
                         <ShowOverlay label={"DSL"}>
                         <DSLWindow />
                         </ShowOverlay>

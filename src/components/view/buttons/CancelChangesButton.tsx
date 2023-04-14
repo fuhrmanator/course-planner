@@ -3,6 +3,7 @@ import {EventControllerContext} from "@/components/controller/eventController";
 import UI from "@/styles/CoursePlanner.module.css";
 import {getUnsavedStates} from "@/components/controller/util/eventsOperations";
 import {EventModelContext} from "@/components/model/EventModel";
+import classNames from "classnames";
 
 interface CancelChangesButtonProps {}
 /**
@@ -22,14 +23,20 @@ const CancelChangesButton: React.FC<CancelChangesButtonProps> = () => {
     const handleClick = ():void => {
         notifyCancelChanges(undefined);
     }
+    const visibilityClass = classNames({
+        [UI.hidden]: isDisabled,
+        [UI.overlay]: !isDisabled,
+    });
 
 
     return (
-        <button disabled={isDisabled} onClick={handleClick} className={UI.button}>
-            <div className={UI.uiLabel}>
-                Annuler les modifications
-            </div>
-        </button>
+        
+            <button disabled={isDisabled} onClick={handleClick} className={visibilityClass}>
+                <div className={UI.uiLabel}>
+                    Annuler les modifications
+                </div>
+            </button>
+
     );
 };
 

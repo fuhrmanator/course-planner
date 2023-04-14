@@ -3,6 +3,7 @@ import styles from "@/components/view/style/ShowOverlay.module.css"
 import classNames from "classnames";
 import UI from '@/styles/CoursePlanner.module.css'
 
+
 type ShowOverlayProps = {
     children: React.ReactNode;
     isVisible: boolean;
@@ -47,8 +48,7 @@ const Overlay: React.FC<ShowOverlayProps> = ({children, isVisible, visibilityCal
     return (
         <div className={visibilityClass}>
             <div className={styles.popup}>
-                {children}
-                <button onClick={handleCloseClick}  className={UI.button}>Fermer</button>
+                {children}   
             </div>
         </div>
     );

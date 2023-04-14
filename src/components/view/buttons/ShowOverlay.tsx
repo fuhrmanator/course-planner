@@ -1,6 +1,7 @@
 import React, {MouseEventHandler, useState} from "react";
 import UI from '@/styles/CoursePlanner.module.css'
 import Overlay from "@/components/view/Overlay";
+import SuggestionButton from "./SuggestionButton";
 
 type ShowOverlayProps = {
     children: React.ReactNode;
@@ -22,7 +23,18 @@ const ShowOverlay: React.FC<ShowOverlayProps> = ({children, label}) => {
                 </div>
             </a>
             <Overlay isVisible={showOverlay} visibilityCallback={setShowOverlay}>
-                    {children}
+
+                {children}
+                <div className={UI.flexWrapperButton}>
+                    <SuggestionButton />
+                
+                    <button onClick={() => setShowOverlay(false)}  className={UI.button}>
+                        <div className={UI.uiLabel}>
+                            Fermer
+                        </div>
+                    </button>
+                </div>
+                   
             </Overlay>
         </div>
     );

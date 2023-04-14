@@ -116,7 +116,7 @@ const ShowEventsByType: React.FC = () => {
                     onClick={handleSave}
                     disabled={isSaveAndCancelDisabled}
                     className={UI.buttonSauvegarder}>
-                    <div className={UI.font}>
+                    <div className={UI.uiLabel}>
                         Sauvegarder
                     </div>
                 </button>
@@ -125,7 +125,7 @@ const ShowEventsByType: React.FC = () => {
                     onClick={handleCancel}
                     disabled={isSaveAndCancelDisabled}
                     className={UI.buttonCancel}>
-                    <div className={UI.font}>
+                    <div className={UI.uiLabel}>
                         Cancel
                     </div>
                 </button>

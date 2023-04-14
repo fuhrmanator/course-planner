@@ -3,6 +3,7 @@ import {EventControllerContext} from "@/components/controller/eventController";
 import UI from "@/styles/CoursePlanner.module.css";
 import {EventModelContext} from "@/components/model/EventModel";
 import {getUnsavedStates} from "@/components/controller/util/eventsOperations";
+import classNames from "classnames";
 
 interface SaveAllChangesButtonProps {}
 
@@ -18,13 +19,19 @@ const SaveAllChangesButton: React.FC<SaveAllChangesButtonProps> = () => {
     const handleClick = ():void => {
         notifySaveChanges(undefined);
     }
+    const visibilityClass = classNames({
+        [UI.hidden]: isDisabled,
+        [UI.overlay]: !isDisabled,
+    });
 
     return (
-        <button disabled={isDisabled} onClick={handleClick} className={UI.button}>
-            <div className={UI.uiLabel}>
-                Sauvegarder
-            </div>
-        </button>
+
+            <button disabled={isDisabled} onClick={handleClick} className={visibilityClass}>
+                <div className={UI.uiLabel}>
+                    Sauvegarder
+                </div>
+            </button>
+
     );
 };
 
