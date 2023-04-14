@@ -4,7 +4,7 @@ import {
     getOrAddUnsavedState,
     hasCutoffDate,
     hasDueDate,
-    setHomeworkEnd,
+    setEndIfHomework,
     sortEventsWithTypeByOldestStart
 } from "@/components/controller/util/eventsOperations";
 import {
@@ -255,7 +255,7 @@ export const parseDSL = (dsl: string, activities: CourseEvent[], newCourseEvents
                 activityToMove.due = parseDSLTimeToDate(parsedActivity.due!, getDateReferenceByDSL(parsedActivity.due!, referencedCourse))
             }
 
-            setHomeworkEnd(activityToMove)
+            setEndIfHomework(activityToMove)
         }
     }
 }

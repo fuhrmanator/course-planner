@@ -19,7 +19,7 @@ export const hasCutoffDate = (event:CourseEvent):boolean => {
  * Sets the end property of a homework to the latest between due date and cutoff date.
  * @param event homework whose end will be adjusted.
  */
-export const setHomeworkEnd = (event:CourseEvent): Date => {
+export const setEndIfHomework = (event:CourseEvent): Date => {
     if (event.type === EventType.Homework) {
         if (hasDueDate(event) && hasCutoffDate(event)) {
             event.end = new Date(Math.max(event.cutoff!.getTime(), event.due!.getTime()))
@@ -191,7 +191,7 @@ export const saveState = (event: CourseEvent):void => {
         if (hasCutoffDate(event.unsavedState!)) {
             event.cutoff = event.unsavedState!.cutoff;
         }
-        setHomeworkEnd(event);
+        setEndIfHomework(event);
         event.unsavedState = undefined;
     }
 }
@@ -250,7 +250,7 @@ export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents:
                         if (typeof event.due !== "undefined") {
                             eventSuggestion.due = new Date(eventSuggestion.start!.getTime() + event.due!.getTime() - event.start.getTime())
                         }
-                        setHomeworkEnd(eventSuggestion);
+                        setEndIfHomework(eventSuggestion);
                         break;
                     case EventType.Evaluation:
                         eventSuggestion.end = new Date(eventSuggestion.start.getTime() + event.end.getTime() - event.start.getTime())

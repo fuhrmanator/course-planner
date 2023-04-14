@@ -12,7 +12,7 @@ type ActivityDetailProps = {
     selectedActivity: CourseEvent;
     courseNameToEvent: { [key: string]: CourseEvent };
     courseDateInformation: ActivityDateProp;
-    onChange: ()=>void;
+    onChange: () => void;
 };
 
 const ActivityDetail: React.FC<ActivityDetailProps> = ({
@@ -29,7 +29,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
     const [courseDateRef, setCourseDateRef] = useState<string>("");
     const [isOffsetActivated, setIsOffsetActivated] = useState<boolean>(false);
     const [offsetUnit, setOffsetUnit] = useState<string>("");
-    const [offsetValue, setOffsetValue] = useState<number|undefined>(0);
+    const [offsetValue, setOffsetValue] = useState<number | undefined>(0);
     const [isAtActivated, setIsAtActivated] = useState<boolean>(false);
     const [atHours, setAtHours] = useState<number>(0);
     const [atMinutes, setAtMinutes] = useState<number>(0);
@@ -47,8 +47,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
     }, [selectedActivity])
 
     useEffect(() => {
-        if (validateInput()) {
-            try {
+            if (validateInput()) {
                 setEventRelativeDate(
                     selectedActivity as ActivityEvent,
                     courseNameToEvent[selectedCourseName!],
@@ -60,11 +59,11 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                     isAtActivated ? atMinutes : undefined,
                     isAtActivated ? atHours : undefined
                 );
-            } catch (e:any) {
+                onChange();
             }
-            onChange();
-        }
-    }, [selectedCourseName, courseDateRef, offsetUnit, offsetValue, isOffsetActivated, offsetValue, offsetUnit, atMinutes, atHours])
+        },
+        [selectedCourseName, courseDateRef, offsetUnit, offsetValue, isOffsetActivated, offsetValue, offsetUnit, atMinutes, atHours]
+    )
     const handleOffsetChange = (e: ChangeEvent<HTMLInputElement>) => {
         const val = parseInt(e.target.value);
         setOffsetValue(isNaN(val) ? undefined : val);
@@ -120,7 +119,8 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                 ))}
             </select>
             <h3 className={styles.font}>Décalage: </h3>
-            <input disabled={isAllDisabled} type="checkbox" checked={isOffsetActivated} onChange={handleOffsetCheckChange}/>
+            <input disabled={isAllDisabled} type="checkbox" checked={isOffsetActivated}
+                   onChange={handleOffsetCheckChange}/>
             <input disabled={!isOffsetActivated || isAllDisabled}
                    type="number"
                    defaultValue={offsetValue}
@@ -136,7 +136,8 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                     </option>
                 ))}
             </select>
-            <input disabled={isAllDisabled} type="checkbox" checked={isAtActivated} onChange={handleAtCheckboxChange}/>
+            <input disabled={isAllDisabled} type="checkbox" checked={isAtActivated}
+                   onChange={handleAtCheckboxChange}/>
             <input disabled={!isAtActivated || isAllDisabled}
                    type="time"
                    defaultValue={""}

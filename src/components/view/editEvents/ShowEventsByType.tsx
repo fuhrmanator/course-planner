@@ -58,8 +58,8 @@ const ShowEventsByType: React.FC = () => {
         try {
             if (typeof selectedEvent !== "undefined") {
                 validateEvent(selectedEvent)
-                setErrorMsg("");
             }
+            setErrorMsg("");
         } catch (e:any) {
             if (typeof e.message !== "undefined") {
                 console.log(e.message)
