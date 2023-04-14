@@ -26,8 +26,7 @@ const ShowOverlay: React.FC<ShowOverlayProps> = ({children, label}) => {
 
                 {children}
                 <div className={UI.flexWrapperButton}>
-                    <SuggestionButton />
-                
+                                 
                     <button onClick={() => setShowOverlay(false)}  className={UI.button}>
                         <div className={UI.uiLabel}>
                             Fermer

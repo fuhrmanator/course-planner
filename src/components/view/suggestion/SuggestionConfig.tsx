@@ -4,6 +4,8 @@ import {getKeysAsType} from "@/components/controller/util/eventsOperations";
 import {ActivityType, CourseType} from "@/components/model/interfaces/courseEvent";
 import {courseTypeToLabel, eventTypeToLabel} from "@/components/model/ressource/eventRessource";
 import {EventControllerContext} from "@/components/controller/eventController";
+import SuggestionButton from "../buttons/SuggestionButton";
+import UI from '@/styles/CoursePlanner.module.css'
 
 interface SuggestionConfigItemProps {
     type: ActivityType,
@@ -42,6 +44,7 @@ const SuggestionConfig: React.FC<DropdownProps> = () => {
                     <SuggestionConfigItem type={activityType} value={suggestionConfig[activityType]} onChange={handleChange} />
                 </div>
             ))}
+             
         </div>
     );
 };

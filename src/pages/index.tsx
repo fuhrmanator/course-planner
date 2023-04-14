@@ -15,6 +15,7 @@ import DSLWindow from "@/components/view/DSLWindow";
 import ShowEventsByType from '@/components/view/editEvents/ShowEventsByType'
 import UI from '@/styles/CoursePlanner.module.css'
 import SubmitCourseButton from "@/components/view/buttons/SubmitCourseButton";
+import SuggestionButton from '@/components/view/buttons/SuggestionButton'
 
 export default function Home() {
   return (
@@ -46,6 +47,7 @@ export default function Home() {
                     <div className={UI.flexWrapperButtonBottom}>
                       <ShowOverlay label={"Suggestion"}>
                         <SuggestionConfig />
+                        <SuggestionButton />
                       </ShowOverlay>
                       <SaveAllChangesButton />
                       <CancelChangesButton />
