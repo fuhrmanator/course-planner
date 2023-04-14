@@ -16,35 +16,35 @@ const parser = peg.generate(grammar);
 
 const expectDSLCourseEqual = (parsedDSL:DSLCourse|undefined, type:string, i:number, modifier:string):void => {
     expect(parsedDSL).toBeDefined()
-    expect(parsedDSL!.type).toBe(type);
-    expect(parsedDSL!.i).toBe(i);
+    expect(parsedDSL!.type).toEqual(type);
+    expect(parsedDSL!.i).toEqual(i);
     expect(parsedDSL!.modifier).toBeDefined();
-    expect(parsedDSL!.modifier).toBe(modifier);
+    expect(parsedDSL!.modifier).toEqual(modifier);
 }
 
 const expectDSLTimeEqual = (parsedDSL: DSLTime|undefined, modifier:string, n:number, unit:string): void => {
     expect(parsedDSL).toBeDefined();
     expect(parsedDSL!.modifier).toBeDefined()
-    expect(parsedDSL!.modifier).toBe(modifier)
+    expect(parsedDSL!.modifier).toEqual(modifier)
     expect(parsedDSL!.number).toBeDefined()
-    expect(parsedDSL!.number).toBe(n)
+    expect(parsedDSL!.number).toEqual(n)
     expect(parsedDSL!.type).toBeDefined()
-    expect(parsedDSL!.type).toBe(unit)
+    expect(parsedDSL!.type).toEqual(unit)
 }
 
 describe("DSL Parsing tests", () => {
     test("Quiz start and end time", () => {
         const parsed  = parser.parse("Quiz1 Seminar1Finish Seminar2Start\nQuiz2 Seminar2Finish Seminar3Start-30m")[1] as DSLActivity[];
 
-        expect(parsed.length).toBe(2)
+        expect(parsed.length).toEqual(2)
 
-        expect(parsed[0].type).toBe("Quiz");
-        expect(parsed[0].i).toBe(1);
+        expect(parsed[0].type).toEqual("Quiz");
+        expect(parsed[0].i).toEqual(1);
         expectDSLCourseEqual(parsed[0].close, "Seminar", 2, "Start")
         expectDSLCourseEqual(parsed[0].open, "Seminar", 1, "End")
 
-        expect(parsed[1].type).toBe("Quiz");
-        expect(parsed[1].i).toBe(2);
+        expect(parsed[1].type).toEqual("Quiz");
+        expect(parsed[1].i).toEqual(2);
         expectDSLCourseEqual(parsed[1].open, "Seminar", 2, "End")
         expectDSLCourseEqual(parsed[1].close, "Seminar", 3, "Start")
         expectDSLTimeEqual(parsed[1].close!.time, "-", 30, "m")
@@ -54,17 +54,17 @@ describe("DSL Parsing tests", () => {
     test("Homework start and end time", () => {
         const parsed  = parser.parse("Homework1 Seminar1Finish Practicum2Start Laboratory3Start-30m\nHomework2 Seminar1Finish-10h Seminar3Start+4d Seminar4Start+1w")[1] as DSLActivity[];
 
-        expect(parsed.length).toBe(2)
+        expect(parsed.length).toEqual(2)
 
-        expect(parsed[0].type).toBe("Homework");
-        expect(parsed[0].i).toBe(1);
+        expect(parsed[0].type).toEqual("Homework");
+        expect(parsed[0].i).toEqual(1);
         expectDSLCourseEqual(parsed[0].open, "Seminar", 1, "End")
         expectDSLCourseEqual(parsed[0].due, "Practicum", 2, "Start")
         expectDSLCourseEqual(parsed[0].cutoff, "Laboratory", 3, "Start")
         expectDSLTimeEqual(parsed[0].cutoff!.time, "-", 30, "m")
 
-        expect(parsed[1].type).toBe("Homework");
-        expect(parsed[1].i).toBe(2);
+        expect(parsed[1].type).toEqual("Homework");
+        expect(parsed[1].i).toEqual(2);
         expectDSLCourseEqual(parsed[1].open, "Seminar", 1, "End")
         expectDSLTimeEqual(parsed[1].open!.time, "-", 10, "h")
         expectDSLCourseEqual(parsed[1].due, "Seminar", 3, "Start")
@@ -81,7 +81,7 @@ describe("DSL recreation using DSL output", () => {
         const parsed  = parser.parse(originalDSL.join("\n"))[1] as DSLActivity[];
 
         for (let i=0; i<parsed.length; i++) {
-            expect(recreateDSL( parsed[i])).toBe(originalDSL[i])
+            expect(recreateDSL( parsed[i])).toEqual(originalDSL[i])
         }
     });
 
@@ -90,7 +90,7 @@ describe("DSL recreation using DSL output", () => {
         const parsed  = parser.parse(originalDSL.join("\n"))[1] as DSLActivity[];
 
         for (let i=0; i<parsed.length; i++) {
-            expect(recreateDSL( parsed[i])).toBe(originalDSL[i])
+            expect(recreateDSL( parsed[i])).toEqual(originalDSL[i])
         }
     });
 });
@@ -101,7 +101,7 @@ describe("DSL date offset", () => {
         // positive
         for (const dslTimeUnit in DSL_TIME_UNIT_TO_MS) {
             let dslTimeOffset = dateOffsetAsDSL(new Date(0), new Date(DSL_TIME_UNIT_TO_MS[dslTimeUnit as DSLTimeUnit] * multiplicity));
-            expect(dslTimeOffset).toBe(`+${multiplicity}${dslTimeUnit}`)
+            expect(dslTimeOffset).toEqual(`+${multiplicity}${dslTimeUnit}`)
         }
     });
     test("Should represent negative date offset", () => {
@@ -109,7 +109,7 @@ describe("DSL date offset", () => {
         // negative
         for (const dslTimeUnit in DSL_TIME_UNIT_TO_MS) {
             let dslTimeOffset = dateOffsetAsDSL(new Date(0), new Date(DSL_TIME_UNIT_TO_MS[dslTimeUnit as DSLTimeUnit] * multiplicity));
-            expect(dslTimeOffset).toBe(`${multiplicity}${dslTimeUnit}`)
+            expect(dslTimeOffset).toEqual(`${multiplicity}${dslTimeUnit}`)
         }
 
     });
@@ -143,28 +143,28 @@ describe('Create DSL relative to the closest given event', () => {
 
     it('should return correct DSL string when ref date is in-between two events', () => {
         const ref = new Date('2022-01-01T13:00:00');
-        const expectedDSL = '2SeminarEnd+1h';
+        const expectedDSL = 'Seminar2End+1h';
         const actualDSL = makeDSLRelativeToClosestDate(ref, events);
         expect(actualDSL).toEqual(expectedDSL);
     });
 
     it('should return correct DSL string when ref date is exactly at the start of an event', () => {
         const ref = new Date('2022-01-01T09:00:00');
-        const expectedDSL = '1SeminarStart';
+        const expectedDSL = 'Seminar1Start';
         const actualDSL = makeDSLRelativeToClosestDate(ref, events);
         expect(actualDSL).toEqual(expectedDSL);
     });
 
     it('should return correct DSL string when ref date is exactly at the end of an event', () => {
         const ref = new Date('2022-01-01T16:00:00');
-        const expectedDSL = '3SeminarEnd';
+        const expectedDSL = 'Seminar3End';
         const actualDSL = makeDSLRelativeToClosestDate(ref, events);
         expect(actualDSL).toEqual(expectedDSL);
     });
 
     it('should return correct DSL string when only one event is present', () => {
         const ref = new Date('2022-01-01T13:00:00');
-        const expectedDSL = '1SeminarEnd+3h';
+        const expectedDSL = 'Seminar1End+3h';
         const actualDSL = makeDSLRelativeToClosestDate(ref, [events[0]]);
         expect(actualDSL).toEqual(expectedDSL);
     });

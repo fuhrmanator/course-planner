@@ -51,7 +51,7 @@ describe('Generic event operations', () => {
       }
     }
     const earliest = findEarliestEvent(shuffleArray(events));
-    expect(earliest).toBe(expectedEarliest);
+    expect(earliest).toEqual(expectedEarliest);
   });
 });
 
@@ -86,11 +86,11 @@ describe('Unsaved state tests', () => {
   test('Should add unsaved state to event', () => {
     const unsavedState = getOrAddUnsavedState(event);
 
-    expect(unsavedState.start).toBe(event.start)
-    expect(unsavedState.end).toBe(event.end)
-    expect(unsavedState.uid).toBe(event.uid)
-    expect(unsavedState.type).toBe(event.type)
-    expect(unsavedState.title).toBe(event.title)
+    expect(unsavedState.start).toEqual(event.start)
+    expect(unsavedState.end).toEqual(event.end)
+    expect(unsavedState.uid).toEqual(event.uid)
+    expect(unsavedState.type).toEqual(event.type)
+    expect(unsavedState.title).toEqual(event.title)
 
   });
   test('Should get unsaved state of event', () => {
@@ -100,14 +100,14 @@ describe('Unsaved state tests', () => {
 
     const gotUnsavedState = getOrAddUnsavedState(event);
 
-    expect(gotUnsavedState.title).toBe(newTitle)
+    expect(gotUnsavedState.title).toEqual(newTitle)
   });
   test('Modifying unsaved state should not modify event', () => {
     const unsavedState = getOrAddUnsavedState(event);
     const oldTitle = event.title;
     unsavedState.title = "new title"
 
-    expect(event.title).toBe(oldTitle);
+    expect(event.title).toEqual(oldTitle);
   });
   test('Should check if event has unsaved state', () => {
     expect(hasUnsavedState(event)).toBeFalsy();
@@ -121,7 +121,7 @@ describe('Unsaved state tests', () => {
     const removed = removeUnsavedState(event)
 
     expect(event.unsavedState).toBeUndefined();
-    expect(removed).toBe(unsavedState);
+    expect(removed).toEqual(unsavedState);
   })
   test("Should detect if event is unsaved state", () => {
     expect(isUnsavedState(event)).toBeFalsy();
@@ -138,8 +138,8 @@ describe('Unsaved state tests', () => {
     saveState(event);
 
     expect(event.unsavedState).toBeUndefined()
-    expect(event.start).toBe(unsavedStart)
-    expect(event.end).toBe(unsavedEnd)
+    expect(event.start).toEqual(unsavedStart)
+    expect(event.end).toEqual(unsavedEnd)
   })
   test("Should replace  all events time with unsavedState", ()=> {
     const unsavedState = getOrAddUnsavedState(event);
@@ -151,8 +151,8 @@ describe('Unsaved state tests', () => {
     saveState(event);
 
     expect(event.unsavedState).toBeUndefined()
-    expect(event.start).toBe(unsavedStart)
-    expect(event.end).toBe(unsavedEnd)
+    expect(event.start).toEqual(unsavedStart)
+    expect(event.end).toEqual(unsavedEnd)
   })
   test("Should remove all unsaved states", ()=> {
     cancelAllUnsavedState(events);
@@ -239,6 +239,6 @@ describe('Suggestion', () => {
     addSuggestion(eventToSuggest, oldCourse, newCourse, config);
 
     expect(eventToSuggest[0].unsavedState).toBeDefined();
-    expect(eventToSuggest[0].unsavedState!.start.getTime() - newCourse[0].start.getTime()).toBe(offest);
+    expect(eventToSuggest[0].unsavedState!.start.getTime() - newCourse[0].start.getTime()).toEqual(offest);
   });
 });
