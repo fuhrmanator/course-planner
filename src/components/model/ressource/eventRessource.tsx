@@ -12,7 +12,7 @@ import {DSLDateRef} from "../interfaces/dsl";
 
 export const defaultEventColours: TypeColourDict = {
     [EventType.Seminar]:"#3a20fe",
-    [EventType.Practicum]:"#0055ff",
+    [EventType.Practicum]:"#5f2596",
     [EventType.Laboratory]:"#00ff88",
     [EventType.Evaluation]:"#ff2e2e",
     [EventType.Homework]:"#ffbb00"
