@@ -28,9 +28,9 @@ export const ACTIVITY_TYPE_TO_DATE_PROP: {[key in ActivityType]:ActivityDateProp
     [EventType.Homework]: [{getter:(e:CourseEvent) => e.start,
                             label:"Début"}, 
                             {getter:(e:CourseEvent) => e.due,
-                            label:"Remise"},
+                            label:"Début remise"},
                             {getter:(e:CourseEvent) => e.cutoff,
-                            label:"Remise limitte"}]
+                            label:"Fin remise"}]
 }
 
 export const COURSE_DATE_TO_GETTER: {[key in DSLDateRef]:CoursEventDateGetter} = {
