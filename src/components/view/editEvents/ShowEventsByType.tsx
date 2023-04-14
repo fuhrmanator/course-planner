@@ -44,11 +44,7 @@ const ShowEventsByType: React.FC = () => {
             setSelectedActivity(parent);
             setSelectedActivityDates([...ACTIVITY_TYPE_TO_DATE_PROP[selectedEvent.type as ActivityType]]);
             setIsSaveAndCancelDisabled(typeof parent === "undefined" ? true : !hasUnsavedState(parent))
-            // Remove highlight from previously selected event
-            const prevSelectedElement = document.querySelector(`.${styles.selected}`);
-            if (prevSelectedElement) {
-                prevSelectedElement.classList.remove(styles.selected);
-            }
+          
 
             // Highlight the selected event
             const selectedElement = document.querySelector(`[data-event-id="${selectedEvent.uid}"]`);
