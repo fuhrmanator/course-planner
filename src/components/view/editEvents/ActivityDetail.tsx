@@ -5,6 +5,7 @@ import React, {ChangeEvent, useContext, useEffect, useState} from "react";
 import styles from "@/components/view/style/ShowEventsByType.module.css";
 import {EventControllerContext} from "@/components/controller/eventController";
 import {COURSE_DATE_TO_GETTER} from "@/components/model/ressource/eventRessource";
+import {validateEvent} from "@/components/controller/util/eventsOperations";
 
 type ActivityDetailProps = {
     selectedActivity: CourseEvent;
@@ -64,6 +65,19 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
             }
         }
     }, [selectedCourseName, courseDateRef, offsetUnit, offsetValue, isOffsetActivated, offsetValue, offsetUnit, atMinutes, atHours])
+
+    useEffect(()=> {
+        try {
+            if (selectedActivity.unsavedState !== null && typeof selectedActivity.unsavedState !== "undefined") {
+                validateEvent(selectedActivity.unsavedState);
+                setErrorMsg("");
+            }
+        } catch (e:any) {
+            if (typeof e.message !== "undefined") {
+                setErrorMsg(e.message);
+            }
+        }
+    }, [selectedActivity])
 
     const handleOffsetChange = (e: ChangeEvent<HTMLInputElement>) => {
         const val = parseInt(e.target.value);

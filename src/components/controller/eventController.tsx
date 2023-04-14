@@ -183,7 +183,6 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         validateEvent(eventState);
         setActivityEvents([...activityEvents]);
         setSelectedEvent(eventState);
-
     };
     
     
