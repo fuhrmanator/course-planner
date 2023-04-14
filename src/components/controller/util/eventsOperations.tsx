@@ -24,13 +24,13 @@ export const setHomeworkEnd = (event:CourseEvent): Date => {
         if (hasDueDate(event) && hasCutoffDate(event)) {
             event.end = new Date(Math.max(event.cutoff!.getTime(), event.due!.getTime()))
         } else if (hasDueDate(event)) {
-            event.end = event.due!;
+            event.end = new Date(event.due!);
         } else {
-            event.end = event.cutoff!;
+            event.end = new Date(event.cutoff!);
         }
     }
 
-    return event.due!;
+    return event.end;
 }
 /**
  * Parses a string stored in the local store to a JS object representing an array of events.
