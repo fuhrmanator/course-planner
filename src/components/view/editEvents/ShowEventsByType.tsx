@@ -123,7 +123,7 @@ const ShowEventsByType: React.FC = () => {
                     disabled={isSaveAndCancelDisabled}
                     className={UI.buttonCancel}>
                     <div className={UI.uiLabel}>
-                        Cancel
+                        Annuler
                     </div>
                 </button>
             </div>

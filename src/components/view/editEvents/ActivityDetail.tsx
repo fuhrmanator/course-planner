@@ -6,6 +6,7 @@ import styles from "@/components/view/style/ShowEventsByType.module.css";
 import {EventControllerContext} from "@/components/controller/eventController";
 import {COURSE_DATE_TO_GETTER} from "@/components/model/ressource/eventRessource";
 import {validateEvent} from "@/components/controller/util/eventsOperations";
+import UI from '@/styles/CoursePlanner.module.css';
 
 type ActivityDetailProps = {
     selectedActivity: CourseEvent;

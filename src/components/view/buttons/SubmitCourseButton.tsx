@@ -20,7 +20,7 @@ const SubmitCourseButton: React.FC<SubmitCourseButtonProps> = ({submitCallback})
     <div className={UI.flexWrapperButton}>
         <button disabled={!isFormValid} onClick={handleClick} className={UI.button}>
             <div className={UI.uiLabel}>
-            Submit
+            Envoyer
             </div>
         </button>
     </div>  
