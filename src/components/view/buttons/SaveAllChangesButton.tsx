@@ -28,7 +28,7 @@ const SaveAllChangesButton: React.FC<SaveAllChangesButtonProps> = () => {
 
             <button disabled={isDisabled} onClick={handleClick} className={visibilityClass}>
                 <div className={UI.uiLabel}>
-                    Sauvegarder
+                    Tout sauvegarder
                 </div>
             </button>
 

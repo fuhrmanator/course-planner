@@ -33,6 +33,15 @@ export default function Home() {
               <div className={styles.mainFlex}>
                 <div className={styles.leftSide}>
                       <EventCalendar />
+                      <div><br></br><br></br><br></br><br></br></div>
+                      <div className={UI.flexWrapperButtonBottom}>
+                      <ShowOverlay label={"Suggestion"}>
+                        <SuggestionConfig />
+                        <SuggestionButton />
+                      </ShowOverlay>
+                      <SaveAllChangesButton />
+                      <CancelChangesButton />
+                    </div>
                       <FilePickerMBZ />
                       <CourseInformationForm isOldCourse={false}>
                         <div className={UI.flexWrapperButton}>
@@ -44,14 +53,7 @@ export default function Home() {
                 </div>
                 <div className={styles.rightSide}>
                     <ShowEventsByType/>
-                    <div className={UI.flexWrapperButtonBottom}>
-                      <ShowOverlay label={"Suggestion"}>
-                        <SuggestionConfig />
-                        <SuggestionButton />
-                      </ShowOverlay>
-                      <SaveAllChangesButton />
-                      <CancelChangesButton />
-                    </div>
+                    
                     <div className={UI.flexWrapperFile}>
                         <h2 className={UI.h2}>Options Avancées: </h2>
                         <ShowOverlay label={"DSL"}>

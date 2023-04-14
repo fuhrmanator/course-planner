@@ -29,7 +29,7 @@ const FilePickerMBZ: React.FC<Props> = () => {
       <div className={UI.button}>
         <label className={UI.uiLabel}>
           <input className={UI.input} type="file" value={selectedFile} onInput={handleFilePicked} />
-          Sélectionner un fichier
+          Sélectionner une sauvegarde Moodle
         </label>
           <Overlay isVisible={isOverlayVisible} visibilityCallback={setIsOverlayVisible}>
               <h2 className={UI.h2}>
