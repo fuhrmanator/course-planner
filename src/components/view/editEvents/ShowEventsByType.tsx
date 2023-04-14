@@ -14,7 +14,7 @@ import {
     getUnsavedStateOrParent,
     getUnsavedStateParent,
     hasUnsavedState,
-    sortEventsWithTypeByOldestStart
+    sortEventsWithTypeByOldestStart, validateEvent
 } from "@/components/controller/util/eventsOperations";
 import UI from "@/styles/CoursePlanner.module.css";
 import ActivityDetail from './ActivityDetail';
@@ -28,7 +28,7 @@ const ShowEventsByType: React.FC = () => {
         notifyCancelChanges
     } = useContext(EventControllerContext);
 
-
+    const [errorMsg, setErrorMsg] = useState<string>("");
     const [selectedActivity, setSelectedActivity] = useState<CourseEvent | undefined>();
     const [selectedActivityDates, setSelectedActivityDates] = useState<ActivityDateProp[]>([]);
     const [formattedCourseEvents, setFormattedCourseEvents] = useState<{ [key: string]: CourseEvent }>({});
@@ -42,8 +42,7 @@ const ShowEventsByType: React.FC = () => {
         } else if (selectedEvent.type in activityTypeToLabel) {
             const parent = getUnsavedStateParent(selectedEvent, activityEvents)
 
-            setSelectedActivity(typeof parent === "undefined" ? undefined : {...parent});
-
+            setSelectedActivity(parent);
             setSelectedActivityDates([...ACTIVITY_TYPE_TO_DATE_PROP[selectedEvent.type as ActivityType]]);
             setIsSaveAndCancelDisabled(typeof parent === "undefined" ? true : !hasUnsavedState(parent))
 
@@ -54,6 +53,20 @@ const ShowEventsByType: React.FC = () => {
             }
         }
     }, [selectedEvent, activityEvents])
+
+    const checkError = ():void => {
+        try {
+            if (typeof selectedEvent !== "undefined") {
+                validateEvent(selectedEvent)
+                setErrorMsg("");
+            }
+        } catch (e:any) {
+            if (typeof e.message !== "undefined") {
+                console.log(e.message)
+                setErrorMsg(e.message);
+            }
+        }
+    }
 
     useEffect(() => {
         const formatted: { [key: string]: CourseEvent } = {};
@@ -101,12 +114,15 @@ const ShowEventsByType: React.FC = () => {
             </div>
             <h2 className={styles.title}> Activité
                 sélectionnée: {typeof selectedActivity === "undefined" ? "" : selectedActivity.title} </h2>
+
             {selectedActivity && selectedActivityDates.map((selectedActivityDate, index) => (
                 <ActivityDetail key={`${selectedActivity!.uid}-${index}`}
                                 selectedActivity={selectedActivity!}
                                 courseNameToEvent={formattedCourseEvents}
-                                courseDateInformation={selectedActivityDate}/>
+                                courseDateInformation={selectedActivityDate}
+                                onChange={checkError}/>
             ))}
+            <p className={styles.error}>{errorMsg}</p>
             <div className={UI.buttonContainer}>
 
                 <button

@@ -12,7 +12,7 @@ import {
     getUnsavedStates,
     removeUnsavedState,
     saveAll,
-    saveState,
+    saveState, setHomeworkEnd,
     validateEvent
 } from './util/eventsOperations';
 import MBZArchive from '../model/interfaces/archive/MBZArchive';
@@ -180,6 +180,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         if (typeof atHours !== "undefined") {
             activityDate.setHours(atHours)
         }
+        setHomeworkEnd(eventState)
         validateEvent(eventState);
         setActivityEvents([...activityEvents]);
         setSelectedEvent(eventState);

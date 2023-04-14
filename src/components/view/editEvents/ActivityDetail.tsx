@@ -11,12 +11,14 @@ type ActivityDetailProps = {
     selectedActivity: CourseEvent;
     courseNameToEvent: { [key: string]: CourseEvent };
     courseDateInformation: ActivityDateProp;
+    onChange: ()=>void;
 };
 
 const ActivityDetail: React.FC<ActivityDetailProps> = ({
                                                            selectedActivity,
                                                            courseNameToEvent,
-                                                           courseDateInformation
+                                                           courseDateInformation,
+                                                           onChange
                                                        }) => {
     const {setEventRelativeDate} = useContext(EventControllerContext);
 
@@ -57,28 +59,11 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                     isAtActivated ? atMinutes : undefined,
                     isAtActivated ? atHours : undefined
                 );
-                setErrorMsg("");
             } catch (e:any) {
-                if (typeof e.message !== "undefined") {
-                    setErrorMsg(e.message);
-                }
             }
+            onChange();
         }
     }, [selectedCourseName, courseDateRef, offsetUnit, offsetValue, isOffsetActivated, offsetValue, offsetUnit, atMinutes, atHours])
-
-    useEffect(()=> {
-        try {
-            if (selectedActivity.unsavedState !== null && typeof selectedActivity.unsavedState !== "undefined") {
-                validateEvent(selectedActivity.unsavedState);
-                setErrorMsg("");
-            }
-        } catch (e:any) {
-            if (typeof e.message !== "undefined") {
-                setErrorMsg(e.message);
-            }
-        }
-    }, [selectedActivity])
-
     const handleOffsetChange = (e: ChangeEvent<HTMLInputElement>) => {
         const val = parseInt(e.target.value);
         setOffsetValue(isNaN(val) ? undefined : val);
