@@ -19,8 +19,13 @@ const TextEntry: React.FC<TextEntryProps> = ({text, onChange, onSubmit }) => {
 
     return (
         <div>
-            <textarea style={{ height: 500 , width: 500}} value={text} onChange={handleTextChange} />
-            <button onClick={handleSubmit} className={UI.button}>Submit</button>
+
+            <textarea className={UI.textInsideDSL} value={text} onChange={handleTextChange} />
+            <button onClick={handleSubmit} className={UI.button}>
+                <div className={UI.uiLabel}>
+                    Envoyer
+                </div>
+            </button>
         </div>
     );
 };

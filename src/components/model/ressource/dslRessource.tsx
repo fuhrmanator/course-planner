@@ -1,5 +1,5 @@
 import {EventType} from "@/components/model/interfaces/courseEvent";
-import {DSLTimeType, DSLTimeUnit} from "@/components/model/interfaces/dsl";
+import {DSLDateRef, DSLTimeType, DSLTimeUnit} from "@/components/model/interfaces/dsl";
 
 export const TYPE_MAP_EVENT_TO_DSL: {[key in EventType]: string} = {
     [EventType.Practicum]: "Practicum",
@@ -28,6 +28,10 @@ export const DSL_TIME_UNIT_TO_LABEL: {[key in DSLTimeUnit]: string} = {
     [DSLTimeUnit.Day]: "Jour",
     [DSLTimeUnit.Hour]: "Heure",
     [DSLTimeUnit.Minute]: "Minutes"
+}
+export const DATE_REF_TO_LABEL: {[keys in DSLDateRef]: string} = {
+    [DSLDateRef.End]: "Fin",
+    [DSLDateRef.Start]: "Début"
 }
 
 export const MS_DSL_UNIT_SORTED_BY_DURATION: DSLTimeType[] = Object.entries(DSL_TIME_UNIT_TO_MS).map(([k, v]) => {return {symbol:k, value:v}}).sort((a:DSLTimeType, b:DSLTimeType) => b.value - a.value);

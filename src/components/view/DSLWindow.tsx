@@ -4,7 +4,7 @@ import {EventControllerContext} from "@/components/controller/eventController";
 import {EventModelContext} from "@/components/model/EventModel";
 import {getTitleAsComment, hasDSL} from "@/components/controller/util/dsl/dslOperations";
 import {getUnsavedStates} from "@/components/controller/util/eventsOperations";
-
+import UI from "@/styles/CoursePlanner.module.css";
 interface DSLWindowProps {}
 
 const DSLWindow: React.FC<DSLWindowProps> = ({}) => {
@@ -25,10 +25,11 @@ const DSLWindow: React.FC<DSLWindowProps> = ({}) => {
 
     return (
         <div>
-            <h3>DSL Input</h3>
+            <h3 className={UI.h3}>DSL : Veuillez entrer votre text</h3>
             <TextEntry text={inputDSL} onChange={setInputDSL} onSubmit={notifySubmitDSL} />
-            <h3>Current DSL Configuration</h3>
-            <pre style={{background:"white", width:"90%", height:"200px", overflow:"scroll", border: "1px solid"}}>
+            <br></br>
+            <h3 className={UI.h3}> Configuration courante du DSL  </h3>
+            <pre className={UI.textInsideConfiguration}>
                 {currentDSL}
             </pre>
         </div>

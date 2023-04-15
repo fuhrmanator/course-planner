@@ -24,7 +24,7 @@ const DownloadMBZButton: React.FC<{}> = () => {
 
 
     return (
-        <div className={UI.flexWrapperButton}>
+        
         <a  onClick={handleOnClick} download="moodle_course.zip" href={downloadLink} >
             <button disabled={isDisabled} className={UI.button}>
                 <div className={UI.uiLabel}>
@@ -32,7 +32,7 @@ const DownloadMBZButton: React.FC<{}> = () => {
                 </div>
             </button>
         </a>
-        </div>
+        
     );
 };
 

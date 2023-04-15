@@ -1,12 +1,16 @@
 import {ActivityDateProp, ActivityEvent, CourseEvent} from "@/components/model/interfaces/courseEvent";
 import {DSLDateRef, DSLTimeUnit} from "@/components/model/interfaces/dsl";
-import {DSL_TIME_UNIT_TO_LABEL} from "@/components/model/ressource/dslRessource";
+import {DATE_REF_TO_LABEL, DSL_TIME_UNIT_TO_LABEL} from "@/components/model/ressource/dslRessource";
 import React, {ChangeEvent, useContext, useEffect, useState} from "react";
 import styles from "@/components/view/style/ShowEventsByType.module.css";
 import {EventControllerContext} from "@/components/controller/eventController";
 import {COURSE_DATE_TO_GETTER} from "@/components/model/ressource/eventRessource";
-import {validateEvent} from "@/components/controller/util/eventsOperations";
+
 import UI from '@/styles/CoursePlanner.module.css';
+import { Select, Input, Checkbox } from 'antd';
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+
+const { Option } = Select;
 
 type ActivityDetailProps = {
     selectedActivity: CourseEvent;
@@ -69,24 +73,24 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
         setOffsetValue(isNaN(val) ? undefined : val);
     };
 
-    const handleOffsetUnitChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        setOffsetUnit(e.target.value)
+    const handleOffsetUnitChange = (value: string) => {
+        setOffsetUnit(value)
     };
 
-    const handleCourseDateRefChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        setCourseDateRef(e.target.value)
+    const handleCourseDateRefChange = (value: string) => {
+        setCourseDateRef(value)
     };
 
-    const handleOffsetCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleOffsetCheckChange = (e: CheckboxChangeEvent) => {
         setIsOffsetActivated(e.target.checked);
     }
 
-    const handleAtCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleAtCheckboxChange = (e: CheckboxChangeEvent) => {
         setIsAtActivated(e.target.checked);
     }
 
-    const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedCourseName(e.target.value);
+    const handleCourseChange = (value: string) => {
+        setSelectedCourseName(value);
     }
 
     const handleAtChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,53 +100,75 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
     }
     return (
         <div className={styles.detail}>
-            <select
+            <h3 className={UI.h3}> {courseDateInformation.label} </h3>
+            <div style={{ display: 'flex', alignItems: 'center', }}>
+            <Select
                 disabled={isAllDisabled}
                 value={selectedCourseName}
                 onChange={handleCourseChange}>
-                <option key="" value="">Select event</option>
+                <Option key="" value="">Sélectionner un cours</Option>
                 {Object.keys(courseNameToEvent).map((courseName: string) => (
-                    <option key={courseNameToEvent[courseName].uid} value={courseName}>
+                    <Option key={courseNameToEvent[courseName].uid} value={courseName}>
                         {courseName}
-                    </option>
+                    </Option>
                 ))}
-            </select>
-            <select
+            </Select>
+            
+            <Select
                 disabled={isAllDisabled}
                 value={courseDateRef}
                 onChange={handleCourseDateRefChange}>
-                <option key="" value="">Select course date ref.</option>
+                <Option key="" value="">Début / Fin </Option>
                 {Object.keys(COURSE_DATE_TO_GETTER).map((courseRef: string) => (
-                    <option key={courseRef} value={courseRef}>
-                        {courseRef}
-                    </option>
+                    <Option key={courseRef} value={courseRef}>
+                        {DATE_REF_TO_LABEL[courseRef as DSLDateRef]}
+                    </Option>
                 ))}
-            </select>
-            <h3 className={styles.font}>Décalage: </h3>
-            <input disabled={isAllDisabled} type="checkbox" checked={isOffsetActivated}
+            </Select>
+            
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', }}>
+            <h3 className={UI.h4}>Décalage: </h3>
+
+            <Checkbox disabled={isAllDisabled} checked={isOffsetActivated}
                    onChange={handleOffsetCheckChange}/>
-            <input disabled={!isOffsetActivated || isAllDisabled}
+            <Input  size="small" disabled={!isOffsetActivated || isAllDisabled}
                    type="number"
                    defaultValue={offsetValue}
-                   onChange={handleOffsetChange}/>
-            <select
-                disabled={!isOffsetActivated || isAllDisabled}
-                value={offsetUnit}
-                onChange={handleOffsetUnitChange}>
-                <option key="" value="">Select time</option>
-                {Object.entries(DSL_TIME_UNIT_TO_LABEL).map(([unit, value]) => (
-                    <option key={unit} value={unit}>
-                        {value}
-                    </option>
-                ))}
-            </select>
-            <input disabled={isAllDisabled} type="checkbox" checked={isAtActivated}
-                   onChange={handleAtCheckboxChange}/>
-            <input disabled={!isAtActivated || isAllDisabled}
-                   type="time"
-                   defaultValue={""}
-                   onChange={handleAtChange}/>
-            <p className={styles.error}>{errorMsg}</p>
+                   onChange={handleOffsetChange}
+                   style={{ width: '5%' }}
+                   />
+           <Select
+                    disabled={!isOffsetActivated || isAllDisabled}
+                    value={offsetUnit}
+                    onChange={handleOffsetUnitChange}
+                    style={{ width: '15%' }}
+                    >
+                    <Option key="" value="">Unité</Option>
+                    {Object.entries(DSL_TIME_UNIT_TO_LABEL).map(([unit, value]) => (
+                        <Option key={unit} value={unit}>
+                            {value}
+                        </Option>
+                    ))}
+                </Select>
+            
+            
+
+                <h3 className={UI.h4}> Ajustement: </h3>                
+            
+                <Checkbox disabled={isAllDisabled} type="checkbox" checked={isAtActivated}
+                    onChange={handleAtCheckboxChange}/>
+                    
+                <Input size="small"
+                    disabled={!isAtActivated || isAllDisabled}
+                    type="time"
+                    defaultValue={""}
+                    onChange={handleAtChange}
+                    style={{ width: '15%' }}
+                    />
+                   
+                <p className={styles.error}>{errorMsg}</p>
+            </div>
         </div>
     );
 };

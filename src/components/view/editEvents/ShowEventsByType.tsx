@@ -97,8 +97,8 @@ const ShowEventsByType: React.FC = () => {
 
     return (
         <div className={styles.font}>
-            <h2>Événements</h2>
-            <div className={styles.container}>
+            <h2 className={UI.h2}>Événements</h2>
+            <div className={UI.container}>
                 {activityEvents.map((activity) => (
                     <div
                         key={activity.uid}
@@ -112,37 +112,40 @@ const ShowEventsByType: React.FC = () => {
                     </div>
                 ))}
             </div>
-            <h2 className={styles.title}> Activité
+            <div>            
+                <h2 className={UI.h2}> Activité
                 sélectionnée: {typeof selectedActivity === "undefined" ? "" : selectedActivity.title} </h2>
 
-            {selectedActivity && selectedActivityDates.map((selectedActivityDate, index) => (
-                <ActivityDetail key={`${selectedActivity!.uid}-${index}`}
-                                selectedActivity={selectedActivity!}
-                                courseNameToEvent={formattedCourseEvents}
-                                courseDateInformation={selectedActivityDate}
-                                onChange={checkError}/>
-            ))}
-            <p className={styles.error}>{errorMsg}</p>
-            <div className={UI.buttonContainer}>
+                {selectedActivity && selectedActivityDates.map((selectedActivityDate, index) => (
+                    <ActivityDetail key={`${selectedActivity!.uid}-${index}`}
+                                    selectedActivity={selectedActivity!}
+                                    courseNameToEvent={formattedCourseEvents}
+                                    courseDateInformation={selectedActivityDate}
+                                    onChange={checkError}/>
+                ))}
+                <p className={styles.error}>{errorMsg}</p>
+                <div className={UI.buttonContainer}>
 
-                <button
-                    onClick={handleSave}
-                    disabled={isSaveAndCancelDisabled}
-                    className={UI.buttonSauvegarder}>
-                    <div className={UI.uiLabel}>
-                        Sauvegarder
-                    </div>
-                </button>
-                
-                <button
-                    onClick={handleCancel}
-                    disabled={isSaveAndCancelDisabled}
-                    className={UI.buttonCancel}>
-                    <div className={UI.uiLabel}>
-                        Annuler
-                    </div>
-                </button>
+                    <button
+                        onClick={handleSave}
+                        disabled={isSaveAndCancelDisabled}
+                        className={UI.buttonSauvegarder}>
+                        <div className={UI.uiLabel}>
+                            Sauvegarder
+                        </div>
+                    </button>
+                    
+                    <button
+                        onClick={handleCancel}
+                        disabled={isSaveAndCancelDisabled}
+                        className={UI.buttonCancel}>
+                        <div className={UI.uiLabel}>
+                            Annuler
+                        </div>
+                    </button>
+                </div>
             </div>
+
         </div>
     );
 };

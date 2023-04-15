@@ -26,45 +26,44 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div>
-          <EventModel>
-            <EventController >
-              <div className={styles.mainFlex}>
-                <div className={styles.leftSide}>
-                      <EventCalendar />
-                      <div><br></br><br></br><br></br><br></br></div>
-                      <div className={UI.flexWrapperButtonBottom}>
-                      <ShowOverlay label={"Suggestion"}>
-                        <SuggestionConfig />
-                        <SuggestionButton />
+      <main className={UI.main}>
+        <EventModel>
+          <EventController >
+            <div className={styles.mainFlex}>
+              <div className={styles.leftSide}>
+                    <EventCalendar />
+                    <div><br></br><br></br><br></br><br></br></div>
+                    <div className={UI.flexWrapperButtonBottom}>
+                    <ShowOverlay label={"Suggestion"}>
+                      <SuggestionConfig />
+                      <SuggestionButton />
+                    </ShowOverlay>
+                    <SaveAllChangesButton />
+                    <CancelChangesButton />
+                    <ClearCalButton />
+                  </div>
+                    <FilePickerMBZ />
+                    <CourseInformationForm isOldCourse={false}>
+                      <div className={UI.flexWrapperButton}>
+                        <SubmitCourseButton />
+                        
+                        <DownloadMBZButton />
+                      </div>
+                    </CourseInformationForm>
+              </div>
+              <div className={styles.rightSide}>
+                  <ShowEventsByType/>
+                  
+                  <div className={UI.flexWrapperDSL}>
+                      <h2 className={UI.title}>Options Avancées: </h2>
+                      <ShowOverlay label={"DSL"}>
+                      <DSLWindow />
                       </ShowOverlay>
-                      <SaveAllChangesButton />
-                      <CancelChangesButton />
-                    </div>
-                      <FilePickerMBZ />
-                      <CourseInformationForm isOldCourse={false}>
-                        <div className={UI.flexWrapperButton}>
-                          <SubmitCourseButton />
-                          <ClearCalButton />
-                          <DownloadMBZButton />
-                        </div>
-                      </CourseInformationForm>
-                </div>
-                <div className={styles.rightSide}>
-                    <ShowEventsByType/>
-                    
-                    <div className={UI.flexWrapperFile}>
-                        <h2 className={UI.h2}>Options Avancées: </h2>
-                        <ShowOverlay label={"DSL"}>
-                        <DSLWindow />
-                        </ShowOverlay>
-                    </div>
-                </div>
-              </div>  
-            </EventController>
-          </EventModel>
-        </div>
+                  </div>
+              </div>
+            </div>  
+          </EventController>
+        </EventModel>
       </main>
     </>
   )
