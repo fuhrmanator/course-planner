@@ -33,7 +33,7 @@ const DSLWindow: React.FC<DSLWindowProps> = ({}) => {
     }, [events])
 
     return (
-        <div>
+        <div className={UI.flexWrapperDSLView}>
             <h3 className={UI.h3}>DSL : Veuillez entrer votre text</h3>
             <TextEntry text={inputDSL} onChange={setInputDSL} onSubmit={notifySubmitDSL} />
             <br></br>
