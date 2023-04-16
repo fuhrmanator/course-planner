@@ -41,7 +41,7 @@ import {
  */
 export const dateOffsetAsDSL = (ref: Date, offset: Date, atRecursion: boolean = false): string => {
 
-    const offsetToRepresent = Math.abs(offset.getTime() - ref.getTime());
+    const offsetToRepresent = offset.getTime() - ref.getTime();
 
     let result = "";
     if (offsetToRepresent !== 0) {
@@ -236,10 +236,9 @@ const parseAndCast = (dsl:string): DSLActivity[] => {
  */
 export const parseDSL = (dsl: string, activities: CourseEvent[], newCourseEvents: CourseEvent[]): void => {
     const parsedDSL: DSLActivity[] = parseAndCast(dsl);
-
+    console.log((parsedDSL))
     let referencedCourse;
     for (const parsedActivity of parsedDSL) {
-        console.log(parsedDSL)
         let activityToMove = getEventReferencedByDSL(parsedActivity, activities);
         if (typeof activityToMove !== "undefined") {
             activityToMove = getOrAddUnsavedState(activityToMove);
@@ -318,10 +317,7 @@ export const updateDSL = (
     }
     let dslAt = "";
     if (typeof atMinutes !== "undefined" && typeof atHours !== "undefined") {
-        // This is a patch because of the @ bug in the current DSL Grammar. Remove it once it's fixed.
-        if (typeof offsetUnit === "undefined") {
-            dslOffset = makeDSLOffset(0, DSLTimeUnit.Minute)
-        }
+
         dslAt = makeDSLAt(atMinutes, atHours)
     }
 
@@ -382,17 +378,5 @@ export const getDateAt = (dsl:string):string|undefined => {
         at = parsedCourse.time.at;
     }
     return at;
-}
-const parseDSLActivity = (dslCourse:string):DSLCourse => {
-    let toParse = [...PLACEHOLDER_DSL];
-    toParse[HEAD_INDEX] = dslCourse;
-    return parseAndCast(unifyDSL(toParse))[0];
-}
-export const getActivityType = (dsl:string):ActivityType => {
-    return TYPE_MAP_DSL_TO_EVENT[parseDSLActivity(dsl).type] as ActivityType;
-}
-
-export const getActivityIndex = (dsl:string):number => {
-    return parseDSLActivity(dsl).i;
 }
 

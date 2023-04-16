@@ -55,27 +55,24 @@ Timing
   = head:MeetingSequence tail:TimeModifier? {
     var result = head, i;
     if (tail !== null) {
-      for (i=0; i<tail.length; i++) {
-      	if(tail[i] !== null){
-        	switch(i){
-            	case 0:
-                	result.modifier = tail[i];
-                    break;
-                case 1:
-                	var modif = {};
-                    
-                    if(tail[i][0] !== null) { modif.modifier = tail[i][0][0]; }
-                    if(tail[i][0][1] !== null) {
-                    	modif.number = tail[i][0][1][0];
-                        modif.type = tail[i][0][1][1];
-                    }
-                    if(tail[i][1] !== null) { modif.at = tail[i][1][1]; }
-                	result.time = modif;
-                    break;
-            }
+        if (tail["modifier"] !== null) {
+            result.modifier = tail["modifier"];
         }
-      }
+        var time = {}
+        if (tail["offset"] !== null) {
+            time.modifier = tail["offset"][0]
+            time.number = tail["offset"][1][0]
+            time.type = tail["offset"][1][1]
+        }
+        if (tail["at"] !== null) {
+            time.at = tail["at"][1];
+        }
+        if (Object.keys(time).length > 0) {
+            result.time = time;
+        }
+        var modif = {};
     }
+
     return result;
   }
 
@@ -86,7 +83,8 @@ MeetingSequence "Meeting Number (e.g., S2 for Seminar 2)"
   = meeting:(SEMINAR_MEETING / LABORATORY_MEETING / PRACTICUM_MEETING) number:Integer { return {"type": meeting, "i": number}}
 
 TimeModifier
-  = time:(MEETING_START / MEETING_END) adjust:((('-'/'+') DeltaTime) ('@' HHMM)?)?
+  = time:(MEETING_START / MEETING_END) offset:(('-'/'+') DeltaTime)? at:('@' HHMM)? {return {"modifier":time, "offset":offset, "at":at}} /
+  at:('@' HHMM) {return {"modifier":null, "offset":null, "at":at}}
 
 DeltaTime 
   = Integer ('m' / 'h' / 'd' / 'w') 
