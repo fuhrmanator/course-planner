@@ -55,7 +55,7 @@
     border-radius: 6px;
     transition: all 0.2s;
 }
-.activity:hover {
+.activity:not(.selected):hover {
     cursor: pointer;
     background-color: #e0e0e0; 
     color: #815bfe; 

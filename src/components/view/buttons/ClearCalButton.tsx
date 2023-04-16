@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {EventControllerContext} from "@/components/controller/eventController";
+import {EventControllerContext} from "@/components/controller/EventController";
 import UI from "@/styles/CoursePlanner.module.css";
 
 interface ClearCalProps {}

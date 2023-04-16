@@ -3,10 +3,11 @@ import {
     ActivityType,
     CourseEvent,
     CoursEventDateGetter,
-    EventType,
+    EventType, EventWithName,
     SuggestionTypeMapConfig
 } from "@/components/model/interfaces/courseEvent";
 import {makeDSLClosestMatch} from "@/components/controller/util/dsl/dslOperations";
+import {STATEMENT_SEPARATOR, TYPE_TO_STATEMENT_SIZE} from "@/components/model/ressource/dslRessource";
 
 export const hasDueDate = (event:CourseEvent):boolean => {
     return typeof event.due !== "undefined";
@@ -90,15 +91,17 @@ export const getOrAddUnsavedState = (event: CourseEvent):CourseEvent => {
     if (hasUnsavedState(event)) {
         gotUnsavedState = event.unsavedState as CourseEvent;
     } else {
-        gotUnsavedState = {...event}
-        gotUnsavedState.start = new Date(gotUnsavedState.start)
-        gotUnsavedState.end = new Date(gotUnsavedState.end)
+        gotUnsavedState = {...event};
+        gotUnsavedState.start = new Date(gotUnsavedState.start);
+        gotUnsavedState.end = new Date(gotUnsavedState.end);
         if (hasDueDate(gotUnsavedState)) {
-            gotUnsavedState.due = new Date(gotUnsavedState.due!)
+            gotUnsavedState.due = new Date(gotUnsavedState.due!);
         }
         if (hasCutoffDate(gotUnsavedState)) {
-            gotUnsavedState.cutoff = new Date(gotUnsavedState.cutoff!)
+            gotUnsavedState.cutoff = new Date(gotUnsavedState.cutoff!);
         }
+
+        gotUnsavedState.dsl = event.dsl.slice();
 
         gotUnsavedState.unsavedState = null;
         event.unsavedState = gotUnsavedState;
@@ -308,4 +311,34 @@ export const validateEvent = (event:CourseEvent):void => {
         throw new Error("Le début est plus réçent que la fin")
     }
 }
+
+export const findEventIndexWithType = (event:CourseEvent, events:CourseEvent[]):number => {
+    return sortEventsWithTypeByOldestStart(events, event.type).findIndex((e:CourseEvent) => e.uid === event.uid);
+}
+
+export const getEventWithTypeAndIndex = (type:EventType, index: number, events:CourseEvent[]):CourseEvent|undefined => {
+    const sorted = sortEventsWithTypeByOldestStart(events, type);
+    return index < sorted.length ? sorted[index] : undefined;
+}
+export const hasDSL = (event: CourseEvent): boolean => {
+    for (const dsl of event.dsl) {
+        if (dsl.length > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+export const getDSLAtIndex = (event:CourseEvent,  dslIndex:number): string|undefined => {
+    let dsl = undefined;
+
+    if (event.dsl[dslIndex].length > 0) {
+        dsl = event.dsl[dslIndex];
+    } else if (hasUnsavedState(event) && event.unsavedState!.dsl[dslIndex].length > 0) {
+        dsl = event.unsavedState!.dsl[dslIndex];
+    }
+
+    return dsl;
+}
+
+
 

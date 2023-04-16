@@ -5,7 +5,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import {EventModelContext} from '@/components/model/EventModel';
 import {findEarliestEvent, isUnsavedState} from '@/components/controller/util/eventsOperations';
 import {CourseEvent} from "@/components/model/interfaces/courseEvent";
-import {EventControllerContext} from "@/components/controller/eventController";
+import {EventControllerContext} from "@/components/controller/EventController";
 import CalLegend from "@/components/view/colour/CalLegend";
 import {lightenHexColor} from "@/components/controller/util/colourOperations";
 import UI from '@/styles/CoursePlanner.module.css'

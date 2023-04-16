@@ -2,7 +2,7 @@ import {ActivityEvent, CourseEvent, SuggestionTypeMapConfig, TypeColourDict} fro
 import React, {createContext, useEffect, useRef, useState} from 'react'
 import {callbackIfValuePresent, setValue} from './localStore';
 
-import {defaultEventColours, defaultSuggestionTypeMapping,} from "@/components/model/ressource/eventRessource";
+import {DEFAULT_EVENT_COLOUR, DEFAULT_SUGGESTION_TYPE_MAPPING,} from "@/components/model/ressource/eventRessource";
 import {getUnsavedStates, parseStoredEvent, parseStoredEvents} from "@/components/controller/util/eventsOperations";
 import MBZArchive from "@/components/model/interfaces/archive/MBZArchive";
 
@@ -52,7 +52,7 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
 
     const [selectedEvent, setSelectedEvent] = useState<CourseEvent|undefined>(undefined);
 
-    const [suggestionConfig, setSuggestionConfig] = useState<SuggestionTypeMapConfig>(defaultSuggestionTypeMapping);
+    const [suggestionConfig, setSuggestionConfig] = useState<SuggestionTypeMapConfig>(DEFAULT_SUGGESTION_TYPE_MAPPING);
 
     const areEventsLoadedFromStore = useRef<boolean>(false);
     useEffect(()=>{
@@ -71,7 +71,7 @@ export const EventModel: React.FC<CalModelProps> = ({children}) => {
         setEvents([...oldCourseEvents,...newCourseEvents, ...activityEvents, ...getUnsavedStates(activityEvents)]);
     }, [oldCourseEvents, newCourseEvents, activityEvents]);
 
-    const [eventTypeColour, setEventTypeColour] = useState<TypeColourDict>(defaultEventColours);
+    const [eventTypeColour, setEventTypeColour] = useState<TypeColourDict>(DEFAULT_EVENT_COLOUR);
 
     const areColoursLoadedFromStore = useRef<boolean>(false);
     useEffect(()=>{

@@ -1,14 +1,20 @@
 import React, {useContext, useEffect, useState} from "react";
 import moment from "moment";
 import {EventModelContext} from "@/components/model/EventModel";
-import {ActivityDateProp, ActivityType, CourseEvent, CourseType,} from "@/components/model/interfaces/courseEvent";
+import {
+    ActivityDateProp,
+    ActivityType,
+    CourseEvent,
+    CourseType,
+    EventWithName,
+} from "@/components/model/interfaces/courseEvent";
 import styles from "@/components/view/style/ShowEventsByType.module.css";
 import {
     ACTIVITY_TYPE_TO_DATE_PROP,
-    activityTypeToLabel,
-    courseTypeToLabel
+    ACTIVITY_TYPE_TO_LABEL,
+    COURSE_TYPE_TO_LABEL
 } from "@/components/model/ressource/eventRessource";
-import {EventControllerContext} from "@/components/controller/eventController";
+import {EventControllerContext} from "@/components/controller/EventController";
 import {
     getKeysAsType,
     getUnsavedStateOrParent,
@@ -31,7 +37,7 @@ const ShowEventsByType: React.FC = () => {
     const [errorMsg, setErrorMsg] = useState<string>("");
     const [selectedActivity, setSelectedActivity] = useState<CourseEvent | undefined>();
     const [selectedActivityDates, setSelectedActivityDates] = useState<ActivityDateProp[]>([]);
-    const [formattedCourseEvents, setFormattedCourseEvents] = useState<{ [key: string]: CourseEvent }>({});
+    const [formattedCourseEvents, setFormattedCourseEvents] = useState<EventWithName[]>([]);
     const [isSaveAndCancelDisabled, setIsSaveAndCancelDisabled] = useState<boolean>(true);
 
     useEffect(() => {
@@ -39,7 +45,7 @@ const ShowEventsByType: React.FC = () => {
             setSelectedActivity(selectedEvent);
             setSelectedActivityDates([]);
             setIsSaveAndCancelDisabled(true);
-        } else if (selectedEvent.type in activityTypeToLabel) {
+        } else if (selectedEvent.type in ACTIVITY_TYPE_TO_LABEL) {
             const parent = getUnsavedStateParent(selectedEvent, activityEvents)
 
             setSelectedActivity(parent);
@@ -69,11 +75,14 @@ const ShowEventsByType: React.FC = () => {
     }
 
     useEffect(() => {
-        const formatted: { [key: string]: CourseEvent } = {};
-        for (const courseType of getKeysAsType<CourseType>(courseTypeToLabel)) {
+        const formatted: EventWithName[] = [];
+        for (const courseType of getKeysAsType<CourseType>(COURSE_TYPE_TO_LABEL)) {
             const courseEventOfType = sortEventsWithTypeByOldestStart(newCourseEvents, courseType);
             for (let i = 0; i < courseEventOfType.length; i++) {
-                formatted[`${courseTypeToLabel[courseType]} ${i + 1}`] = courseEventOfType[i];
+                formatted.push({
+                    event:courseEventOfType[i],
+                    name:`${COURSE_TYPE_TO_LABEL[courseType]} ${i + 1}`
+                })
             }
         }
         setFormattedCourseEvents(formatted);
@@ -119,7 +128,7 @@ const ShowEventsByType: React.FC = () => {
                 {selectedActivity && selectedActivityDates.map((selectedActivityDate, index) => (
                     <ActivityDetail key={`${selectedActivity!.uid}-${index}`}
                                     selectedActivity={selectedActivity!}
-                                    courseNameToEvent={formattedCourseEvents}
+                                    courseWithNames={formattedCourseEvents}
                                     courseDateInformation={selectedActivityDate}
                                     onChange={checkError}/>
                 ))}

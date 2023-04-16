@@ -17,6 +17,7 @@ import {
   removeUnsavedState,
   saveState
 } from '@/components/controller/util/eventsOperations';
+import {instantiateDSL} from "@/components/controller/util/dsl/dslOperations";
 
 
 const startDate = new Date();
@@ -26,7 +27,8 @@ const basicEvent:CourseEvent = {
   end: endDate,
   title:"title",
   uid:"uid",
-  type: EventType.Evaluation
+  type: EventType.Evaluation,
+  dsl: instantiateDSL(EventType.Evaluation)
 };
 
 function createDateWithOffset(date:Date, offest:number) {
@@ -65,6 +67,7 @@ describe('Unsaved state tests', () => {
       start: new Date(0),
       end: new Date(10),
       type: EventType.Evaluation,
+      dsl: instantiateDSL(EventType.Evaluation),
       title: "Test event"
     };
 
@@ -76,7 +79,8 @@ describe('Unsaved state tests', () => {
         end : new Date(10),
         title : i.toString(),
         uid : i.toString(),
-        type : EventType.Evaluation
+        type : EventType.Evaluation,
+        dsl: instantiateDSL(EventType.Evaluation),
       }
       let unsavedState = getOrAddUnsavedState(event)
       unsavedState.title = unsavedStateTitle;
@@ -189,14 +193,16 @@ describe('Suggestion', () => {
       end:oldEnd,
       uid:"old",
       title:"old",
-      type:usedCourseType
+      type:usedCourseType,
+      dsl: instantiateDSL(usedCourseType),
     }]
     newCourse = [{
       start:new Date(2*60000),
       end:new Date(3*60000),
       uid:"new",
       title:"new",
-      type:usedCourseType
+      type:usedCourseType,
+      dsl: instantiateDSL(usedCourseType),
     }]
   })
   beforeEach(()=> {
@@ -211,6 +217,7 @@ describe('Suggestion', () => {
       uid:"old",
       title:"old",
       type:usedActivityType,
+      dsl: instantiateDSL(usedCourseType),
       path:"path"
     }]
 

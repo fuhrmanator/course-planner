@@ -23,7 +23,7 @@
   padding-top: 5rem;
   
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: flex-end;
 }
 .flexWrapperLegend {

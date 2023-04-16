@@ -1,7 +1,7 @@
 import {describe, expect, test} from '@jest/globals';
 import {DSLActivity, DSLCourse, DSLTime, DSLTimeType, DSLTimeUnit} from "@/components/model/interfaces/dsl";
 import {
-    dateOffsetAsDSL,
+    dateOffsetAsDSL, instantiateDSL,
     makeDSLRelativeToClosestDate,
     recreateDSL
 } from "@/components/controller/util/dsl/dslOperations";
@@ -123,21 +123,24 @@ describe('Create DSL relative to the closest given event', () => {
             title: 'Event 1',
             start: new Date('2022-01-01T09:00:00'),
             end: new Date('2022-01-01T10:00:00'),
-            type: EventType.Seminar
+            type: EventType.Seminar,
+            dsl: instantiateDSL(EventType.Seminar)
         },
         {
             uid: '2',
             title: 'Event 2',
             start: new Date('2022-01-01T11:00:00'),
             end: new Date('2022-01-01T12:00:00'),
-            type: EventType.Seminar
+            type: EventType.Seminar,
+            dsl: instantiateDSL(EventType.Seminar)
         },
         {
             uid: '3',
             title: 'Event 3',
             start: new Date('2022-01-01T14:00:00'),
             end: new Date('2022-01-01T16:00:00'),
-            type: EventType.Seminar
+            type: EventType.Seminar,
+            dsl: instantiateDSL(EventType.Seminar)
         }
     ];
 

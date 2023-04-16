@@ -1,4 +1,5 @@
 import {CourseEvent, EventType} from '@/components/model/interfaces/courseEvent'
+import {instantiateDSL} from "@/components/controller/util/dsl/dslOperations";
 
 const ical = require('ical.js');
 /**
@@ -16,7 +17,8 @@ function icalToEvent(ical:any): CourseEvent | undefined {
         end: ical.getFirstPropertyValue('dtend').toJSDate(),
         title: ical.getFirstPropertyValue('summary').trim(),
         type: type,
-        uid: ical.getFirstPropertyValue('uid').trim()
+        uid: ical.getFirstPropertyValue('uid').trim(),
+        dsl:instantiateDSL(type)
     }
 }
 /**

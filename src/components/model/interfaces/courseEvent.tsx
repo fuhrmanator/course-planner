@@ -14,7 +14,7 @@ export interface CourseEvent {
     title: string;
     type: EventType;
     uid: string;
-    dsl?:string;
+    dsl:string[];
     unsavedState?: CourseEvent|null; // null means it's an unsavedState of another CourseEvent
 }
 
@@ -23,11 +23,12 @@ export type CoursEventDateGetter = (event:CourseEvent)=>Date|undefined;
 export interface ActivityDateProp {
     label : string
     getter : CoursEventDateGetter
+    dslIndex: number
 }
 
-export interface EventTypeColour {
-    type: EventType,
-    colour: string
+export interface EventWithName {
+    event: CourseEvent,
+    name:string
 }
 
 export interface ActivityEvent extends CourseEvent {

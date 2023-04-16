@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {EventControllerContext} from "@/components/controller/eventController";
+import {EventControllerContext} from "@/components/controller/EventController";
 import UI from '@/styles/CoursePlanner.module.css';
 import {EventModelContext} from "@/components/model/EventModel";
 

@@ -2,8 +2,8 @@ import React, {useContext} from "react";
 import {EventModelContext} from "@/components/model/EventModel";
 import {getKeysAsType} from "@/components/controller/util/eventsOperations";
 import {ActivityType, CourseType} from "@/components/model/interfaces/courseEvent";
-import {courseTypeToLabel, eventTypeToLabel} from "@/components/model/ressource/eventRessource";
-import {EventControllerContext} from "@/components/controller/eventController";
+import {COURSE_TYPE_TO_LABEL, EVENT_TYPE_TO_LABEL} from "@/components/model/ressource/eventRessource";
+import {EventControllerContext} from "@/components/controller/EventController";
 import SuggestionButton from "../buttons/SuggestionButton";
 import UI from '@/styles/CoursePlanner.module.css'
 
@@ -20,8 +20,8 @@ const SuggestionConfigItem: React.FC<SuggestionConfigItemProps> = ({type, value,
 
     return (
         <select value={value} onChange={handleChange}>
-            {getKeysAsType<CourseType>(courseTypeToLabel).map((courseType) => (
-                <option key={courseType} value={courseType}>{courseTypeToLabel[courseType]}</option>
+            {getKeysAsType<CourseType>(COURSE_TYPE_TO_LABEL).map((courseType) => (
+                <option key={courseType} value={courseType}>{COURSE_TYPE_TO_LABEL[courseType]}</option>
             ))}
         </select>
     );
@@ -40,7 +40,7 @@ const SuggestionConfig: React.FC<DropdownProps> = () => {
         <div>
             {getKeysAsType<ActivityType>(suggestionConfig).map((activityType) => (
                 <div key={activityType}>
-                    <label>{eventTypeToLabel[activityType]}</label>
+                    <label>{EVENT_TYPE_TO_LABEL[activityType]}</label>
                     <SuggestionConfigItem type={activityType} value={suggestionConfig[activityType]} onChange={handleChange} />
                 </div>
             ))}

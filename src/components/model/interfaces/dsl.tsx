@@ -35,6 +35,6 @@ export enum DSLDateRef {
 }
 
 export interface DSLTimeType {
-    symbol: string,
+    symbol: DSLTimeUnit,
     value: number
 }

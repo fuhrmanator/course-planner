@@ -1,4 +1,4 @@
-import {CourseEvent, EventType} from "@/components/model/interfaces/courseEvent";
+import {ActivityType, CourseEvent, CourseType, EventType} from "@/components/model/interfaces/courseEvent";
 import parser from "./grammar/dsl"
 import {
     getOrAddUnsavedState,
@@ -12,17 +12,23 @@ import {
     AT_SYMBOL,
     COMMENT_SYMBOL,
     DSL_TIME_UNIT_TO_MS,
+    EVALUATION_INDEX,
+    HEAD_INDEX,
+    HOMEWORK_INDEX,
     MS_DSL_UNIT_SORTED_BY_DURATION,
+    OPEN_INDEX,
+    STATEMENT_SEPARATOR,
     SUB_SYMBOL,
     TIME_SEPARATOR,
     TYPE_MAP_DSL_TO_EVENT,
-    TYPE_MAP_EVENT_TO_DSL
+    TYPE_MAP_EVENT_TO_DSL,
+    TYPE_TO_STATEMENT_SIZE
 } from "@/components/model/ressource/dslRessource";
 import {
     DSLActivity,
     DSLCourse,
     DSLDateRef,
-    DSLObject,
+    DSLObject, DSLTime,
     DSLTimeType,
     DSLTimeUnit
 } from "@/components/model/interfaces/dsl";
@@ -35,7 +41,6 @@ import {
  */
 export const dateOffsetAsDSL = (ref: Date, offset: Date, atRecursion: boolean = false): string => {
 
-    const operationSymbol = ref > offset ? SUB_SYMBOL : ADD_SYMBOL
     const offsetToRepresent = Math.abs(offset.getTime() - ref.getTime());
 
     let result = "";
@@ -51,13 +56,12 @@ export const dateOffsetAsDSL = (ref: Date, offset: Date, atRecursion: boolean = 
             truncatedOffset.setHours(0)
             truncatedOffset.setMinutes(0)
             const truncatedResult = dateOffsetAsDSL(ref, truncatedOffset, true);
-            result = `${truncatedResult}${AT_SYMBOL}${hours}${TIME_SEPARATOR}${minutes}`
+            result = `${truncatedResult}${makeDSLAt(hours,minutes)}`
         } else {
             const numberOfUnitToUse = offsetToRepresent / unitToUse.value;
-            result = `${operationSymbol}${numberOfUnitToUse}${unitToUse.symbol}`
+            result = makeDSLOffset(numberOfUnitToUse,unitToUse.symbol);
         }
     }
-
 
     return result;
 }
@@ -82,7 +86,7 @@ export const makeDSLRelativeToClosestDate = (ref: Date, sortedEvents: CourseEven
     const closestDate = allPossibleClosestDates[closestIndex];
     const closestDSLModifier = closestIndex % 2 == 0 ? DSLDateRef.Start : DSLDateRef.End;
     const closestOffset = dateOffsetAsDSL(closestDate, ref);
-    return `${TYPE_MAP_EVENT_TO_DSL[sortedEvents[closestEventIndex].type]}${closestEventIndex + 1}${closestDSLModifier}${closestOffset}`
+    return `${makeDSLDate(sortedEvents[closestEventIndex].type,closestEventIndex, closestDSLModifier)}${closestOffset}`
 }
 /**
  * Produce a DSL representation of the given event.
@@ -91,23 +95,24 @@ export const makeDSLRelativeToClosestDate = (ref: Date, sortedEvents: CourseEven
  * @param eventIndex index of the given event element
  * @param sortedEvents events whose dates are candidate to be the closest to the given event. Must be sorted in chronological order.
  */
-export const makeDSLClosestMatch = (event: CourseEvent, eventIndex: number, sortedEvents: CourseEvent[]): string => {
+export const makeDSLClosestMatch = (event: CourseEvent, eventIndex: number, sortedEvents: CourseEvent[]): string[] => {
+    let dsl = instantiateDSL(event.type);
 
-    const openDSL = makeDSLRelativeToClosestDate(event.start, sortedEvents);
-    let dueDSL = "";
+    dsl[HEAD_INDEX] = makeDSLHead(event.type, eventIndex);
+    dsl[OPEN_INDEX] = makeDSLRelativeToClosestDate(event.start, sortedEvents);
+
     if (hasDueDate(event)) {
-        dueDSL = dueDSL.concat(" ", makeDSLRelativeToClosestDate(event.due!, sortedEvents));
+        dsl[HOMEWORK_INDEX.due] = makeDSLRelativeToClosestDate(event.due!, sortedEvents);
     }
-    let cutoffDSL = "";
     if (hasCutoffDate(event)) {
-        cutoffDSL = cutoffDSL.concat(" ", makeDSLRelativeToClosestDate(event.cutoff!, sortedEvents));
-    }
-    let closeDSL = "";
-    if (event.type === EventType.Evaluation) {
-        closeDSL = closeDSL.concat(" ", makeDSLRelativeToClosestDate(event.end, sortedEvents));
+        dsl[HOMEWORK_INDEX.cutoff] = makeDSLRelativeToClosestDate(event.cutoff!, sortedEvents)
     }
 
-    return `${TYPE_MAP_EVENT_TO_DSL[event.type]}${eventIndex + 1} ${openDSL}${dueDSL}${cutoffDSL}${closeDSL}`
+    if (event.type === EventType.Evaluation) {
+        dsl[EVALUATION_INDEX.close] = makeDSLRelativeToClosestDate(event.end, sortedEvents);
+    }
+
+    return dsl;
 }
 
 /**
@@ -213,11 +218,14 @@ const getEventReferencedByDSL = (dsl: DSLObject | undefined, events: CourseEvent
     return event;
 }
 
-export const hasDSL = (event: CourseEvent): boolean => {
-    return typeof event.dsl !== "undefined"
-}
+
 export const getTitleAsComment = (event: CourseEvent): string => {
     return `${COMMENT_SYMBOL}${event.title}`;
+}
+
+const parseAndCast = (dsl:string): DSLActivity[] => {
+    const rawParsed: any[] = parser.parse(dsl) as any[];
+    return rawParsed[1] as DSLActivity[];
 }
 
 /**
@@ -227,14 +235,15 @@ export const getTitleAsComment = (event: CourseEvent): string => {
  * @param newCourseEvents events referenced by the DSL (seminars, practicums, laboratories)
  */
 export const parseDSL = (dsl: string, activities: CourseEvent[], newCourseEvents: CourseEvent[]): void => {
-    const rawParsed: any[] = parser.parse(dsl) as any[];
-    const parsedDSL: DSLActivity[] = rawParsed[1] as DSLActivity[];
+    const parsedDSL: DSLActivity[] = parseAndCast(dsl);
+
     let referencedCourse;
     for (const parsedActivity of parsedDSL) {
+        console.log(parsedDSL)
         let activityToMove = getEventReferencedByDSL(parsedActivity, activities);
         if (typeof activityToMove !== "undefined") {
             activityToMove = getOrAddUnsavedState(activityToMove);
-            activityToMove.dsl = recreateDSL(parsedActivity);
+            activityToMove.dsl = recreateDSL(parsedActivity).split(STATEMENT_SEPARATOR);
             referencedCourse = getEventReferencedByDSL(parsedActivity.open, newCourseEvents);
             if (typeof referencedCourse !== "undefined") {
                 activityToMove.start = parseDSLTimeToDate(parsedActivity.open, getDateReferenceByDSL(parsedActivity.open, referencedCourse))
@@ -260,4 +269,130 @@ export const parseDSL = (dsl: string, activities: CourseEvent[], newCourseEvents
     }
 }
 
+export const unifyDSL = (dsl:string[]): string => {
+    return dsl.join(STATEMENT_SEPARATOR);
+}
+
+export const instantiateDSL = (type:EventType): string[] => {
+    let dsl:string[] = []
+    if (type in TYPE_TO_STATEMENT_SIZE) {
+        dsl = Array(TYPE_TO_STATEMENT_SIZE[type as ActivityType]).fill("");
+    }
+    return dsl;
+}
+
+const makeDSLHead = (type: EventType, index: number): string => {
+    return `${TYPE_MAP_EVENT_TO_DSL[type]}${index+1}`;
+}
+
+const makeDSLDate = (type: EventType, index: number, ref:DSLDateRef): string => {
+    return `${makeDSLHead(type,index)}${ref}`;
+}
+
+const makeDSLOffset = (offset:number, unit:DSLTimeUnit):string => {
+    return `${offset >= 0 ? ADD_SYMBOL : SUB_SYMBOL}${Math.abs(offset)}${unit}`;
+}
+
+const makeDSLAt = (atMinutes:number, atHours:number):string => {
+    return `${AT_SYMBOL}${atHours}${TIME_SEPARATOR}${atMinutes}`;
+}
+
+export const updateDSL = (
+    currentDSL: string[],
+    dslIndex: number,
+    activityType: EventType,
+    activityIndex: number,
+    courseType: EventType,
+    courseIndex: number,
+    courseDateRef: DSLDateRef,
+    offsetValue: number,
+    offsetUnit: DSLTimeUnit | undefined,
+    atMinutes: number | undefined,
+    atHours: number | undefined,
+
+) => {
+    currentDSL[HEAD_INDEX] = makeDSLHead(activityType, activityIndex);
+    let dslOffset = "";
+    if (typeof offsetUnit !== "undefined") {
+        dslOffset = makeDSLOffset(offsetValue, offsetUnit!)
+    }
+    let dslAt = "";
+    if (typeof atMinutes !== "undefined" && typeof atHours !== "undefined") {
+        // This is a patch because of the @ bug in the current DSL Grammar. Remove it once it's fixed.
+        if (typeof offsetUnit === "undefined") {
+            dslOffset = makeDSLOffset(0, DSLTimeUnit.Minute)
+        }
+        dslAt = makeDSLAt(atMinutes, atHours)
+    }
+
+    currentDSL[dslIndex] = `${makeDSLDate(courseType, courseIndex, courseDateRef)}${dslOffset}${dslAt}`;
+};
+
+export const validateDSL = (dsl:string[]):void => {
+    if (typeof dsl.find((d:string)=> d.length ===0) !== "undefined") {
+        throw new Error("Erreur DSL: nombre d'élément insuffisant");
+    }
+}
+
+export const PLACEHOLDER_DSL = [makeDSLHead(EventType.Evaluation, 0), makeDSLDate(EventType.Seminar, 0, DSLDateRef.Start), makeDSLDate(EventType.Seminar, 1, DSLDateRef.Start)];
+
+const parseDSLCourse = (dslCourse:string):DSLCourse => {
+    let toParse = [...PLACEHOLDER_DSL];
+    toParse[OPEN_INDEX] = dslCourse;
+    return parseAndCast(unifyDSL(toParse))[0].open;
+}
+export const getDateType = (dsl:string):CourseType => {
+    return  TYPE_MAP_DSL_TO_EVENT[parseDSLCourse(dsl).type] as CourseType;
+}
+
+export const getDateIndex = (dsl:string):number => {
+    return  parseDSLCourse(dsl).i;
+}
+
+export const getDateRef = (dsl:string):DSLDateRef | undefined => {
+    const parsedCourse = parseDSLCourse(dsl)
+    return typeof parsedCourse.modifier === "undefined" ? undefined : parsedCourse.modifier as DSLDateRef;
+}
+
+export const getDateOffset = (dsl:string):number => {
+    const parsedCourse = parseDSLCourse(dsl)
+    let offset =0;
+    if (typeof parsedCourse.time !== "undefined" && typeof parsedCourse.time.number !== "undefined") {
+        offset = parsedCourse.time.number;
+        if (typeof parsedCourse.time.modifier !== "undefined" && parsedCourse.time.modifier === SUB_SYMBOL) {
+            offset *= -1;
+        }
+    }
+    return offset;
+}
+
+export const getDateUnit = (dsl:string):DSLTimeUnit | undefined => {
+    const parsedCourse = parseDSLCourse(dsl)
+    let unit =undefined;
+    if (typeof parsedCourse.time !== "undefined" && typeof parsedCourse.time.type !== "undefined") {
+        unit = parsedCourse.time.type as DSLTimeUnit;
+    }
+    return unit;
+}
+
+export const getDateAt = (dsl:string):string|undefined => {
+    const parsedCourse = parseDSLCourse(dsl)
+    let at = undefined;
+    if (typeof parsedCourse.time !== "undefined" && typeof parsedCourse.time.at !== "undefined") {
+        at = parsedCourse.time.at;
+    }
+    return at;
+}
+const parseDSLActivity = (dslCourse:string):DSLCourse => {
+    let toParse = [...PLACEHOLDER_DSL];
+    toParse[HEAD_INDEX] = dslCourse;
+    return parseAndCast(unifyDSL(toParse))[0];
+}
+export const getActivityType = (dsl:string):ActivityType => {
+    return TYPE_MAP_DSL_TO_EVENT[parseDSLActivity(dsl).type] as ActivityType;
+}
+
+export const getActivityIndex = (dsl:string):number => {
+    return parseDSLActivity(dsl).i;
+}
 

@@ -1,5 +1,5 @@
 import React, {useState, useContext} from "react";
-import {EventControllerContext} from "@/components/controller/eventController";
+import {EventControllerContext} from "@/components/controller/EventController";
 import UI from '@/styles/CoursePlanner.module.css';
 import Overlay from "@/components/view/Overlay";
 import CourseInformationForm from "@/components/view/CourseInformationForm";

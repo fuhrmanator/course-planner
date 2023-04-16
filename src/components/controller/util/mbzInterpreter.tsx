@@ -5,6 +5,7 @@ import {ActivityEvent, EventType} from '@/components/model/interfaces/courseEven
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
 import MBZArchive from '@/components/model/interfaces/archive/MBZArchive';
 import * as mbzConstants from '../../model/ressource/mbzConstants';
+import {instantiateDSL} from "@/components/controller/util/dsl/dslOperations";
 
 function deleteActivitiesFromArchive(data: MBZArchive, toDelete: ArchiveFile[]):void {
     data.throwIfNoMain();
@@ -205,6 +206,7 @@ function mbzToEvent(obj:any, id:string, path:string, mbzType: string): ActivityE
         title: title,
         type: type,
         uid: id,
+        dsl: instantiateDSL(type),
         path: path};
 }
 

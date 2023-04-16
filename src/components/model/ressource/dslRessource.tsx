@@ -1,4 +1,4 @@
-import {EventType} from "@/components/model/interfaces/courseEvent";
+import {EventType, ActivityType} from "@/components/model/interfaces/courseEvent";
 import {DSLDateRef, DSLTimeType, DSLTimeUnit} from "@/components/model/interfaces/dsl";
 
 export const TYPE_MAP_EVENT_TO_DSL: {[key in EventType]: string} = {
@@ -34,10 +34,25 @@ export const DATE_REF_TO_LABEL: {[keys in DSLDateRef]: string} = {
     [DSLDateRef.Start]: "Début"
 }
 
-export const MS_DSL_UNIT_SORTED_BY_DURATION: DSLTimeType[] = Object.entries(DSL_TIME_UNIT_TO_MS).map(([k, v]) => {return {symbol:k, value:v}}).sort((a:DSLTimeType, b:DSLTimeType) => b.value - a.value);
+export const MS_DSL_UNIT_SORTED_BY_DURATION: DSLTimeType[] = Object.entries(DSL_TIME_UNIT_TO_MS).map(([k, v]) => {return {symbol:k as DSLTimeUnit, value:v}}).sort((a:DSLTimeType, b:DSLTimeType) => b.value - a.value);
 
 export const TIME_SEPARATOR = ":";
 export const ADD_SYMBOL = "+";
 export const SUB_SYMBOL = "-";
 export const COMMENT_SYMBOL = "#";
 export const AT_SYMBOL = "@";
+export const STATEMENT_SEPARATOR =" ";
+export const HEAD_INDEX =0;
+export const OPEN_INDEX =1;
+export const HOMEWORK_INDEX= {
+    due:2,
+    cutoff:3
+}
+export const EVALUATION_INDEX= {
+    close:2
+}
+export const TYPE_TO_STATEMENT_SIZE: {[keys in ActivityType]: number} = {
+    [EventType.Evaluation]: 3,
+    [EventType.Homework]: 4
+}
+
