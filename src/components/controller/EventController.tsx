@@ -156,6 +156,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
             cancelAllUnsavedState(activityEvents);
         } else {
             removeUnsavedState(event)
+            notifyEventSelected({...event})
         }
         setActivityEvents([...activityEvents]);
     }
@@ -164,6 +165,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
             saveAll(activityEvents);
         } else {
             saveState(event)
+            notifyEventSelected({...event})
         }
         setActivityEvents([...activityEvents]);
     }
@@ -210,7 +212,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
                 atMinutes,
                 atHours)
         setActivityEvents([...activityEvents]);
-        setSelectedEvent(eventState);
+        notifyEventSelected({...eventState})
 
     };
 

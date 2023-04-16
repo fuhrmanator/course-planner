@@ -126,7 +126,7 @@ const ShowEventsByType: React.FC = () => {
                 sélectionnée: {typeof selectedActivity === "undefined" ? "" : selectedActivity.title} </h2>
 
                 {selectedActivity && selectedActivityDates.map((selectedActivityDate, index) => (
-                    <ActivityDetail key={`${selectedActivity!.uid}-${index}`}
+                    <ActivityDetail key={Math.random()}
                                     selectedActivity={selectedActivity!}
                                     courseWithNames={formattedCourseEvents}
                                     courseDateInformation={selectedActivityDate}
