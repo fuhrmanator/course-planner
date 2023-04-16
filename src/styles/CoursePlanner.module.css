@@ -75,6 +75,7 @@
   padding-left: 1rem;
   padding-top: 1rem;
   padding-right: 1rem;
+  scroll-behavior: smooth;
 }
 .textInsideDSL{
   height: 500px;

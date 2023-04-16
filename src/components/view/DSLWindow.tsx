@@ -5,6 +5,7 @@ import {EventModelContext} from "@/components/model/EventModel";
 import {getTitleAsComment, unifyDSL, validateDSL} from "@/components/controller/util/dsl/dslOperations";
 import {getUnsavedStates, hasDSL} from "@/components/controller/util/eventsOperations";
 import UI from "@/styles/CoursePlanner.module.css";
+import ConfigurationTextEntry from './ConfigurationTextEntry';
 interface DSLWindowProps {}
 
 const DSLWindow: React.FC<DSLWindowProps> = ({}) => {
@@ -37,9 +38,7 @@ const DSLWindow: React.FC<DSLWindowProps> = ({}) => {
             <TextEntry text={inputDSL} onChange={setInputDSL} onSubmit={notifySubmitDSL} />
             <br></br>
             <h3 className={UI.h3}> Configuration courante du DSL  </h3>
-            <pre className={UI.textInsideConfiguration}>
-                {currentDSL}
-            </pre>
+            <ConfigurationTextEntry text={currentDSL}  />
         </div>
     );
 }
