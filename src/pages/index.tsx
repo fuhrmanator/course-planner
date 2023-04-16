@@ -16,6 +16,7 @@ import ShowEventsByType from '@/components/view/editEvents/ShowEventsByType'
 import UI from '@/styles/CoursePlanner.module.css'
 import SubmitCourseButton from "@/components/view/buttons/SubmitCourseButton";
 import SuggestionButton from '@/components/view/buttons/SuggestionButton'
+import CalLegend from '@/components/view/colour/CalLegend'
 
 export default function Home() {
   return (
@@ -30,18 +31,22 @@ export default function Home() {
         <EventModel>
           <EventController >
             <div className={styles.mainFlex}>
-              <div className={styles.leftSide}>
+              <div className={styles.leftSide}>               
+                    
                     <EventCalendar />
-                    <div><br></br><br></br><br></br><br></br></div>
+
+                    <CalLegend />
+                      
                     <div className={UI.flexWrapperButtonBottom}>
-                    <ShowOverlay label={"Suggestion"}>
-                      <SuggestionConfig />
-                      <SuggestionButton />
-                    </ShowOverlay>
-                    <SaveAllChangesButton />
-                    <CancelChangesButton />
-                    <ClearCalButton />
-                  </div>
+                      <ShowOverlay label={"Suggestion"}>
+                        <SuggestionConfig />
+                        <SuggestionButton />
+                      </ShowOverlay>
+                      <SaveAllChangesButton />
+                      <CancelChangesButton />
+                      <ClearCalButton />
+                    </div>
+                    
                     <FilePickerMBZ />
                     <CourseInformationForm isOldCourse={false}>
                       <div className={UI.flexWrapperButton}>

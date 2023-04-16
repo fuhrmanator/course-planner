@@ -5,10 +5,11 @@ interface Props {
     type: EventType,
     label: string,
     colour: string,
+    style?: React.CSSProperties,
     notifyChange: (id: EventType, newColour:string) => void;
 }
 
-const ColorPicker: React.FC<Props> = ({type, label, colour, notifyChange}) => {
+const ColorPicker: React.FC<Props> = ({type, label, colour, notifyChange, style}) => {
     const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         notifyChange(type, event.target.value);
     };
@@ -21,6 +22,8 @@ const ColorPicker: React.FC<Props> = ({type, label, colour, notifyChange}) => {
                 type="color"
                 value={colour}
                 onChange={handleColorChange}
+
+                style={style}
             />
         </div>
     );

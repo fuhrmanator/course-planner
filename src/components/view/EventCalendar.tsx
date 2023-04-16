@@ -54,7 +54,7 @@ const EventCalendar: React.FC = () => {
                 selected={selectedEvent}
                 eventPropGetter={addColourToEventsCallback}
             />
-            <CalLegend />
+            
         </div>
     );
 };
