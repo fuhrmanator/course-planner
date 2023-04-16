@@ -200,7 +200,6 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
             activityDate.setHours(atHours)
         }
         setEndIfHomework(eventState)
-        console.log(offsetValue)
         updateDSL(eventState.dsl,
                 dslIndex,
                 activity.type,

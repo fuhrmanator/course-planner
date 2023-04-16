@@ -99,7 +99,6 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
             const dsl = getDSLAtIndex(selectedActivity, courseDateInformation.dslIndex);
             if (typeof dsl !== "undefined") {
                 at = getDateAt(dsl);
-
             }
         }
         return typeof at === "undefined" ? "" : at;
@@ -146,8 +145,8 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                         courseDateRef as DSLDateRef,
                         isOffsetActivated ? offsetValue! : 0,
                         offsetUnit === "" ? undefined : offsetUnit as DSLTimeUnit,
-                        isAtActivated ? hours : undefined,
                         isAtActivated ? minutes : undefined,
+                        isAtActivated ? hours : undefined,
                         courseDateInformation.dslIndex
                     );
                     onChange();

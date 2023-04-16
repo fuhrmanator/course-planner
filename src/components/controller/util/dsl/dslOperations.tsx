@@ -317,7 +317,6 @@ export const updateDSL = (
     }
     let dslAt = "";
     if (typeof atMinutes !== "undefined" && typeof atHours !== "undefined") {
-
         dslAt = makeDSLAt(atMinutes, atHours)
     }
 
