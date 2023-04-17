@@ -193,7 +193,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
     return (
         <div className={styles.detail}>
             <h3 className={UI.h3}> {courseDateInformation.label} </h3>
-            <div style={{ display: 'flex', alignItems: 'center', }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap:'20px'}}>
             <Select
                 disabled={isAllDisabled}
                 defaultValue={selectedCourseUID}
@@ -219,7 +219,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
             </Select>
             
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap:'20px' }}>
             <h3 className={UI.h4}>Décalage: </h3>
 
             <Checkbox disabled={isAllDisabled} checked={isOffsetActivated}
