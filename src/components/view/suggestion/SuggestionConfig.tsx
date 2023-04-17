@@ -14,7 +14,7 @@ interface SuggestionConfigItemProps {
 
 const SuggestionConfigItem: React.FC<SuggestionConfigItemProps> = ({type, value, onChange}) => {
     const handleItemChecked = (courseType: CourseType) => {
-        if (courseType in value) {
+        if (value.includes(courseType)) {
             onChange(type, value.filter((courseTypeItem) => courseTypeItem !== courseType));
         } else {
             onChange(type, [...value, courseType]);
@@ -22,7 +22,7 @@ const SuggestionConfigItem: React.FC<SuggestionConfigItemProps> = ({type, value,
     }
 
     const isChecked  = (courseType: CourseType) => {
-        return typeof value.find(courseTypeItem => courseTypeItem === courseType) !== 'undefined';
+        return value.includes(courseType)
     }
 
     return (
