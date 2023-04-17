@@ -148,7 +148,7 @@ justify-content: flex-end;
   border: 2px solid rgba(var(--card-border-rgb), 1);
   box-shadow: 5px 8px #e7e7e7;
   height: 100%; 
-  width: 95%;
+  width: 100%;
   position: flex;
 }
 .h2{

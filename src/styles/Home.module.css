@@ -17,15 +17,24 @@
   height: 100vh;
 }
 
-
 .leftSide,
 .rightSide {
   flex: 1;
   display: flex;
   flex-direction: column;
+
+  position: relative;
+}
+.rightSide {
   padding: 2rem;
 }
-
+.leftSide {
+  padding-left: 2rem;
+}
+.botLeft {
+  max-height: 30%;
+  align-items: flex-start;
+}
 
 .description {
   display: inherit;
@@ -118,7 +127,7 @@
 
 .center::before,
 .center::after {
-  content: '';
+  content: "";
   left: 50%;
   position: absolute;
   filter: blur(45px);
@@ -146,7 +155,7 @@
 
 .thirteen::before,
 .thirteen::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
 }
