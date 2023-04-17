@@ -38,9 +38,9 @@ export default function Home() {
                     <CalLegend />
                       
                     <div className={UI.flexWrapperButtonBottom}>
-                      <ShowOverlay label={"Suggestion"}>
+                      <ShowOverlay label={"Suggestion"}>                  
                         <SuggestionConfig />
-                        <SuggestionButton />
+                        <SuggestionButton />                   
                       </ShowOverlay>
                       <SaveAllChangesButton />
                       <CancelChangesButton />

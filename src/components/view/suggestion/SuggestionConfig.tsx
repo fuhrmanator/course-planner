@@ -4,7 +4,7 @@ import {getKeysAsType} from "@/components/controller/util/eventsOperations";
 import {ActivityType, CourseType} from "@/components/model/interfaces/courseEvent";
 import {COURSE_TYPE_TO_LABEL, EVENT_TYPE_TO_LABEL} from "@/components/model/ressource/eventRessource";
 import {EventControllerContext} from "@/components/controller/EventController";
-
+import UI from '@/styles/CoursePlanner.module.css'
 
 interface SuggestionConfigItemProps {
     type: ActivityType,
@@ -28,7 +28,7 @@ const SuggestionConfigItem: React.FC<SuggestionConfigItemProps> = ({type, value,
     return (
         <div>
             {getKeysAsType<CourseType>(COURSE_TYPE_TO_LABEL).map((courseType: CourseType) => (
-                <label>{COURSE_TYPE_TO_LABEL[courseType]}
+                <label className={UI.flexWrapperSuggestionBox}>{COURSE_TYPE_TO_LABEL[courseType]}
                     <input type="checkbox" checked={isChecked(courseType)} onChange={() => handleItemChecked(courseType)}/>
                 </label>
             ))}
@@ -47,10 +47,11 @@ const SuggestionConfig: React.FC<DropdownProps> = () => {
     };
 
     return (
-        <div>
+        
+        <div className={UI.flexWrapperAffiCoursLab}>
             {getKeysAsType<ActivityType>(suggestionConfig).map((activityType) => (
                 <div key={activityType}>
-                    <label>{EVENT_TYPE_TO_LABEL[activityType]}</label>
+                    <label className={UI.flexWrapperAffi}>{EVENT_TYPE_TO_LABEL[activityType]}</label>
                     <SuggestionConfigItem type={activityType} value={suggestionConfig[activityType]} onChange={handleChange} />
                 </div>
             ))}

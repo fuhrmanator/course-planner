@@ -32,7 +32,7 @@ const FilePickerMBZ: React.FC<Props> = () => {
           Sélectionner une sauvegarde Moodle
         </label>
           <Overlay isVisible={isOverlayVisible} visibilityCallback={setIsOverlayVisible}>
-              <h2 className={UI.h2}>
+              <h2 className={UI.h3}>
                   Entrez les informations correspondant au cours de l'archive importé
               </h2>
               <CourseInformationForm isOldCourse={true}>
