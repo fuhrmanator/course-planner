@@ -37,7 +37,7 @@ type EventControllerContextProps = {
     notifyMBZSubmitted: (file: File) => void;
     notifyMBZDownload: (oldURL: string) => string;
     notifyEventColourUpdate: (type: EventType, newColour: string) => void;
-    notifySuggestionConfigUpdate: (type: ActivityType, mapping: CourseType) => void;
+    notifySuggestionConfigUpdate: (type: ActivityType, mapping: CourseType[]) => void;
     notifySuggestion: () => void;
     notifySaveChanges: (event: CourseEvent | undefined) => void;
     notifyCancelChanges: (event: CourseEvent | undefined) => void;
@@ -141,7 +141,7 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
         setEventTypeColour({...eventTypeColour});
     };
 
-    const notifySuggestionConfigUpdate = (type: ActivityType, mapping: CourseType): void => {
+    const notifySuggestionConfigUpdate = (type: ActivityType, mapping: CourseType[]): void => {
         suggestionConfig[type] = mapping;
         setSuggestionConfig({...suggestionConfig});
     }

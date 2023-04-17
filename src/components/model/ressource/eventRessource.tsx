@@ -67,6 +67,6 @@ export const COURSE_TYPE_TO_LABEL: { [key in CourseType]: string } = {
 
 export const EVENT_TYPE_TO_LABEL: { [key in EventType]: string } = {...ACTIVITY_TYPE_TO_LABEL, ...COURSE_TYPE_TO_LABEL};
 export const DEFAULT_SUGGESTION_TYPE_MAPPING: SuggestionTypeMapConfig = {
-    [EventType.Homework]: EventType.Laboratory,
-    [EventType.Evaluation]: EventType.Seminar,
+    [EventType.Homework]: [EventType.Laboratory],
+    [EventType.Evaluation]: [EventType.Seminar],
 };

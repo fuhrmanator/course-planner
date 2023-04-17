@@ -236,8 +236,8 @@ export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents:
     sortEventsByOldestStart(oldCourseEvents)
     sortEventsByOldestStart(newCourseEvents)
     for (let typeFrom of getKeysAsType<ActivityType>(config)) {
-        let oldCoursesWithTypeTo = oldCourseEvents.filter((event) => event.type === config[typeFrom]);
-        let newCoursesWithTypeTo = newCourseEvents.filter((event) => event.type === config[typeFrom]);
+        let oldCoursesWithTypeTo = oldCourseEvents.filter((event) => typeof config[typeFrom].find((t)=> t === event.type) !== "undefined");
+        let newCoursesWithTypeTo = newCourseEvents.filter((event) => typeof config[typeFrom].find((t)=> t === event.type) !== "undefined");
         let eventToSuggestionWithTypeFrom = eventsToSuggest.filter((event) => event.type === typeFrom);
         if (oldCoursesWithTypeTo.length > 0 && newCoursesWithTypeTo.length > 0) {
             for (let i =0; i<eventToSuggestionWithTypeFrom.length; i++) {
