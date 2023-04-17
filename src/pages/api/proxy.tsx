@@ -8,6 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const urlObj = new URL(url as string);
   const response = await fetch(urlObj);
+
   const text = await response.text();
 
   res.setHeader('Access-Control-Allow-Origin', '*');

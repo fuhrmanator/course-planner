@@ -236,7 +236,6 @@ const parseAndCast = (dsl:string): DSLActivity[] => {
  */
 export const parseDSL = (dsl: string, activities: CourseEvent[], newCourseEvents: CourseEvent[]): void => {
     const parsedDSL: DSLActivity[] = parseAndCast(dsl);
-    console.log((parsedDSL))
     let referencedCourse;
     for (const parsedActivity of parsedDSL) {
         let activityToMove = getEventReferencedByDSL(parsedActivity, activities);

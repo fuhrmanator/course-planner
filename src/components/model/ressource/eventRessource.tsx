@@ -44,7 +44,7 @@ export const ACTIVITY_TYPE_TO_DATE_PROP: { [key in ActivityType]: ActivityDatePr
     },
     {
         getter: (e: CourseEvent) => e.cutoff,
-        label: "Fin remise",
+        label: "Remise finale",
         dslIndex: HOMEWORK_INDEX.cutoff
     }]
 }

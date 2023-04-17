@@ -68,7 +68,6 @@ const ShowEventsByType: React.FC = () => {
             setErrorMsg("");
         } catch (e:any) {
             if (typeof e.message !== "undefined") {
-                console.log(e.message)
                 setErrorMsg(e.message);
             }
         }

@@ -101,7 +101,11 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
 
     const notifyCourseFormSubmit = async (code: string, group: number, year: number, semester: number, isOldCourse: boolean) => {
         const textData = await fetchCourseICAL(code, group, year, semester);
+
         const newEvents = parseICALEvents(textData);
+        if (newEvents.length === 0) {
+            throw new Error("Les informations entrées ne correspondent à aucun cours");
+        }
         if (isOldCourse) {
             setEventsIfEmpty(newEvents, oldCourseEvents, setOldCourseEvents);
         } else {

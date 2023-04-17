@@ -224,7 +224,7 @@ describe('Suggestion', () => {
     })
 
   test('Should not add suggestion if type does not match course', () => {
-    config[usedActivityType] = unusedCourseType
+    config[usedActivityType] = [unusedCourseType]
 
     addSuggestion(eventToSuggest, oldCourse, newCourse, config);
 

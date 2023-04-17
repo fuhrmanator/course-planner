@@ -16,6 +16,9 @@ const fetchCourseICAL = async (code: string, group:number, year:number, semester
 
     const finalUrl = `/api/proxy?url=${encodeURIComponent(url.href)}`;
     const data  = await fetch(finalUrl);
+    if (data.status === 404 || data.status === 503 || data.status === 408 || data.status === 504 || data.status === 500) {
+        throw new Error("La ressource est indisponible");
+    }
     const textData = await data.text();
     return textData;
 }

@@ -3,6 +3,7 @@ import {Form, Input, Select} from "antd";
 import {EventControllerContext} from "@/components/controller/EventController";
 import {getValue, setValue} from 'src/components/model/localStore'
 import UI from "@/styles/CoursePlanner.module.css";
+import typeStyles from "@/components/view/style/ShowEventsByType.module.css";
 
 enum Session {
   Winter = 1,
@@ -43,7 +44,7 @@ const CourseInformationForm: React.FC<CourseInformationProps> = ({children, isOl
     const [year, setYear] = useState<number>(0);
     const [session, setSession] = useState<number>(Session.Fall);
     const [isFormValid, setIsFormValid] = useState<boolean>(false);
-
+    const [errorMsg, setErrorMSg] = useState<string>("");
     useEffect(()=>{
       setCode(getValue(CODE_STORE_KEY, '""'));
       setGroup(getValue(GROUP_STORE_KEY, 1));
@@ -53,18 +54,27 @@ const CourseInformationForm: React.FC<CourseInformationProps> = ({children, isOl
 
     useEffect(()=>{
         setIsFormValid(code !== "" && group > 0 && year > 0)
+        setErrorMSg("");
     },[code, group, year, session]);
 
     const {notifyCourseFormSubmit} = useContext(EventControllerContext);
 
-    const handleSubmit = () => {
-        setValue(CODE_STORE_KEY, code);
-        setValue(GROUP_STORE_KEY, group);
-        setValue(YEAR_STORE_KEY, year);
-        setValue(SESSION_STORE_KEY, session);
-        notifyCourseFormSubmit(code, group, year, session, isOldCourse);
-        return false;
+    const handleSubmit = async () => {
+        try {
+            await notifyCourseFormSubmit(code, group, year, session, isOldCourse);
+            setValue(CODE_STORE_KEY, code);
+            setValue(GROUP_STORE_KEY, group);
+            setValue(YEAR_STORE_KEY, year);
+            setValue(SESSION_STORE_KEY, session);
+            setErrorMSg("");
+            return false;
+        } catch (e:any) {
+            if (typeof e.message !== "undefined")
+                setErrorMSg(e.message);
+        }
     };
+
+
 
   return (
       <CourseInformationContext.Provider value={{handleSubmit, isFormValid}}>
@@ -103,6 +113,7 @@ const CourseInformationForm: React.FC<CourseInformationProps> = ({children, isOl
                 </Select>
               </Form.Item>
             </Form>
+              <p className={typeStyles.error}>{errorMsg}</p>
               {children}
           </div>
       </CourseInformationContext.Provider>

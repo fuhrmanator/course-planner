@@ -75,7 +75,6 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
             const dsl = getDSLAtIndex(selectedActivity, courseDateInformation.dslIndex);
             if (typeof dsl !== "undefined") {
                 offset = getDateOffset(dsl);
-                //console.log(offset)
             }
         }
         return offset;
