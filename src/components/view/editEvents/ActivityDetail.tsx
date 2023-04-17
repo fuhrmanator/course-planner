@@ -118,7 +118,8 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
 
     const validateInput = (): boolean => {
         return (isOffsetActivated && selectedCourseUID !== "" && offsetUnit !== "" && courseDateRef !== "" && typeof offsetValue !== "undefined") ||
-            (!isOffsetActivated && selectedCourseUID !== "" && courseDateRef !== "");
+            (!isOffsetActivated && selectedCourseUID !== "" && courseDateRef !== "") ||
+            (!isOffsetActivated && selectedCourseUID !== "" && isAtActivated && at !== "");
     }
 
     useEffect(() => {
@@ -140,12 +141,12 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                         selectedActivity as ActivityEvent,
                         selectedCourse.event,
                         courseDateInformation.getter,
-                        COURSE_DATE_TO_GETTER[courseDateRef as DSLDateRef],
-                        courseDateRef as DSLDateRef,
+                        COURSE_DATE_TO_GETTER[courseDateRef === "" ? DSLDateRef.Start : courseDateRef as DSLDateRef],
+                        courseDateRef === "" ?  undefined : courseDateRef as DSLDateRef,
                         isOffsetActivated ? offsetValue! : 0,
                         offsetUnit === "" ? undefined : offsetUnit as DSLTimeUnit,
-                        isAtActivated ? minutes : undefined,
-                        isAtActivated ? hours : undefined,
+                        isAtActivated && !isNaN(minutes) ? minutes : undefined,
+                        isAtActivated && !isNaN(hours)  ? hours : undefined,
                         courseDateInformation.dslIndex
                     );
                     onChange();
@@ -243,7 +244,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
                     ))}
                 </Select>
 
-                <h3 className={UI.h4}> Ajustement: </h3>                
+                <h3 className={UI.h4}> Heure: </h3>
             
                 <Checkbox disabled={isAllDisabled} type="checkbox" checked={isAtActivated}
                     onChange={handleAtCheckboxChange}/>

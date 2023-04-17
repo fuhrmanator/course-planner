@@ -268,7 +268,7 @@ export const parseDSL = (dsl: string, activities: CourseEvent[], newCourseEvents
 }
 
 export const unifyDSL = (dsl:string[]): string => {
-    return dsl.join(STATEMENT_SEPARATOR);
+    return dsl.filter(statement => statement !== "").join(STATEMENT_SEPARATOR);
 }
 
 export const instantiateDSL = (type:EventType): string[] => {
@@ -283,8 +283,8 @@ const makeDSLHead = (type: EventType, index: number): string => {
     return `${TYPE_MAP_EVENT_TO_DSL[type]}${index+1}`;
 }
 
-const makeDSLDate = (type: EventType, index: number, ref:DSLDateRef): string => {
-    return `${makeDSLHead(type,index)}${ref}`;
+const makeDSLDate = (type: EventType, index: number, ref:DSLDateRef|undefined): string => {
+    return `${makeDSLHead(type,index)}${typeof ref === "undefined" ? "" : ref}`;
 }
 
 const makeDSLOffset = (offset:number, unit:DSLTimeUnit):string => {
@@ -302,7 +302,7 @@ export const updateDSL = (
     activityIndex: number,
     courseType: EventType,
     courseIndex: number,
-    courseDateRef: DSLDateRef,
+    courseDateRef: DSLDateRef | undefined,
     offsetValue: number,
     offsetUnit: DSLTimeUnit | undefined,
     atMinutes: number | undefined,
