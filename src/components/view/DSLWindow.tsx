@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import TextEntry from "@/components/view/TextEntry";
 import {EventControllerContext} from "@/components/controller/EventController";
 import {EventModelContext} from "@/components/model/EventModel";
-import {getTitleAsComment, unifyDSL, validateDSL} from "@/components/controller/util/dsl/dslOperations";
+import {makeComment, unifyDSL, validateDSL} from "@/components/controller/util/dsl/dslOperations";
 import {getUnsavedStates, hasDSL} from "@/components/controller/util/eventsOperations";
 import UI from "@/styles/CoursePlanner.module.css";
 import ConfigurationTextEntry from './ConfigurationTextEntry';
@@ -18,12 +18,12 @@ const DSLWindow: React.FC<DSLWindowProps> = ({}) => {
         let newInputDSL = ""
         for (const event of getUnsavedStates(events)) {
             if (hasDSL(event)) {
-                newInputDSL = newInputDSL.concat(getTitleAsComment(event), "\n")
+                newInputDSL = newInputDSL.concat(makeComment(event.title), "\n")
                 try {
                     validateDSL(event.dsl);
                 } catch (e: any) {
                     if (typeof e.message !== "undefined") {
-                        newInputDSL = newInputDSL.concat(`AVERTISSEMENT ${e.message}`, "\n")
+                        newInputDSL = newInputDSL.concat(makeComment(`AVERTISSEMENT ${e.message}`), "\n")
                     }
                 }
                 newInputDSL = newInputDSL.concat(unifyDSL(event.dsl) , "\n");

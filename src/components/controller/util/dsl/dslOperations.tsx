@@ -218,9 +218,8 @@ const getEventReferencedByDSL = (dsl: DSLObject | undefined, events: CourseEvent
     return event;
 }
 
-
-export const getTitleAsComment = (event: CourseEvent): string => {
-    return `${COMMENT_SYMBOL}${event.title}`;
+export const makeComment = (text: string): string => {
+    return `${COMMENT_SYMBOL}${text}`;
 }
 
 const parseAndCast = (dsl:string): DSLActivity[] => {
