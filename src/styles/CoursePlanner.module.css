@@ -142,19 +142,13 @@ justify-content: flex-end;
 
 
 .calendarDiv {
-
-  margin-top:42px;
- 
-  border-radius: 10px;
-  
   padding: 10px 10px;
- 
   border-radius: 10px;
   background: white;
   border: 2px solid rgba(var(--card-border-rgb), 1);
   box-shadow: 5px 8px #e7e7e7;
   height: 100%; 
-  width: 100%;
+  width: 95%;
   position: flex;
 }
 .h2{
@@ -165,7 +159,6 @@ justify-content: flex-end;
   letter-spacing: 0.3px;
   margin-bottom: 10px;
   font-family: 'Helvetica Neue';
-
   color: black;
 }
 .h3{
