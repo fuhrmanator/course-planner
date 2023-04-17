@@ -19,6 +19,7 @@
     background: white;
     border: 2px solid rgba(var(--card-border-rgb), 1);
     box-shadow: 5px 8px #e7e7e7;
+    
 }
 
 .detail {
@@ -73,6 +74,7 @@
     margin-bottom: 5px;
     display: inline-block;
     transition: background 200ms, border 200ms;
+    
 }
 .date {
     margin-top: 5px;
@@ -89,6 +91,7 @@
     font-size: 14px;
     font-weight: bold;
     margin-top: 5px;
+    
 }
 
 .selectBox {
