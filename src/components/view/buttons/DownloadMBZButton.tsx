@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {EventControllerContext} from "@/components/controller/EventController";
 import UI from '@/styles/CoursePlanner.module.css';
 import {EventModelContext} from "@/components/model/EventModel";
+import classNames from "classnames";
 
 const DownloadMBZButton: React.FC<{}> = () => {
     const [downloadLink, setDownloadLink] = useState<string>("");
@@ -22,11 +23,15 @@ const DownloadMBZButton: React.FC<{}> = () => {
         setIsDisabled(!mbzData.hasData())
     }, [mbzData])
 
+    const visibilityClass = classNames({
+        [UI.hidden]: isDisabled,
+        [UI.overlay]: !isDisabled,
+    });
 
     return (
         
         <a  onClick={handleOnClick} download="moodle_course.zip" href={downloadLink} >
-            <button disabled={isDisabled} className={UI.button}>
+            <button disabled={isDisabled} className={`${UI.button} ${visibilityClass}`}>
                 <div className={UI.uiLabel}>
                     Exporter
                 </div>
