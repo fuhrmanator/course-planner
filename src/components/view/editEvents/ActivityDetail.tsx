@@ -227,8 +227,8 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
             <Input  size="small" disabled={!isOffsetActivated || isAllDisabled}
                    type="number"
                    defaultValue={offsetValue}
-                   onChange={handleOffsetChange}
-                   style={{ width: '5%' }}
+                   onBlur={handleOffsetChange}
+                   style={{ width: '10%' }}
                    />
            <Select
                     disabled={!isOffsetActivated || isAllDisabled}
