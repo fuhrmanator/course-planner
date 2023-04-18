@@ -34,7 +34,7 @@ const DSLWindow: React.FC<DSLWindowProps> = ({}) => {
 
     return (
         <div className={UI.flexWrapperDSLView}>
-            <h3 className={UI.h3}>DSL : Veuillez entrer votre text</h3>
+            <h3 className={UI.h3}>DSL : Veuillez entrer votre planification</h3>
             <TextEntry text={inputDSL} onChange={setInputDSL} onSubmit={notifySubmitDSL} />
             <br></br>
             <h3 className={UI.h3}> Configuration courante du DSL  </h3>
