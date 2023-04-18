@@ -128,12 +128,16 @@ export const recreateDSL = (node: any): any => {
         case 'Seminar':
         case 'Laboratory':
         case 'Practicum':
-            const time = node.time ?
-                node.time.modifier.concat(
-                    node.time.number,
-                    node.time.type,
-                    node.time.at ? '@' + node.time.at : '') : '';
-            return `${node.type}${node.i}${node.modifier ? node.modifier : ''}${time}`;
+            let timeRef ="";
+            if (typeof node.time !== "undefined") {
+                if (typeof node.time.modifier !== "undefined") {
+                    timeRef = timeRef.concat(node.time.modifier,node.time.number, node.time.type);
+                }
+               if (typeof node.time.at !== "undefined") {
+                   timeRef = timeRef.concat(AT_SYMBOL, node.time.at)
+               }
+            }
+            return `${node.type}${node.i}${node.modifier ? node.modifier : ''}${timeRef}`;
         case 'Homework':
             return `${node.type}${node.i} ${recreateDSL(node.open)} ${recreateDSL(node.due)} ${recreateDSL(node.cutoff)}`;
         default:
@@ -236,6 +240,7 @@ const parseAndCast = (dsl:string): DSLActivity[] => {
 export const parseDSL = (dsl: string, activities: CourseEvent[], newCourseEvents: CourseEvent[]): void => {
     const parsedDSL: DSLActivity[] = parseAndCast(dsl);
     let referencedCourse;
+    console.log(JSON.stringify(parsedDSL));
     for (const parsedActivity of parsedDSL) {
         let activityToMove = getEventReferencedByDSL(parsedActivity, activities);
         if (typeof activityToMove !== "undefined") {

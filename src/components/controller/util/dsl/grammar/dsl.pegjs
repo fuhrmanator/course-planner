@@ -40,10 +40,7 @@ MoodleHomeworkActivity
   }
 MoodleHomeworkAllowSubmissionsTime "Moodle Homework Allow Submissions Time" = Timing  
 MoodleHomeworkDueTime "Moodle Homework Due Time" = Timing  
-MoodleHomeworkCutoffTime "Moodle Homework Cutoff Time" = Timing  
-
-
-
+MoodleHomeworkCutoffTime "Moodle Homework Cutoff Time" = Timing
 
 Activity "Activity Number (e.g., E1 for Exam 1)"
  = head:ActivityCode tail:Integer {
@@ -84,6 +81,7 @@ MeetingSequence "Meeting Number (e.g., S2 for Seminar 2)"
 
 TimeModifier
   = time:(MEETING_START / MEETING_END) offset:(('-'/'+') DeltaTime)? at:('@' HHMM)? {return {"modifier":time, "offset":offset, "at":at}} /
+  offset:(('-'/'+') DeltaTime)? at:('@' HHMM)? {return {"modifier":null, "offset":offset, "at":at}} /
   at:('@' HHMM) {return {"modifier":null, "offset":null, "at":at}}
 
 DeltaTime 
