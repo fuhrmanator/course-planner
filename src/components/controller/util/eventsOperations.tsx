@@ -1,7 +1,7 @@
 import {
     ActivityEvent,
     ActivityType,
-    CourseEvent,
+    CourseEvent, CourseType,
     CoursEventDateGetter,
     EventType, EventWithName,
     SuggestionTypeMapConfig
@@ -236,8 +236,8 @@ export const addSuggestion = (eventsToSuggest: ActivityEvent[], oldCourseEvents:
     sortEventsByOldestStart(oldCourseEvents)
     sortEventsByOldestStart(newCourseEvents)
     for (let typeFrom of getKeysAsType<ActivityType>(config)) {
-        let oldCoursesWithTypeTo = oldCourseEvents.filter((event) => typeof config[typeFrom].find((t)=> t === event.type) !== "undefined");
-        let newCoursesWithTypeTo = newCourseEvents.filter((event) => typeof config[typeFrom].find((t)=> t === event.type) !== "undefined");
+        let oldCoursesWithTypeTo = oldCourseEvents.filter((event) => config[typeFrom].includes(event.type as CourseType));
+        let newCoursesWithTypeTo = newCourseEvents.filter((event) => config[typeFrom].includes(event.type as CourseType));
         let eventToSuggestionWithTypeFrom = eventsToSuggest.filter((event) => event.type === typeFrom);
         if (oldCoursesWithTypeTo.length > 0 && newCoursesWithTypeTo.length > 0) {
             for (let i =0; i<eventToSuggestionWithTypeFrom.length; i++) {

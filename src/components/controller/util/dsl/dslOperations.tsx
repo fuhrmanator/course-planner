@@ -327,7 +327,9 @@ export const validateDSL = (dsl:string[]):void => {
     }
 }
 
-export const PLACEHOLDER_DSL = [makeDSLHead(EventType.Evaluation, 0), makeDSLDate(EventType.Seminar, 0, DSLDateRef.Start), makeDSLDate(EventType.Seminar, 1, DSLDateRef.Start)];
+export const PLACEHOLDER_DSL = [makeDSLHead(EventType.Evaluation, 0),
+    makeDSLDate(EventType.Seminar, 0, DSLDateRef.Start),
+    makeDSLDate(EventType.Seminar, 1, DSLDateRef.Start)];
 
 const parseDSLCourse = (dslCourse:string):DSLCourse => {
     let toParse = [...PLACEHOLDER_DSL];

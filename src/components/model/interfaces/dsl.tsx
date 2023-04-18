@@ -11,7 +11,7 @@ export interface DSLActivity extends DSLObject {
 }
 
 export interface DSLCourse extends DSLObject {
-    modifier?: string
+    modifier?: DSLDateRef
     time?: DSLTime
 }
 

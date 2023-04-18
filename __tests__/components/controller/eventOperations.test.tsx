@@ -208,8 +208,8 @@ describe('Suggestion', () => {
   beforeEach(()=> {
     // @ts-ignore
     config = {
-      [usedActivityType]: usedCourseType,
-      [unusedActivityType]: unusedCourseType
+      [usedActivityType]: [usedCourseType],
+      [unusedActivityType]: [unusedCourseType]
     }
     eventToSuggest = [{
       start:oldStart,
