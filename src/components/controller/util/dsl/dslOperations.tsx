@@ -291,7 +291,7 @@ const makeDSLOffset = (offset:number, unit:DSLTimeUnit):string => {
 }
 
 const makeDSLAt = (atMinutes:number, atHours:number):string => {
-    return `${AT_SYMBOL}${atHours}${TIME_SEPARATOR}${atMinutes}`;
+    return `${AT_SYMBOL}${atHours.toString().padStart(2, "0")}${TIME_SEPARATOR}${atMinutes.toString().padStart(2, "0")}`;
 }
 
 export const updateDSL = (
@@ -319,6 +319,7 @@ export const updateDSL = (
     }
 
     currentDSL[dslIndex] = `${makeDSLDate(courseType, courseIndex, courseDateRef)}${dslOffset}${dslAt}`;
+    console.log(currentDSL)
 };
 
 export const validateDSL = (dsl:string[]):void => {
