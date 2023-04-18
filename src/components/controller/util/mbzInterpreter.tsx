@@ -119,7 +119,7 @@ export const parseActivities = (data: ArchiveFile[]): MBZArchive => {
         }
     }
     if (typeof extractedMBZ.main === "undefined") {
-        throw new Error("No moodle_backup.xml file in provided tar. Make sure to upload a moodle backup file.")
+        throw new Error("Le fichié sélectionné ne correspond pas à une archive moodle.")
     }
 
     parseXMLfileToJS(extractedMBZ.main);
