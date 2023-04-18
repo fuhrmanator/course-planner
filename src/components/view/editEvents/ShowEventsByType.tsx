@@ -58,6 +58,7 @@ const ShowEventsByType: React.FC = () => {
                 selectedElement.classList.add(styles.selected);
             }
         }
+        checkError();
     }, [selectedEvent, activityEvents])
 
     const checkError = ():void => {
