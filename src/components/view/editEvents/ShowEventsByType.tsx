@@ -24,6 +24,7 @@ import {
 } from "@/components/controller/util/eventsOperations";
 import UI from "@/styles/CoursePlanner.module.css";
 import ActivityDetail from './ActivityDetail';
+import classNames from "classnames";
 
 const ShowEventsByType: React.FC = () => {
 
@@ -104,6 +105,11 @@ const ShowEventsByType: React.FC = () => {
         }
     }
 
+    const visibilityClass = classNames({
+        [UI.hidden]: isSaveAndCancelDisabled,
+        [UI.overlay]: !isSaveAndCancelDisabled,
+    });
+
     return (
         <div className={styles.font}>
             <h2 className={UI.h2}>Événements</h2>
@@ -134,20 +140,19 @@ const ShowEventsByType: React.FC = () => {
                 ))}
                 <p className={styles.error}>{errorMsg}</p>
                 <div className={UI.buttonContainer}>
-
                     <button
                         onClick={handleSave}
                         disabled={isSaveAndCancelDisabled}
-                        className={UI.buttonSauvegarder}>
+                        className={`${UI.buttonSauvegarder} ${visibilityClass}`}>
                         <div className={UI.uiLabel}>
                             Sauvegarder
                         </div>
                     </button>
-                    
+
                     <button
                         onClick={handleCancel}
                         disabled={isSaveAndCancelDisabled}
-                        className={UI.buttonCancel}>
+                        className={`${UI.buttonSauvegarder} ${visibilityClass}`}>
                         <div className={UI.uiLabel}>
                             Annuler
                         </div>
