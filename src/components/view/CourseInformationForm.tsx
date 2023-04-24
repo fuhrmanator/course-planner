@@ -11,10 +11,10 @@ enum Session {
   Fall = 3
 }
 
-const CODE_STORE_KEY = 'code';
-const GROUP_STORE_KEY = 'group';
-const YEAR_STORE_KEY = 'year';
-const SESSION_STORE_KEY = 'session';
+export const CODE_STORE_KEY = 'code';
+export const GROUP_STORE_KEY = 'group';
+export const YEAR_STORE_KEY = 'year';
+export const SESSION_STORE_KEY = 'session';
 
 type CourseInformationContextProps = {
     handleSubmit : () => void,
