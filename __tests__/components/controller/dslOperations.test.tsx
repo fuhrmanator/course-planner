@@ -1,8 +1,8 @@
 import {describe, expect, test} from '@jest/globals';
-import {DSLActivity, DSLCourse, DSLTime, DSLTimeType, DSLTimeUnit} from "@/components/model/interfaces/dsl";
+import {DSLActivity, DSLCourse, DSLDateRef, DSLTime, DSLTimeType, DSLTimeUnit} from "@/components/model/interfaces/dsl";
 import {
-    dateOffsetAsDSL, instantiateDSL,
-    makeDSLRelativeToClosestDate,
+    dateOffsetAsDSL, getDateAt, getDateIndex, getDateOffset, getDateRef, getDateType, getDateUnit, instantiateDSL,
+    makeDSLRelativeToClosestDate, parseAndCast, parseDSL,
     recreateDSL
 } from "@/components/controller/util/dsl/dslOperations";
 import {DSL_TIME_UNIT_TO_MS} from "@/components/model/ressource/dslRessource";
@@ -34,7 +34,8 @@ const expectDSLTimeEqual = (parsedDSL: DSLTime|undefined, modifier:string, n:num
 
 describe("DSL Parsing tests", () => {
     test("Quiz start and end time", () => {
-        const parsed  = parser.parse("Quiz1 Seminar1Finish Seminar2Start\nQuiz2 Seminar2Finish Seminar3Start-30m")[1] as DSLActivity[];
+        const parsed  = parser.parse("Quiz1 Seminar1Finish Seminar2Start" +
+            "\nQuiz2 Seminar2Finish Seminar3Start-30m")[1] as DSLActivity[];
 
         expect(parsed.length).toEqual(2)
 
@@ -170,6 +171,63 @@ describe('Create DSL relative to the closest given event', () => {
         const expectedDSL = 'Seminar1End+3h';
         const actualDSL = makeDSLRelativeToClosestDate(ref, [events[0]]);
         expect(actualDSL).toEqual(expectedDSL);
+    });
+});
+
+describe('DSL statement extraction', () => {
+    it('Should return correct course type', () => {
+        expect(getDateType("Seminar1End")).toEqual(EventType.Seminar);
+        expect(getDateType("Laboratory2End+10m")).toEqual(EventType.Laboratory);
+        expect(getDateType("Practicum2@23:33")).toEqual(EventType.Practicum);
+    });
+
+    it('Should return correct course number', () => {
+        expect(getDateIndex("Seminar1End")).toEqual(1);
+        expect(getDateIndex("Laboratory2End+10m")).toEqual(2);
+        expect(getDateIndex("Practicum3@23:33")).toEqual(3);
+    });
+
+    it('Should return correct at', () => {
+        expect(getDateAt("Seminar1@23:33")).toEqual("23:33");
+        expect(getDateAt("Laboratory2End+10m@00:00")).toEqual("00:00");
+        expect(getDateAt("Practicum3Start@12:00")).toEqual("12:00");
+        expect(getDateAt("Practicum3Start")).toBeUndefined();
+    });
+
+    it('Should return correct offset', () => {
+        expect(getDateOffset("Seminar1+1m")).toEqual(1);
+        expect(getDateOffset("Laboratory2End+10m@00:00")).toEqual(10);
+        expect(getDateOffset("Practicum3Start-1d@12:00")).toEqual(-1);
+        expect(getDateOffset("Practicum3Start")).toEqual(0);
+    });
+
+    it('Should return correct offset unit', () => {
+        expect(getDateUnit("Seminar1+1m")).toEqual(DSLTimeUnit.Minute);
+        expect(getDateUnit("Laboratory2+10h@00:00")).toEqual(DSLTimeUnit.Hour);
+        expect(getDateUnit("Practicum3Start-1d@12:00")).toEqual(DSLTimeUnit.Day);
+        expect(getDateUnit("Practicum3Start+1w@12:00")).toEqual(DSLTimeUnit.Week);
+        expect(getDateUnit("Practicum3Start")).toBeUndefined();
+    });
+
+    it('Should return correct date ref', () => {
+        expect(getDateRef("Seminar1+1m")).toBeUndefined()
+        expect(getDateRef("Laboratory2End+10h@00:00")).toEqual(DSLDateRef.End);
+        expect(getDateRef("Practicum3Start-1d@12:00")).toEqual(DSLDateRef.Start);
+        expect(getDateRef("Practicum3Start")).toEqual(DSLDateRef.Start);
+    });
+});
+
+describe('DSL statement recreation', () => {
+    it('Should recreate DSL statements', () => {
+        expect(recreateDSL(parseAndCast("Quiz1 Seminar1End Seminar2Start-1d")[0])).toEqual("Quiz1 Seminar1End Seminar2Start-1d");
+        expect(recreateDSL(parseAndCast("Quiz2 Seminar1 Seminar2Start")[0])).toEqual("Quiz2 Seminar1 Seminar2Start");
+        expect(recreateDSL(parseAndCast("Quiz3 Seminar3Start+1w Seminar2Start+2d")[0])).toEqual("Quiz3 Seminar3Start+1w Seminar2Start+2d");
+        expect(recreateDSL(parseAndCast("Quiz4 Seminar2Start+3h Seminar5End+4m")[0])).toEqual("Quiz4 Seminar2Start+3h Seminar5End+4m");
+        expect(recreateDSL(parseAndCast("Quiz5 Seminar1 Seminar2Start")[0])).toEqual("Quiz5 Seminar1 Seminar2Start");
+        expect(recreateDSL(parseAndCast("Quiz6 Seminar1@12:34 Seminar2End@23:12")[0])).toEqual("Quiz6 Seminar1@12:34 Seminar2End@23:12");
+        expect(recreateDSL(parseAndCast("Quiz7 Seminar1End+1m@00:00 Seminar2Start-1m@00:01")[0])).toEqual("Quiz7 Seminar1End+1m@00:00 Seminar2Start-1m@00:01");
+        expect(recreateDSL(parseAndCast("Quiz8 Seminar1+1m@01:00 Seminar2-1m@02:00")[0])).toEqual("Quiz8 Seminar1+1m@01:00 Seminar2-1m@02:00");
+        expect(recreateDSL(parseAndCast("Homework1 Seminar1End Seminar1+1m@01:00 Seminar2Start-1d")[0])).toEqual("Homework1 Seminar1End Seminar1+1m@01:00 Seminar2Start-1d");
     });
 });
 

@@ -226,7 +226,7 @@ export const makeComment = (text: string): string => {
     return `${COMMENT_SYMBOL}${text}`;
 }
 
-const parseAndCast = (dsl:string): DSLActivity[] => {
+export const parseAndCast = (dsl:string): DSLActivity[] => {
     const rawParsed: any[] = parser.parse(dsl) as any[];
     return rawParsed[1] as DSLActivity[];
 }

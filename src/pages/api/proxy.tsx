@@ -15,3 +15,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader('Content-Type', 'text/calendar');
   res.status(200).send(text);
 }
+
