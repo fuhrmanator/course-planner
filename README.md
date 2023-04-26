@@ -63,39 +63,43 @@ Download the file and save it on your computer.
 ### Step 2. Select new Course to plan
 
 To use the application, you must specify which class it is for:
-![New Course](images/newcourse.png)
+
+![New Course](images/newcourse.PNG)
 
 Then click the `Envoyer` button to get the class calendar like so:
-![New Calendar](images/newcalendar.png)
+
+![New Calendar](images/newcalendar.PNG)
 
 ### Step 3. Import the Moodle backup file
 
 By selecting the `Sélectionner une sauvegarde Moodle` button, you can import the backup file.
 Then you will be prompted the indicate which course does the backup file belong to:
-![Import Promp](images/importpromp.png)
+
+![Import Promp](images/importpromp.PNG)
 
 When the import is done, you will be able to see the activity inside of the backup file:
-![Event List](images/eventlist.png)
+
+![Event List](images/eventlist.PNG)
 
 ### Step 4. Use the suggestion
 
 Inside the application there is a algorithm to pre-plan the course to save time.
 You can use it on selection the `Suggestion` button:
-![Suggestion Button](images/suggestionbtn.png)
+![Suggestion Button](images/suggestionbtn.PNG)
 
 After, you will prompted for specification on where to bind your evaluation and hamowork:
-![Suggestion](images/suggestion.png)
+![Suggestion](images/suggestion.PNG)
 
 The result will appear in the calendar in a light color to indicate temporary result which can be confirm with the `Tout Saugarder` or modify it further.
-![Suggestion Result](images/suggestionresult.png)
+![Suggestion Result](images/suggestionresult.PNG)
 
 ### Step 5. Modify the event individually
 
 Once the suggestion is done, you can select any event the modify it separately. The selected event is represented by a purple overlay:
-![Event](images/event.png)
+![Event](images/event.PNG)
 
 At the botton of the list you will see the detail for the selected event which have a few option:
-![Event Detail](images/eventdetail.png)
+![Event Detail](images/eventdetail.PNG)
 
 Inside the detail, you have:
 - The Start and Finish sub section where you will imput the relevant informations
@@ -107,10 +111,10 @@ Inside the detail, you have:
 To improve your speed and efficiency, we recommend that you save the DSL in a word document for further use in the next semester.
 The DSL will represent all the changes you have made and will make it easier and faster next time.
 To export the configuration click on the `DSL` button in the Advanced options:
-![DSL](images/dsl.png)
+![DSL](images/dsl.PNG)
 
 which you will find you current configuration ih this section:
-![DSL Config](images/dslconfig.png)
+![DSL Config](images/dslconfig.PNG)
 
 ### Step 7. Export the new backup file 
 
@@ -143,6 +147,5 @@ On the next page, scroll down and click "Restore".
 This process might take a while.
 As long as a circle is spinning in your browser tab, the process is still running.
 Once the process is done, check to see if your Moodle activity dates have been updated.
-> The Moodle calendar is an excellent way to visualize the dates.
 
 
