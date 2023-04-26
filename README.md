@@ -30,12 +30,33 @@ This application is running on static single page. It is designed to be deployed
 We used react's contexts to expose a component's functions or data. For example, the CalModel component, who has the role of holding the in-memory collections of data and saving it to the local store when it changes, creates a context when used in a DOM tree. This context will expose the events data collection and the setEvents function handle. Children of this component will have access to the elements exposed by the context provider. The same logic applies to the controller who designed to be the child of CalModel. This relation will allow CalController to access CalModel context but will not permit CalModel to access CalController context. With this architecture, and react functionality, when ClearCalButton notifies CalController of a button push by calling it's notifyClearEvents function, CalController will only have to use the setEvents function handle of CalModel with an empty collection and the state of the object will be automatically synchronized with everyone who uses it (EventCalendar in this example). Note that this diagram is not exhaustive and that its purpose is only to illustrate the general architecture of the application and the interactions between its components. If we were to translate this diagram into a more conventional form by not representing the context interaction, we will get the more traditional-looking diagram: 
 
 ![img unavailable](/docs/architecture/translated_mvc.svg "General architecture diagram")
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Moodle step by step
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The following section will guide you through using the application to modify the dates of activities in a Moodle course.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+> Because this tool modifies a backup file that will later be used to restore (and overwrite) activities in the course, it is highly recommended that you use this tool *before* students are enrolled in the course (and have begun activities).
+> **Use at your own risk!**  
+> Note: these instructions may be different depending on your version of Moodle.
+> This tool was tested with Moodle version 3.x.
+> Please see the documentation for the various steps according to your version of Moodle.
+
+### Step 1. Create a Moodle backup file
+
+The first thing to do is to create a Moodle backup file.
+This can be done through the Moodle UI.
+You must have the teacher role in a course to do so.
+
+To create the file, go to your Moodle class.
+Use the cogwheel at the top right of your screen and click "Backup".
+You can then click "Jump to final step" to export it or configure your exportation settings accordingly. 
+
+![Moodle Cogwheel](images/cogwheel_moodle.png)
+![Moodle Export](images/export_moodle.png)
+
+After it finishes, you can press "Continue".
+You should see your backup Moodle file in the "User private backup area" section.
+Download the file and save it on your computer.
+
+![Moodle backup](images/backup_file_moodle.png)
 
