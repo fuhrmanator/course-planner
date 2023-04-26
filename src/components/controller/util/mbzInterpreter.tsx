@@ -1,11 +1,11 @@
 import {decompressSync, Zippable, zipSync} from 'fflate';
 // @ts-ignore
 import FastXML from 'fast-xml-parser';
-import { CalEventType } from '@/components/model/interfaces/events/calEvent';
-import { MBZEvent } from '@/components/model/interfaces/events/mbzEvent';
+import {ActivityEvent, EventType} from '@/components/model/interfaces/courseEvent';
 import ArchiveFile from '@/components/model/interfaces/archive/archiveFile';
 import MBZArchive from '@/components/model/interfaces/archive/MBZArchive';
-import * as mbzConstants from './mbzConstants';
+import * as mbzConstants from '../../model/ressource/mbzConstants';
+import {instantiateDSL} from "@/components/controller/util/dsl/dslOperations";
 
 function deleteActivitiesFromArchive(data: MBZArchive, toDelete: ArchiveFile[]):void {
     data.throwIfNoMain();
@@ -34,25 +34,37 @@ function deleteActivitiesFromArchive(data: MBZArchive, toDelete: ArchiveFile[]):
     }
 }
 
-function applyChangesToFile(file: ArchiveFile, event:MBZEvent):void  {
+function applyChangesToFile(file: ArchiveFile, event:ActivityEvent):void  {
     const activityLevel = file.parsedData[mbzConstants.ACTIVITY_WRAPPER]
     const mbzType = getParsedAttribute(activityLevel, mbzConstants.ACTIVITY_TYPE);
     const dateLevel = activityLevel[mbzType];
     switch (event.type) {
-        case CalEventType.Evaluation: {
+        case EventType.Evaluation: {
             dateLevel[mbzConstants.QUIZ_START_DATE] = JSDateToMBZ(event.start);
             dateLevel[mbzConstants.QUIZ_END_DATE] = JSDateToMBZ(event.end);
             break;
         }
-        case CalEventType.Homework: {
+        case EventType.Homework: {
             dateLevel[mbzConstants.ASSIGN_START_DATE] = JSDateToMBZ(event.start);
-            dateLevel[mbzConstants.ASSIGN_END_DATE] = JSDateToMBZ(event.end);
+            if (typeof event.due !== "undefined") {
+                dateLevel[mbzConstants.ASSIGN_DUE_DATE] = JSDateToMBZ(event.due!);
+            }
+
+            if (typeof event.cutoff !== "undefined") {
+                dateLevel[mbzConstants.ASSIGN_CUTOFF_DATE] = JSDateToMBZ(event.cutoff!);
+            }
+
             break;
         }
     }
 }
 
-export const applyChangesToArchive = (data: MBZArchive, events: MBZEvent[]):void => {
+/**
+ * Changes the data of the given archive to match the given events
+ * @param data that will be updated with events values
+ * @param events values that will update the archive
+ */
+export const applyChangesToArchive = (data: MBZArchive, events: ActivityEvent[]):void => {
     const activitiesToDelete: ArchiveFile[] = [];
     for (let activityPath in data.activities) {
         let event = events.find((event) => event.path === activityPath);
@@ -64,7 +76,10 @@ export const applyChangesToArchive = (data: MBZArchive, events: MBZEvent[]):void
     }
     deleteActivitiesFromArchive(data, activitiesToDelete);
 }
-
+/**
+ * Creates a zip archive with the given data
+ * @param data that will be zipped
+ */
 export const zipData = (data:MBZArchive): Uint8Array => {
 
   const pathToData: Zippable = {};
@@ -73,11 +88,12 @@ export const zipData = (data:MBZArchive): Uint8Array => {
     pathToData[path] = getFileDataAsBytes(allFilesToZip[path]);
   }
 
-  const serialized = zipSync(pathToData);
-
-  return serialized;
+  return zipSync(pathToData);
 }
-
+/**
+ * Returns a promise of the extracted data.
+ * @param file a file object picked by a HTML input tag. Data must be in the gz.tar format.
+ */
 export const extractData = async (file:File): Promise<ArchiveFile[]> => {
     
     const fileArrayBuffer = await readFileAsUint8Array(file);
@@ -88,7 +104,10 @@ export const extractData = async (file:File): Promise<ArchiveFile[]> => {
 
     return await untar(unzip.buffer);
 }
-
+/**
+ * Creates an MBZArchive representation of the given data. Also transforms all activity data into a JS representation.
+ * @param data data to parse
+ */
 export const parseActivities = (data: ArchiveFile[]): MBZArchive => {
     const extractedMBZ = new MBZArchive();
     
@@ -100,7 +119,7 @@ export const parseActivities = (data: ArchiveFile[]): MBZArchive => {
         }
     }
     if (typeof extractedMBZ.main === "undefined") {
-        throw new Error("No moodle_backup.xml file in provided tar. Make sure to upload a moodle backup file.")
+        throw new Error("Le fichié sélectionné ne correspond pas à une archive moodle.")
     }
 
     parseXMLfileToJS(extractedMBZ.main);
@@ -114,9 +133,12 @@ export const parseActivities = (data: ArchiveFile[]): MBZArchive => {
     return extractedMBZ;
     
 }
-
-export const makeEvents = (data:MBZArchive):MBZEvent[] => {
-    const calEvents:MBZEvent[] = [];
+/**
+ * Creates the events object based on an extracted MBZArchive. The events dates and ids will correspond to the one present in the given archive.
+ * @param data to parse and make events from.
+ */
+export const makeEvents = (data:MBZArchive):ActivityEvent[] => {
+    const calEvents:ActivityEvent[] = [];
     
     for (let activityPath in data.activities) {
         let activityFile = data.activities[activityPath];
@@ -142,28 +164,49 @@ function mbzDateToJS(mbzDate : string): Date{
     return new Date(parseInt(mbzDate, 10)* 1000);
 }
 
-function mbzToEvent(obj:any, id:string, path:string, mbzType: string): MBZEvent {
+function mbzToEvent(obj:any, id:string, path:string, mbzType: string): ActivityEvent {
     let startDate;
     let endDate;
+    let dueDate = undefined;
+    let cutoffDate = undefined;
+    const title = obj[mbzConstants.ACTIVITY_NAME]
     const type = mbzConstants.ACTIVITY_TO_JS[mbzType];
     switch (type) {
-        case CalEventType.Evaluation: {
+        case EventType.Evaluation: {
             startDate = obj[mbzConstants.QUIZ_START_DATE]
             endDate = obj[mbzConstants.QUIZ_END_DATE]
             break;
         }
-        case CalEventType.Homework: {
+        case EventType.Homework: {
             startDate= obj[mbzConstants.ASSIGN_START_DATE]
-            endDate= obj[mbzConstants.ASSIGN_END_DATE]
+            const dueObj= obj[mbzConstants.ASSIGN_DUE_DATE]
+            const cutoffObj= obj[mbzConstants.ASSIGN_CUTOFF_DATE];
+            dueDate = dueObj === 0 ? undefined : dueObj
+            cutoffDate = cutoffObj === 0 ? undefined: cutoffObj
+            if (typeof cutoffDate !== "undefined") {
+                endDate = cutoffDate
+            } else if (typeof dueDate !== "undefined") {
+                endDate = dueDate
+            } else {
+                throw Error(`Homework ${title} has no due date or cutoff date. Please provide a moodle backup with homeworks that has at least one of the two`)
+            }
             break;
         }
     }
+
+    if (startDate === 0 || endDate === 0) {
+        throw Error(`Activity ${title} has no start or end date. Please provide a moodle backup with activities that has them both`)
+    }
+
     return {
         start: mbzDateToJS(startDate),
         end: mbzDateToJS(endDate),
-        title: obj[mbzConstants.ACTIVITY_NAME],
+        due: typeof dueDate === "undefined" ? undefined : mbzDateToJS(dueDate),
+        cutoff: typeof cutoffDate === "undefined" ? undefined : mbzDateToJS(cutoffDate),
+        title: title,
         type: type,
         uid: id,
+        dsl: instantiateDSL(type),
         path: path};
 }
 

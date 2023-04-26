@@ -1,16 +1,34 @@
 import {describe, expect, test} from '@jest/globals';
-import { CalEvent, CalEventType } from '@/components/model/interfaces/events/calEvent';
-import { addUniqueEvents, findEarliestEvent } from '@/components/controller/util/eventsOperations';
-import { EventDict } from '@/components/model/eventModel';
+import {
+  ActivityEvent,
+  ActivityType,
+  CourseEvent,
+  CourseType,
+  EventType,
+  SuggestionTypeMapConfig
+} from '@/components/model/interfaces/courseEvent';
+import {
+  addSuggestion,
+  cancelAllUnsavedState,
+  findEarliestEvent,
+  getOrAddUnsavedState,
+  hasUnsavedState,
+  isUnsavedState,
+  removeUnsavedState,
+  saveState
+} from '@/components/controller/util/eventsOperations';
+import {instantiateDSL} from "@/components/controller/util/dsl/dslOperations";
+
 
 const startDate = new Date();
 const endDate = createDateWithOffset(startDate, 10);
-const basicEvent:CalEvent = {
+const basicEvent:CourseEvent = {
   start: startDate,
   end: endDate,
   title:"title",
   uid:"uid",
-  type: CalEventType.Evaluation
+  type: EventType.Evaluation,
+  dsl: instantiateDSL(EventType.Evaluation)
 };
 
 function createDateWithOffset(date:Date, offest:number) {
@@ -22,9 +40,9 @@ function shuffleArray(array:any) {
 }
 
 
-describe('CalEvent operations', () => {
+describe('Generic event operations', () => {
   test('Finds the earliest event', () => {
-    const events: CalEvent[] = [];
+    const events: CourseEvent[] = [];
     let expectedEarliest;
     for (let i=0; i<10; i++) {
       events.push({...basicEvent});
@@ -35,24 +53,199 @@ describe('CalEvent operations', () => {
       }
     }
     const earliest = findEarliestEvent(shuffleArray(events));
-    expect(earliest).toBe(expectedEarliest);
+    expect(earliest).toEqual(expectedEarliest);
+  });
+});
+
+describe('Unsaved state tests', () => {
+  let event: CourseEvent;
+  let events: CourseEvent[];
+  const unsavedStateTitle = "unsavedState"
+  beforeEach(()=>{
+    event = {
+      uid:"Miles davis",
+      start: new Date(0),
+      end: new Date(10),
+      type: EventType.Evaluation,
+      dsl: instantiateDSL(EventType.Evaluation),
+      title: "Test event"
+    };
+
+    const n = 10;
+    events = [];
+    for (let i =0; i<n; i++) {
+      let event ={
+        start: new Date(0),
+        end : new Date(10),
+        title : i.toString(),
+        uid : i.toString(),
+        type : EventType.Evaluation,
+        dsl: instantiateDSL(EventType.Evaluation),
+      }
+      let unsavedState = getOrAddUnsavedState(event)
+      unsavedState.title = unsavedStateTitle;
+      events.push(event)
+    }
+  })
+  test('Should add unsaved state to event', () => {
+    const unsavedState = getOrAddUnsavedState(event);
+
+    expect(unsavedState.start).toEqual(event.start)
+    expect(unsavedState.end).toEqual(event.end)
+    expect(unsavedState.uid).toEqual(event.uid)
+    expect(unsavedState.type).toEqual(event.type)
+    expect(unsavedState.title).toEqual(event.title)
+
+  });
+  test('Should get unsaved state of event', () => {
+    const unsavedState = getOrAddUnsavedState(event);
+    const newTitle = "new title"
+    unsavedState.title = newTitle
+
+    const gotUnsavedState = getOrAddUnsavedState(event);
+
+    expect(gotUnsavedState.title).toEqual(newTitle)
+  });
+  test('Modifying unsaved state should not modify event', () => {
+    const unsavedState = getOrAddUnsavedState(event);
+    const oldTitle = event.title;
+    unsavedState.title = "new title"
+
+    expect(event.title).toEqual(oldTitle);
+  });
+  test('Should check if event has unsaved state', () => {
+    expect(hasUnsavedState(event)).toBeFalsy();
+    getOrAddUnsavedState(event);
+    expect(hasUnsavedState(event)).toBeTruthy();
+  });
+  test('Should remove unsavedState', () => {
+    const unsavedState = getOrAddUnsavedState(event);
+    expect(event.unsavedState).toBeDefined();
+
+    const removed = removeUnsavedState(event)
+
+    expect(event.unsavedState).toBeUndefined();
+    expect(removed).toEqual(unsavedState);
+  })
+  test("Should detect if event is unsaved state", () => {
+    expect(isUnsavedState(event)).toBeFalsy();
+    const createdUnsavedState = getOrAddUnsavedState(event)
+    expect(isUnsavedState(createdUnsavedState)).toBeTruthy();
+  })
+  test("Should replace event time with unsavedState", ()=> {
+    const unsavedState = getOrAddUnsavedState(event);
+    const unsavedStart = new Date(event.start.getTime() + 10)
+    const unsavedEnd = new Date(event.end.getTime() + 10)
+    unsavedState.start = unsavedStart
+    unsavedState.end = unsavedEnd
+
+    saveState(event);
+
+    expect(event.unsavedState).toBeUndefined()
+    expect(event.start).toEqual(unsavedStart)
+    expect(event.end).toEqual(unsavedEnd)
+  })
+  test("Should replace  all events time with unsavedState", ()=> {
+    const unsavedState = getOrAddUnsavedState(event);
+    const unsavedStart = new Date(event.start.getTime() + 10)
+    const unsavedEnd = new Date(event.end.getTime() + 10)
+    unsavedState.start = unsavedStart
+    unsavedState.end = unsavedEnd
+
+    saveState(event);
+
+    expect(event.unsavedState).toBeUndefined()
+    expect(event.start).toEqual(unsavedStart)
+    expect(event.end).toEqual(unsavedEnd)
+  })
+  test("Should remove all unsaved states", ()=> {
+    cancelAllUnsavedState(events);
+
+    for (let event of events) {
+      expect(event.unsavedState).toBeUndefined();
+    }
+  })
+
+});
+
+describe('Suggestion', () => {
+  let oldCourse: CourseEvent[];
+  let newCourse: CourseEvent[];
+  let config:SuggestionTypeMapConfig;
+  let eventToSuggest:ActivityEvent[];
+  let oldStart:Date;
+  let oldEnd:Date;
+  let usedCourseType:CourseType;
+  let unusedCourseType:CourseType;
+  let usedActivityType:ActivityType;
+  let unusedActivityType:ActivityType;
+
+  beforeAll(() => {
+    usedActivityType = EventType.Homework
+    unusedActivityType= EventType.Evaluation
+    usedCourseType = EventType.Seminar
+    unusedCourseType = EventType.Practicum
+
+    oldStart = new Date(0);
+    oldEnd = new Date(1*60000);
+    oldCourse=[{
+      start:oldStart,
+      end:oldEnd,
+      uid:"old",
+      title:"old",
+      type:usedCourseType,
+      dsl: instantiateDSL(usedCourseType),
+    }]
+    newCourse = [{
+      start:new Date(2*60000),
+      end:new Date(3*60000),
+      uid:"new",
+      title:"new",
+      type:usedCourseType,
+      dsl: instantiateDSL(usedCourseType),
+    }]
+  })
+  beforeEach(()=> {
+    // @ts-ignore
+    config = {
+      [usedActivityType]: [usedCourseType],
+      [unusedActivityType]: [unusedCourseType]
+    }
+    eventToSuggest = [{
+      start:oldStart,
+      end:oldEnd,
+      uid:"old",
+      title:"old",
+      type:usedActivityType,
+      dsl: instantiateDSL(usedCourseType),
+      path:"path"
+    }]
+
+    })
+
+  test('Should not add suggestion if type does not match course', () => {
+    config[usedActivityType] = [unusedCourseType]
+
+    addSuggestion(eventToSuggest, oldCourse, newCourse, config);
+
+    expect(eventToSuggest[0].unsavedState).toBeUndefined();
+
   });
 
-  test('Should only add events with unique uid', () => {
-    const addedEvents:EventDict = {};
-    const events: CalEvent[] = [];
-    const nbEvents = 10;
-    for (let i=0; i<nbEvents; i++) {
-      events.push({...basicEvent});
-      events[i].uid = ""+i;
-    }
-    addUniqueEvents(events,addedEvents); // add unique events
+  test('Should add suggestion if type match course', () => {
+    addSuggestion(eventToSuggest, oldCourse, newCourse, config);
 
-    expect(Object.keys(addedEvents).length).toBe(nbEvents); // all unique events added
+    expect(eventToSuggest[0].unsavedState).toBeDefined();
 
-    addUniqueEvents(events,addedEvents); // add non-unique events
+  });
 
-    expect(Object.keys(addedEvents).length).toBe(nbEvents); // no new events added
+  test('Should suggest date with same offset as reference', () => {
+    const offest = 10*60000;
+    eventToSuggest[0].start = new Date (oldCourse[0].start.getTime() + offest)
 
-  })
+    addSuggestion(eventToSuggest, oldCourse, newCourse, config);
+
+    expect(eventToSuggest[0].unsavedState).toBeDefined();
+    expect(eventToSuggest[0].unsavedState!.start.getTime() - newCourse[0].start.getTime()).toEqual(offest);
+  });
 });

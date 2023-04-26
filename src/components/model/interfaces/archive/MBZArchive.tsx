@@ -1,5 +1,4 @@
-
-import { ArchiveDict } from "./archiveTypes";
+import {ArchiveDict} from "./archiveTypes";
 import ArchiveFile from "./archiveFile";
 
 export default class MBZArchive {
@@ -10,6 +9,10 @@ export default class MBZArchive {
     constructor() {
         this.activities = {}
         this.other = {}
+    }
+
+    hasData(): boolean {
+        return Object.keys(this.activities).length > 0 || Object.keys(this.other).length > 0;
     }
 
     addFile(file: ArchiveFile): void {
