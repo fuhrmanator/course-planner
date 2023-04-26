@@ -85,20 +85,25 @@ When the import is done, you will be able to see the activity inside of the back
 
 Inside the application there is a algorithm to pre-plan the course to save time.
 You can use it on selection the `Suggestion` button:
+
 ![Suggestion Button](images/suggestionbtn.PNG)
 
 After, you will prompted for specification on where to bind your evaluation and hamowork:
+
 ![Suggestion](images/suggestion.PNG)
 
 The result will appear in the calendar in a light color to indicate temporary result which can be confirm with the `Tout Saugarder` or modify it further.
+
 ![Suggestion Result](images/suggestionresult.PNG)
 
 ### Step 5. Modify the event individually
 
 Once the suggestion is done, you can select any event the modify it separately. The selected event is represented by a purple overlay:
+
 ![Event](images/event.PNG)
 
 At the botton of the list you will see the detail for the selected event which have a few option:
+
 ![Event Detail](images/eventdetail.PNG)
 
 Inside the detail, you have:
@@ -111,9 +116,11 @@ Inside the detail, you have:
 To improve your speed and efficiency, we recommend that you save the DSL in a word document for further use in the next semester.
 The DSL will represent all the changes you have made and will make it easier and faster next time.
 To export the configuration click on the `DSL` button in the Advanced options:
+
 ![DSL](images/dsl.PNG)
 
 which you will find you current configuration ih this section:
+
 ![DSL Config](images/dslconfig.PNG)
 
 ### Step 7. Export the new backup file 
