@@ -60,3 +60,89 @@ Download the file and save it on your computer.
 
 ![Moodle backup](images/backup_file_moodle.png)
 
+### Step 2. Select new Course to plan
+
+To use the application, you must specify which class it is for:
+![New Course](images/newcourse.png)
+
+Then click the `Envoyer` button to get the class calendar like so:
+![New Calendar](images/newcalendar.png)
+
+### Step 3. Import the Moodle backup file
+
+By selecting the `Sélectionner une sauvegarde Moodle` button, you can import the backup file.
+Then you will be prompted the indicate which course does the backup file belong to:
+![Import Promp](images/importpromp.png)
+
+When the import is done, you will be able to see the activity inside of the backup file:
+![Event List](images/eventlist.png)
+
+### Step 4. Use the suggestion
+
+Inside the application there is a algorithm to pre-plan the course to save time.
+You can use it on selection the `Suggestion` button:
+![Suggestion Button](images/suggestionbtn.png)
+
+After, you will prompted for specification on where to bind your evaluation and hamowork:
+![Suggestion](images/suggestion.png)
+
+The result will appear in the calendar in a light color to indicate temporary result which can be confirm with the `Tout Saugarder` or modify it further.
+![Suggestion Result](images/suggestionresult.png)
+
+### Step 5. Modify the event individually
+
+Once the suggestion is done, you can select any event the modify it separately. The selected event is represented by a purple overlay:
+![Event](images/event.png)
+
+At the botton of the list you will see the detail for the selected event which have a few option:
+![Event Detail](images/eventdetail.png)
+
+Inside the detail, you have:
+- The Start and Finish sub section where you will imput the relevant informations
+- The first row is the specify which course should it start and at what time; at the start of the class or at the end
+- The second row is for the finer detail such as the gap between the class and the event (it can be +/- value) and a absolute time indication (ex: 23:59)
+
+### Step 6. Export the DSL for next semester
+
+To improve your speed and efficiency, we recommend that you save the DSL in a word document for further use in the next semester.
+The DSL will represent all the changes you have made and will make it easier and faster next time.
+To export the configuration click on the `DSL` button in the Advanced options:
+![DSL](images/dsl.png)
+
+which you will find you current configuration ih this section:
+![DSL Config](images/dslconfig.png)
+
+### Step 7. Export the new backup file 
+
+Once you are done, you can click the `Exporter` button at the end of the page. 
+This will download the new modified backup file.
+
+Go back to your Moodle course and use the cogwheel to navigate to "Restore".
+You can then drag and drop the new Moodle backup file in the "Import a backup file" box.
+Click "Restore".
+
+![Restore file](images/restore_moodle_file.png)
+
+Scroll down and click "Continue".
+On the next page, you need to check "Delete the contents of this course and then restore".
+If this option is not checked, your Moodle course will contain duplicated activities.
+This is the reason we recommend you only use this tool on a course that does not yet have students enrolled (and possibly activities that have begun).
+
+![Delete and restore](images/delete_and_restore.png)
+
+Click "Continue" and then "Next" on the next page.
+
+On the current page, it is important to change "Keep current groups and groupings" and "Keep current roles and enrolments" to "Yes".
+Without this change, your current roles and groups of the course will be deleted.
+The users assigned in the current course would also be deleted.
+
+![Roles settings](images/moodle_roles.png)
+
+Scroll down and click "Next".
+On the next page, scroll down and click "Restore".
+This process might take a while.
+As long as a circle is spinning in your browser tab, the process is still running.
+Once the process is done, check to see if your Moodle activity dates have been updated.
+> The Moodle calendar is an excellent way to visualize the dates.
+
+
