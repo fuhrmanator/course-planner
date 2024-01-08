@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
 import {Form, Input, Select} from "antd";
 import {EventControllerContext} from "@/components/controller/EventController";
-import {getValue, setValue} from 'src/components/model/localStore'
+import {getValue, setValue} from '@/components/model/localStore'
 import UI from "@/styles/CoursePlanner.module.css";
 import typeStyles from "@/components/view/style/ShowEventsByType.module.css";
 

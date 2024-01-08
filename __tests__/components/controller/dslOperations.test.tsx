@@ -11,7 +11,7 @@ const peg = require('pegjs');
 const fs = require('fs');
 
 // read grammar and create parser dynamically
-const grammar = fs.readFileSync(require.resolve('src/components/controller/util/dsl/grammar/dsl.pegjs'), 'utf-8');
+const grammar = fs.readFileSync(require.resolve('@/components/controller/util/dsl/grammar/dsl.pegjs'), 'utf-8');
 const parser = peg.generate(grammar);
 
 const expectDSLCourseEqual = (parsedDSL:DSLCourse|undefined, type:string, i:number, modifier:string):void => {

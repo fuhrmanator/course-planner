@@ -100,11 +100,14 @@ export const EventController: React.FC<CalControllerProps> = ({children}) => {
     }
 
     const notifyCourseFormSubmit = async (code: string, group: number, year: number, semester: number, isOldCourse: boolean) => {
+        // even if the code, group, year and semester are invalid, the web service will return an empty calendar (no error thrown)
         const textData = await fetchCourseICAL(code, group, year, semester);
 
         const newEvents = parseICALEvents(textData);
         if (newEvents.length === 0) {
-            throw new Error("Les informations entrées ne correspondent à aucun cours");
+            console.error(`Calendar corresponding to code: ${code}, group: ${group}, year: ${year}, semester: ${semester} has zero events.`);
+            console.error(`Calendar data: \n${textData}`);
+            throw new Error("Il n'y a aucun évènement dans le calendrier pour le cours.");
         }
         if (isOldCourse) {
             setEventsIfEmpty(newEvents, oldCourseEvents, setOldCourseEvents);

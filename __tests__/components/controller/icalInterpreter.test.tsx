@@ -1,34 +1,42 @@
-import {describe, expect, test} from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import * as fs from 'fs';
 import path from 'path';
-import {parseICALEvents} from '@/components/controller/util/icalInterpreter'
+import { parseICALEvents } from '@/components/controller/util/icalInterpreter';
 import { CourseEvent, EventType } from '@/components/model/interfaces/courseEvent';
 const ical = require('ical');
 const dataPath = "__tests__/data";
 
-const icalToEventField: {[key: string]: string} = {
+function etsSample1() {
+  // create an empty file blah.txt in the dataPath directory
+  console.log(`Absolute path: ${path.resolve(path.join(dataPath, "blah.txt"))}`);
+
+  // read a file ETS_SAMPLE_1.ics from disk and return its content as a string
+  return fs.readFileSync(path.join(dataPath, "ETS_SAMPLE_1.ics")).toString();
+}
+
+const icalToEventField: { [key: string]: string } = {
   "start": "start",
   "end": "end",
   "uid": "uid",
   "summary": "title"
 }
 
-async function getFileContent(filename:string):Promise<string> {
+async function getFileContent(filename: string): Promise<string> {
   const data = await fs.promises.readFile(path.join(dataPath, filename));
   return data.toString();
 }
 
-function parseIcal(icalData:string): any {
+function parseIcal(icalData: string): any {
   return ical.parseICS(icalData);
 }
 
-function eventEqualExpected(expectedResult: any, toTest: CourseEvent):boolean {
+function eventEqualExpected(expectedResult: any, toTest: CourseEvent): boolean {
   let isEqual = true;
   for (let expectedField in icalToEventField) {
     // @ts-ignore
     isEqual = isEqual && JSON.stringify(toTest[icalToEventField[expectedField]]) === JSON.stringify(expectedResult[expectedField]);
 
-    }
+  }
 
   return isEqual;
 }
@@ -51,7 +59,7 @@ describe('ICAL module', () => {
   })
 
   test('ICAL property are translated to CalEvents', async () => {
-    const icsData = await getFileContent("valid.ics");
+    // const icsData = await getFileContent("valid.ics");
     const parsedEvents = parseICALEvents(icsData);
 
     for (let parsedEvent of parsedEvents) {
@@ -64,12 +72,18 @@ describe('ICAL module', () => {
     const bogusTypeAttribute = typeAttribute + generateUUID();
     const eventNb = Object.keys(icalEvents).length;
     const bogusNb = Math.floor(eventNb / 2);
-    let count =0;
-    const dataWithBogusTypes = icsData.replace(new RegExp(typeAttribute+".*", "g"), (match, _) => {
+    let count = 0;
+    const dataWithBogusTypes = icsData.replace(new RegExp(typeAttribute + ".*", "g"), (match, _) => {
       count++;
       return count <= bogusNb ? bogusTypeAttribute : match;
     });
     icalEvents = parseICALEvents(dataWithBogusTypes);
     expect(icalEvents.length).toBe(eventNb - bogusNb);
   });
+
+  test('should parse iCal data into an array of CourseEvent objects', () => {
+    const result = parseICALEvents(icsData);
+    expect(result).toMatchSnapshot();
+  });
+
 });
