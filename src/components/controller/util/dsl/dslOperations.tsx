@@ -245,6 +245,9 @@ export const parseDSL = (dsl: string, activities: CourseEvent[], newCourseEvents
         let activityToMove = getEventReferencedByDSL(parsedActivity, activities);
         if (typeof activityToMove !== "undefined") {
             activityToMove = getOrAddUnsavedState(activityToMove);
+            if (!activityToMove) {
+                throw new Error("Activity not found in current events")
+            }
             activityToMove.dsl = recreateDSL(parsedActivity).split(STATEMENT_SEPARATOR);
             referencedCourse = getEventReferencedByDSL(parsedActivity.open, newCourseEvents);
             if (typeof referencedCourse !== "undefined") {
